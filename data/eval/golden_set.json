@@ -1,0 +1,20 @@
+{
+  "_doc": "Golden queries for offline retrieval evaluation. 'relevant' is a set of attribute rules; a boot is relevant if it matches ALL of them. Defining relevance by rules (not hand-picked ids) keeps the set valid if the catalog is regenerated.",
+  "queries": [
+    {"query": "waterproof hiking boots for muddy trails", "relevant": {"category": "hiking", "waterproof": true}},
+    {"query": "steel toe boots", "relevant": {"safety_toe": "steel"}},
+    {"query": "composite safety toe boot", "relevant": {"safety_toe": "composite"}},
+    {"query": "cowboy boots with pointed toe for riding", "relevant": {"category": "western"}},
+    {"query": "slip-on boots with elastic sides for the office", "relevant": {"category": "chelsea"}},
+    {"query": "rubber boots for gardening in the rain", "relevant": {"category": "rain"}},
+    {"query": "logger boots with tall heel for forestry", "relevant": {"category": "logger"}},
+    {"query": "black chelsea boots", "relevant": {"category": "chelsea", "color": "black"}},
+    {"query": "olive western boots", "relevant": {"category": "western", "color": "olive"}},
+    {"query": "oxblood leather boots", "relevant": {"color": "oxblood"}},
+    {"query": "Vibram lug sole", "relevant": {"category": "hiking"}},
+    {"query": "electrical hazard rated", "relevant": {"category": "work"}},
+    {"query": "kiltie lace guard", "relevant": {"category": "logger"}},
+    {"query": "crepe sole", "relevant": {"category": "chelsea"}},
+    {"query": "boots for linemen climbing poles", "relevant": {"category": "logger"}}
+  ]
+}

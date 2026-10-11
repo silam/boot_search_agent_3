@@ -1,0 +1,18 @@
+# Data Version Control pipeline:  dvc repro   (re-runs only stages whose inputs changed)
+# Setup once:  pip install dvc && dvc init && dvc remote add -d storage s3://your-bucket/boot-search
+# Then:        dvc add data/raw && git add data/raw.dvc && dvc push
+# Each git commit now pins an exact dataset version; `dvc checkout` restores it.
+stages:
+  generate:
+    cmd: python scripts/generate_sample_data.py
+    deps: [scripts/generate_sample_data.py]
+    outs: [data/raw/catalog.json, data/raw/images]
+  transform:
+    cmd: python scripts/ingest.py --transform-only
+    deps: [data/raw/catalog.json, app/ingestion]
+    outs: [data/processed/boots.jsonl, data/processed/chunks.jsonl]
+    metrics: [{data/processed/manifest.json: {cache: false}}]
+  evaluate:
+    cmd: python -m app.evaluation.retrieval_eval
+    deps: [data/processed/chunks.jsonl, data/eval/golden_set.json, app/retrieval, app/agent]
+    metrics: [{data/eval/report.json: {cache: false}}]

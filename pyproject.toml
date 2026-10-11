@@ -1,0 +1,21 @@
+[project]
+name = "boot-search-agent"
+version = "1.0.0"
+description = "Agentic multimodal boot search: BM25 + Qdrant vectors + image similarity, LangGraph, FastAPI, Streamlit"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "E731", "B905"]
+
+[tool.ruff.lint.per-file-ignores]
+"app/agent/prompts.py" = ["E501"]  # few-shot JSON examples must stay on one line
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]

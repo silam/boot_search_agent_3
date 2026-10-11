@@ -1,0 +1,14 @@
+.git
+.venv
+__pycache__
+*.pyc
+.env
+.pytest_cache
+.ruff_cache
+qdrant_data
+data/app.db
+.vercel
+docs
+k8s
+monitoring
+tests

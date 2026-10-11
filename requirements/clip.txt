@@ -1,0 +1,6 @@
+# Production embedding backend (EMBEDDING_BACKEND=clip): Hugging Face models.
+# Install the CPU wheel of torch to keep images small:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+-r api.txt
+open-clip-torch==3.3.0
+sentence-transformers==6.1.0

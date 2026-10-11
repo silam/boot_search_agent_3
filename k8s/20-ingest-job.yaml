@@ -1,0 +1,14 @@
+# Batch ETL + indexing. Re-run on catalog changes, or turn into a CronJob for nightly refresh.
+apiVersion: batch/v1
+kind: Job
+metadata: {name: boot-ingest, namespace: boot-search}
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: ingest
+          image: ghcr.io/YOUR_GITHUB_USER/boot-search-api:latest
+          command: ["python", "scripts/ingest.py"]
+          envFrom: [{configMapRef: {name: boot-search-config}}, {secretRef: {name: boot-search-secrets}}]

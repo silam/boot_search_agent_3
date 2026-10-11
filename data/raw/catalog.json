@@ -1,0 +1,1175 @@
+[
+  {
+    "id": "BOOT-001",
+    "name": "Lakeshore Foreman Classic",
+    "brand": "Lakeshore",
+    "category": "work",
+    "color": "brown",
+    "material": "full-grain leather",
+    "price": 169.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "puncture-resistant midsole",
+      "electrical hazard rated",
+      "Goodyear welt construction",
+      "waterproof lining"
+    ],
+    "description": "The Lakeshore Foreman Classic is a rugged work boot made from brown full-grain leather. Built for construction sites, it features puncture-resistant midsole, electrical hazard rated, Goodyear welt construction and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Solid boot for the price, the sole has held up for a year."
+    ],
+    "image": "images/BOOT-001.png"
+  },
+  {
+    "id": "BOOT-002",
+    "name": "Ironpeak Anvil 6-inch",
+    "brand": "Ironpeak",
+    "category": "work",
+    "color": "oxblood",
+    "material": "nubuck leather",
+    "price": 204.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "puncture-resistant midsole",
+      "oil-resistant sole",
+      "cushioned footbed",
+      "waterproof lining"
+    ],
+    "description": "The Ironpeak Anvil 6-inch is a all-day work boot made from oxblood nubuck leather. Built for construction sites, it features puncture-resistant midsole, oil-resistant sole, cushioned footbed and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Wore these for construction sites and my feet felt great after 10 hours."
+    ],
+    "image": "images/BOOT-002.png"
+  },
+  {
+    "id": "BOOT-003",
+    "name": "Granite Forge Ironworker",
+    "brand": "Granite Forge",
+    "category": "work",
+    "color": "brown",
+    "material": "oil-tanned leather",
+    "price": 234.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "electrical hazard rated",
+      "oil-resistant sole",
+      "puncture-resistant midsole"
+    ],
+    "description": "The Granite Forge Ironworker is a lightweight work boot made from brown oil-tanned leather. Built for construction sites, it features electrical hazard rated, oil-resistant sole and puncture-resistant midsole. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Looks even better in person, the brown color is rich and deep.",
+      "Wore these for warehouse shifts and my feet felt great after 10 hours."
+    ],
+    "image": "images/BOOT-003.png"
+  },
+  {
+    "id": "BOOT-004",
+    "name": "Ironpeak Rivet 6-inch",
+    "brand": "Ironpeak",
+    "category": "work",
+    "color": "brown",
+    "material": "full-grain leather",
+    "price": 179.99,
+    "waterproof": false,
+    "safety_toe": "composite",
+    "features": [
+      "slip-resistant outsole",
+      "cushioned footbed",
+      "electrical hazard rated",
+      "composite safety toe"
+    ],
+    "description": "The Ironpeak Rivet 6-inch is a classic work boot made from brown full-grain leather. Built for factory floors, it features slip-resistant outsole, cushioned footbed, electrical hazard rated and composite safety toe. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "Looks even better in person, the brown color is rich and deep.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Kept my feet dry through a full day of factory floors."
+    ],
+    "image": "images/BOOT-004.png"
+  },
+  {
+    "id": "BOOT-005",
+    "name": "Ironpeak Rivet Lite",
+    "brand": "Ironpeak",
+    "category": "work",
+    "color": "oxblood",
+    "material": "nubuck leather",
+    "price": 224.99,
+    "waterproof": false,
+    "safety_toe": "composite",
+    "features": [
+      "electrical hazard rated",
+      "slip-resistant outsole",
+      "Goodyear welt construction",
+      "composite safety toe"
+    ],
+    "description": "The Ironpeak Rivet Lite is a heritage work boot made from oxblood nubuck leather. Built for construction sites, it features electrical hazard rated, slip-resistant outsole, Goodyear welt construction and composite safety toe. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "Kept my feet dry through a full day of long days on concrete.",
+      "Looks even better in person, the oxblood color is rich and deep.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-005.png"
+  },
+  {
+    "id": "BOOT-006",
+    "name": "Northline Shift",
+    "brand": "Northline",
+    "category": "work",
+    "color": "olive",
+    "material": "nubuck leather",
+    "price": 244.99,
+    "waterproof": true,
+    "safety_toe": "steel",
+    "features": [
+      "oil-resistant sole",
+      "cushioned footbed",
+      "puncture-resistant midsole",
+      "waterproof lining",
+      "steel safety toe"
+    ],
+    "description": "The Northline Shift is a versatile work boot made from olive nubuck leather. Built for construction sites, it features oil-resistant sole, cushioned footbed, puncture-resistant midsole, waterproof lining and steel safety toe. Fully waterproof to keep you dry. Meets ASTM safety standards with a steel toe cap. ",
+    "reviews": [
+      "Kept my feet dry through a full day of construction sites.",
+      "Kept my feet dry through a full day of long days on concrete.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Solid boot for the price, the sole has held up for a year."
+    ],
+    "image": "images/BOOT-006.png"
+  },
+  {
+    "id": "BOOT-007",
+    "name": "Ironpeak Foreman Classic",
+    "brand": "Ironpeak",
+    "category": "work",
+    "color": "black",
+    "material": "nubuck leather",
+    "price": 169.99,
+    "waterproof": false,
+    "safety_toe": "composite",
+    "features": [
+      "puncture-resistant midsole",
+      "slip-resistant outsole",
+      "electrical hazard rated",
+      "composite safety toe"
+    ],
+    "description": "The Ironpeak Foreman Classic is a lightweight work boot made from black nubuck leather. Built for long days on concrete, it features puncture-resistant midsole, slip-resistant outsole, electrical hazard rated and composite safety toe. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-007.png"
+  },
+  {
+    "id": "BOOT-008",
+    "name": "Prairie & Co. Foreman Pro",
+    "brand": "Prairie & Co.",
+    "category": "work",
+    "color": "gray",
+    "material": "full-grain leather",
+    "price": 154.99,
+    "waterproof": false,
+    "safety_toe": "composite",
+    "features": [
+      "oil-resistant sole",
+      "puncture-resistant midsole",
+      "slip-resistant outsole",
+      "composite safety toe"
+    ],
+    "description": "The Prairie & Co. Foreman Pro is a heritage work boot made from gray full-grain leather. Built for factory floors, it features oil-resistant sole, puncture-resistant midsole, slip-resistant outsole and composite safety toe. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "Wore these for construction sites and my feet felt great after 10 hours.",
+      "Looks even better in person, the gray color is rich and deep.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-008.png"
+  },
+  {
+    "id": "BOOT-009",
+    "name": "Timber Trail Trailhead II",
+    "brand": "Timber Trail",
+    "category": "hiking",
+    "color": "navy",
+    "material": "synthetic ripstop",
+    "price": 249.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "breathable membrane",
+      "rock plate",
+      "padded collar"
+    ],
+    "description": "The Timber Trail Trailhead II is a all-day hiking boot made from navy synthetic ripstop. Built for day hikes, it features breathable membrane, rock plate and padded collar. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Wore these for day hikes and my feet felt great after 10 hours.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-009.png"
+  },
+  {
+    "id": "BOOT-010",
+    "name": "Ironpeak Summit",
+    "brand": "Ironpeak",
+    "category": "hiking",
+    "color": "black",
+    "material": "synthetic ripstop",
+    "price": 214.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "lightweight EVA midsole",
+      "breathable membrane",
+      "speed-lace hooks",
+      "waterproof lining"
+    ],
+    "description": "The Ironpeak Summit is a all-day hiking boot made from black synthetic ripstop. Built for mountain trails, it features lightweight EVA midsole, breathable membrane, speed-lace hooks and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Runs half a size large, order down. Quality of the synthetic ripstop is excellent."
+    ],
+    "image": "images/BOOT-010.png"
+  },
+  {
+    "id": "BOOT-011",
+    "name": "Ironpeak Summit",
+    "brand": "Ironpeak",
+    "category": "hiking",
+    "color": "tan",
+    "material": "synthetic ripstop",
+    "price": 179.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "lightweight EVA midsole",
+      "speed-lace hooks",
+      "padded collar",
+      "waterproof lining"
+    ],
+    "description": "The Ironpeak Summit is a premium hiking boot made from tan synthetic ripstop. Built for muddy forest paths, it features lightweight EVA midsole, speed-lace hooks, padded collar and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Kept my feet dry through a full day of muddy forest paths.",
+      "Kept my feet dry through a full day of mountain trails.",
+      "Looks even better in person, the tan color is rich and deep."
+    ],
+    "image": "images/BOOT-011.png"
+  },
+  {
+    "id": "BOOT-012",
+    "name": "Granite Forge Switchback Pro",
+    "brand": "Granite Forge",
+    "category": "hiking",
+    "color": "honey",
+    "material": "synthetic ripstop",
+    "price": 189.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "rock plate",
+      "Vibram-style lug outsole",
+      "breathable membrane",
+      "waterproof lining"
+    ],
+    "description": "The Granite Forge Switchback Pro is a dependable hiking boot made from honey synthetic ripstop. Built for day hikes, it features rock plate, Vibram-style lug outsole, breathable membrane and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Kept my feet dry through a full day of mountain trails."
+    ],
+    "image": "images/BOOT-012.png"
+  },
+  {
+    "id": "BOOT-013",
+    "name": "Northline Trailhead Pro",
+    "brand": "Northline",
+    "category": "hiking",
+    "color": "black",
+    "material": "suede and mesh",
+    "price": 139.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "breathable membrane",
+      "speed-lace hooks",
+      "padded collar"
+    ],
+    "description": "The Northline Trailhead Pro is a rugged hiking boot made from black suede and mesh. Built for muddy forest paths, it features breathable membrane, speed-lace hooks and padded collar. ",
+    "reviews": [
+      "Runs half a size large, order down. Quality of the suede and mesh is excellent.",
+      "Runs half a size large, order down. Quality of the suede and mesh is excellent.",
+      "Looks even better in person, the black color is rich and deep."
+    ],
+    "image": "images/BOOT-013.png"
+  },
+  {
+    "id": "BOOT-014",
+    "name": "Lakeshore Ridge Lite",
+    "brand": "Lakeshore",
+    "category": "hiking",
+    "color": "oxblood",
+    "material": "waterproof nubuck",
+    "price": 119.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "breathable membrane",
+      "Vibram-style lug outsole",
+      "lightweight EVA midsole"
+    ],
+    "description": "The Lakeshore Ridge Lite is a rugged hiking boot made from oxblood waterproof nubuck. Built for muddy forest paths, it features breathable membrane, Vibram-style lug outsole and lightweight EVA midsole. ",
+    "reviews": [
+      "Wore these for day hikes and my feet felt great after 10 hours.",
+      "Wore these for mountain trails and my feet felt great after 10 hours.",
+      "Looks even better in person, the oxblood color is rich and deep.",
+      "Kept my feet dry through a full day of mountain trails."
+    ],
+    "image": "images/BOOT-014.png"
+  },
+  {
+    "id": "BOOT-015",
+    "name": "Ironpeak Trailhead II",
+    "brand": "Ironpeak",
+    "category": "hiking",
+    "color": "black",
+    "material": "synthetic ripstop",
+    "price": 139.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "Vibram-style lug outsole",
+      "padded collar",
+      "rock plate"
+    ],
+    "description": "The Ironpeak Trailhead II is a versatile hiking boot made from black synthetic ripstop. Built for backpacking trips, it features Vibram-style lug outsole, padded collar and rock plate. ",
+    "reviews": [
+      "Looks even better in person, the black color is rich and deep.",
+      "Kept my feet dry through a full day of backpacking trips.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Wore these for muddy forest paths and my feet felt great after 10 hours."
+    ],
+    "image": "images/BOOT-015.png"
+  },
+  {
+    "id": "BOOT-016",
+    "name": "Ironpeak Switchback II",
+    "brand": "Ironpeak",
+    "category": "hiking",
+    "color": "brown",
+    "material": "synthetic ripstop",
+    "price": 159.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "breathable membrane",
+      "lightweight EVA midsole",
+      "rock plate",
+      "waterproof lining"
+    ],
+    "description": "The Ironpeak Switchback II is a versatile hiking boot made from brown synthetic ripstop. Built for mountain trails, it features breathable membrane, lightweight EVA midsole, rock plate and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Looks even better in person, the brown color is rich and deep."
+    ],
+    "image": "images/BOOT-016.png"
+  },
+  {
+    "id": "BOOT-017",
+    "name": "Ironpeak Stockyard II",
+    "brand": "Ironpeak",
+    "category": "western",
+    "color": "tan",
+    "material": "full-grain leather",
+    "price": 319.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "pointed toe",
+      "leather sole",
+      "stacked leather heel",
+      "waterproof lining"
+    ],
+    "description": "The Ironpeak Stockyard II is a dependable western boot made from tan full-grain leather. Built for riding, it features pointed toe, leather sole, stacked leather heel and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Wore these for everyday western style and my feet felt great after 10 hours.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-017.png"
+  },
+  {
+    "id": "BOOT-018",
+    "name": "Lakeshore Maverick",
+    "brand": "Lakeshore",
+    "category": "western",
+    "color": "gray",
+    "material": "exotic-look embossed leather",
+    "price": 309.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "leather sole",
+      "decorative stitching",
+      "stacked leather heel"
+    ],
+    "description": "The Lakeshore Maverick is a classic western boot made from gray exotic-look embossed leather. Built for everyday western style, it features leather sole, decorative stitching and stacked leather heel. ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Kept my feet dry through a full day of country concerts."
+    ],
+    "image": "images/BOOT-018.png"
+  },
+  {
+    "id": "BOOT-019",
+    "name": "Lakeshore Ranger Pro",
+    "brand": "Lakeshore",
+    "category": "western",
+    "color": "gray",
+    "material": "exotic-look embossed leather",
+    "price": 259.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "decorative stitching",
+      "stacked leather heel",
+      "steel shank"
+    ],
+    "description": "The Lakeshore Ranger Pro is a versatile western boot made from gray exotic-look embossed leather. Built for everyday western style, it features decorative stitching, stacked leather heel and steel shank. ",
+    "reviews": [
+      "Kept my feet dry through a full day of ranch work.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-019.png"
+  },
+  {
+    "id": "BOOT-020",
+    "name": "Ironpeak Outlaw Classic",
+    "brand": "Ironpeak",
+    "category": "western",
+    "color": "olive",
+    "material": "exotic-look embossed leather",
+    "price": 384.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "leather sole",
+      "pointed toe",
+      "pull-on design"
+    ],
+    "description": "The Ironpeak Outlaw Classic is a lightweight western boot made from olive exotic-look embossed leather. Built for country concerts, it features leather sole, pointed toe and pull-on design. ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Looks even better in person, the olive color is rich and deep."
+    ],
+    "image": "images/BOOT-020.png"
+  },
+  {
+    "id": "BOOT-021",
+    "name": "Northline Outlaw",
+    "brand": "Northline",
+    "category": "western",
+    "color": "olive",
+    "material": "exotic-look embossed leather",
+    "price": 379.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "decorative stitching",
+      "leather sole",
+      "pull-on design"
+    ],
+    "description": "The Northline Outlaw is a versatile western boot made from olive exotic-look embossed leather. Built for riding, it features decorative stitching, leather sole and pull-on design. ",
+    "reviews": [
+      "Runs half a size large, order down. Quality of the exotic-look embossed leather is excellent.",
+      "Wore these for everyday western style and my feet felt great after 10 hours.",
+      "Runs half a size large, order down. Quality of the exotic-look embossed leather is excellent.",
+      "Kept my feet dry through a full day of ranch work."
+    ],
+    "image": "images/BOOT-021.png"
+  },
+  {
+    "id": "BOOT-022",
+    "name": "Prairie & Co. Maverick Classic",
+    "brand": "Prairie & Co.",
+    "category": "western",
+    "color": "olive",
+    "material": "exotic-look embossed leather",
+    "price": 369.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "leather sole",
+      "pull-on design",
+      "pointed toe"
+    ],
+    "description": "The Prairie & Co. Maverick Classic is a all-day western boot made from olive exotic-look embossed leather. Built for country concerts, it features leather sole, pull-on design and pointed toe. ",
+    "reviews": [
+      "Runs half a size large, order down. Quality of the exotic-look embossed leather is excellent.",
+      "Looks even better in person, the olive color is rich and deep.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Looks even better in person, the olive color is rich and deep."
+    ],
+    "image": "images/BOOT-022.png"
+  },
+  {
+    "id": "BOOT-023",
+    "name": "Lakeshore Outlaw Lite",
+    "brand": "Lakeshore",
+    "category": "western",
+    "color": "olive",
+    "material": "distressed leather",
+    "price": 264.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "stacked leather heel",
+      "leather sole",
+      "pull-on design"
+    ],
+    "description": "The Lakeshore Outlaw Lite is a premium western boot made from olive distressed leather. Built for country concerts, it features stacked leather heel, leather sole and pull-on design. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Runs half a size large, order down. Quality of the distressed leather is excellent.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-023.png"
+  },
+  {
+    "id": "BOOT-024",
+    "name": "Timber Trail Outlaw",
+    "brand": "Timber Trail",
+    "category": "western",
+    "color": "navy",
+    "material": "distressed leather",
+    "price": 409.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "stacked leather heel",
+      "steel shank",
+      "pull-on design"
+    ],
+    "description": "The Timber Trail Outlaw is a all-day western boot made from navy distressed leather. Built for country concerts, it features stacked leather heel, steel shank and pull-on design. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Looks even better in person, the navy color is rich and deep."
+    ],
+    "image": "images/BOOT-024.png"
+  },
+  {
+    "id": "BOOT-025",
+    "name": "Granite Forge Harbor Lite",
+    "brand": "Granite Forge",
+    "category": "chelsea",
+    "color": "tan",
+    "material": "suede",
+    "price": 259.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "elastic side panels",
+      "pull tab",
+      "crepe sole"
+    ],
+    "description": "The Granite Forge Harbor Lite is a premium chelsea boot made from tan suede. Built for city walking, it features elastic side panels, pull tab and crepe sole. ",
+    "reviews": [
+      "Kept my feet dry through a full day of weekend errands.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-025.png"
+  },
+  {
+    "id": "BOOT-026",
+    "name": "Granite Forge Mercer Pro",
+    "brand": "Granite Forge",
+    "category": "chelsea",
+    "color": "oxblood",
+    "material": "suede",
+    "price": 284.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "leather lining",
+      "crepe sole",
+      "elastic side panels"
+    ],
+    "description": "The Granite Forge Mercer Pro is a all-day chelsea boot made from oxblood suede. Built for the office, it features leather lining, crepe sole and elastic side panels. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-026.png"
+  },
+  {
+    "id": "BOOT-027",
+    "name": "Ironpeak Avenue II",
+    "brand": "Ironpeak",
+    "category": "chelsea",
+    "color": "olive",
+    "material": "suede",
+    "price": 204.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "slim profile",
+      "crepe sole",
+      "leather lining",
+      "waterproof lining"
+    ],
+    "description": "The Ironpeak Avenue II is a all-day chelsea boot made from olive suede. Built for date nights, it features slim profile, crepe sole, leather lining and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Wore these for weekend errands and my feet felt great after 10 hours.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Kept my feet dry through a full day of weekend errands.",
+      "Looks even better in person, the olive color is rich and deep."
+    ],
+    "image": "images/BOOT-027.png"
+  },
+  {
+    "id": "BOOT-028",
+    "name": "Lakeshore Loft",
+    "brand": "Lakeshore",
+    "category": "chelsea",
+    "color": "honey",
+    "material": "polished leather",
+    "price": 269.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "slim profile",
+      "crepe sole",
+      "pull tab",
+      "waterproof lining"
+    ],
+    "description": "The Lakeshore Loft is a premium chelsea boot made from honey polished leather. Built for city walking, it features slim profile, crepe sole, pull tab and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Wore these for date nights and my feet felt great after 10 hours.",
+      "Runs half a size large, order down. Quality of the polished leather is excellent.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-028.png"
+  },
+  {
+    "id": "BOOT-029",
+    "name": "Timber Trail Mercer Pro",
+    "brand": "Timber Trail",
+    "category": "chelsea",
+    "color": "oxblood",
+    "material": "polished leather",
+    "price": 194.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "pull tab",
+      "slim profile",
+      "leather lining"
+    ],
+    "description": "The Timber Trail Mercer Pro is a versatile chelsea boot made from oxblood polished leather. Built for city walking, it features pull tab, slim profile and leather lining. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Kept my feet dry through a full day of the office.",
+      "Wore these for city walking and my feet felt great after 10 hours.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-029.png"
+  },
+  {
+    "id": "BOOT-030",
+    "name": "Prairie & Co. Avenue Classic",
+    "brand": "Prairie & Co.",
+    "category": "chelsea",
+    "color": "black",
+    "material": "polished leather",
+    "price": 184.99,
+    "waterproof": false,
+    "safety_toe": "none",
+    "features": [
+      "crepe sole",
+      "slim profile",
+      "elastic side panels"
+    ],
+    "description": "The Prairie & Co. Avenue Classic is a classic chelsea boot made from black polished leather. Built for city walking, it features crepe sole, slim profile and elastic side panels. ",
+    "reviews": [
+      "Wore these for the office and my feet felt great after 10 hours.",
+      "Runs half a size large, order down. Quality of the polished leather is excellent.",
+      "Looks even better in person, the black color is rich and deep."
+    ],
+    "image": "images/BOOT-030.png"
+  },
+  {
+    "id": "BOOT-031",
+    "name": "Lakeshore Mercer Pro",
+    "brand": "Lakeshore",
+    "category": "chelsea",
+    "color": "black",
+    "material": "suede",
+    "price": 149.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "pull tab",
+      "elastic side panels",
+      "slim profile",
+      "waterproof lining"
+    ],
+    "description": "The Lakeshore Mercer Pro is a lightweight chelsea boot made from black suede. Built for the office, it features pull tab, elastic side panels, slim profile and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Runs half a size large, order down. Quality of the suede is excellent."
+    ],
+    "image": "images/BOOT-031.png"
+  },
+  {
+    "id": "BOOT-032",
+    "name": "Northline Loft II",
+    "brand": "Northline",
+    "category": "chelsea",
+    "color": "olive",
+    "material": "waxed leather",
+    "price": 229.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "crepe sole",
+      "leather lining",
+      "slim profile",
+      "waterproof lining"
+    ],
+    "description": "The Northline Loft II is a classic chelsea boot made from olive waxed leather. Built for weekend errands, it features crepe sole, leather lining, slim profile and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Runs half a size large, order down. Quality of the waxed leather is excellent.",
+      "Looks even better in person, the olive color is rich and deep.",
+      "Wore these for date nights and my feet felt great after 10 hours."
+    ],
+    "image": "images/BOOT-032.png"
+  },
+  {
+    "id": "BOOT-033",
+    "name": "Timber Trail Marsh Pro",
+    "brand": "Timber Trail",
+    "category": "rain",
+    "color": "honey",
+    "material": "neoprene-lined rubber",
+    "price": 134.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "fully waterproof",
+      "wide calf fit",
+      "removable insole"
+    ],
+    "description": "The Timber Trail Marsh Pro is a versatile rain boot made from honey neoprene-lined rubber. Built for muddy festivals, it features fully waterproof, wide calf fit and removable insole. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "Kept my feet dry through a full day of muddy festivals.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-033.png"
+  },
+  {
+    "id": "BOOT-034",
+    "name": "Prairie & Co. Marsh",
+    "brand": "Prairie & Co.",
+    "category": "rain",
+    "color": "oxblood",
+    "material": "natural rubber",
+    "price": 149.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "chemical-resistant",
+      "wide calf fit",
+      "fully waterproof"
+    ],
+    "description": "The Prairie & Co. Marsh is a all-day rain boot made from oxblood natural rubber. Built for muddy festivals, it features chemical-resistant, wide calf fit and fully waterproof. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Kept my feet dry through a full day of gardening.",
+      "Runs half a size large, order down. Quality of the natural rubber is excellent."
+    ],
+    "image": "images/BOOT-034.png"
+  },
+  {
+    "id": "BOOT-035",
+    "name": "Ironpeak Marsh Classic",
+    "brand": "Ironpeak",
+    "category": "rain",
+    "color": "olive",
+    "material": "PVC",
+    "price": 174.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "chemical-resistant",
+      "fully waterproof",
+      "self-cleaning tread"
+    ],
+    "description": "The Ironpeak Marsh Classic is a heritage rain boot made from olive PVC. Built for rainy days, it features chemical-resistant, fully waterproof and self-cleaning tread. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Kept my feet dry through a full day of muddy festivals.",
+      "Kept my feet dry through a full day of rainy days.",
+      "Wore these for farm chores and my feet felt great after 10 hours.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-035.png"
+  },
+  {
+    "id": "BOOT-036",
+    "name": "Granite Forge Drizzle Lite",
+    "brand": "Granite Forge",
+    "category": "rain",
+    "color": "olive",
+    "material": "PVC",
+    "price": 124.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "self-cleaning tread",
+      "chemical-resistant",
+      "removable insole",
+      "waterproof lining"
+    ],
+    "description": "The Granite Forge Drizzle Lite is a all-day rain boot made from olive PVC. Built for farm chores, it features self-cleaning tread, chemical-resistant, removable insole and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Kept my feet dry through a full day of farm chores.",
+      "Runs half a size large, order down. Quality of the PVC is excellent.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Looks even better in person, the olive color is rich and deep."
+    ],
+    "image": "images/BOOT-036.png"
+  },
+  {
+    "id": "BOOT-037",
+    "name": "Prairie & Co. Tide Lite",
+    "brand": "Prairie & Co.",
+    "category": "rain",
+    "color": "brown",
+    "material": "PVC",
+    "price": 84.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "self-cleaning tread",
+      "removable insole",
+      "fully waterproof"
+    ],
+    "description": "The Prairie & Co. Tide Lite is a lightweight rain boot made from brown PVC. Built for muddy festivals, it features self-cleaning tread, removable insole and fully waterproof. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Runs half a size large, order down. Quality of the PVC is excellent."
+    ],
+    "image": "images/BOOT-037.png"
+  },
+  {
+    "id": "BOOT-038",
+    "name": "Lakeshore Monsoon II",
+    "brand": "Lakeshore",
+    "category": "rain",
+    "color": "tan",
+    "material": "neoprene-lined rubber",
+    "price": 64.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "fully waterproof",
+      "removable insole",
+      "wide calf fit"
+    ],
+    "description": "The Lakeshore Monsoon II is a dependable rain boot made from tan neoprene-lined rubber. Built for rainy days, it features fully waterproof, removable insole and wide calf fit. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Solid boot for the price, the sole has held up for a year."
+    ],
+    "image": "images/BOOT-038.png"
+  },
+  {
+    "id": "BOOT-039",
+    "name": "Northline Marsh",
+    "brand": "Northline",
+    "category": "rain",
+    "color": "navy",
+    "material": "neoprene-lined rubber",
+    "price": 89.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "chemical-resistant",
+      "removable insole",
+      "fully waterproof"
+    ],
+    "description": "The Northline Marsh is a dependable rain boot made from navy neoprene-lined rubber. Built for muddy festivals, it features chemical-resistant, removable insole and fully waterproof. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-039.png"
+  },
+  {
+    "id": "BOOT-040",
+    "name": "Lakeshore Marsh Classic",
+    "brand": "Lakeshore",
+    "category": "rain",
+    "color": "brown",
+    "material": "natural rubber",
+    "price": 129.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "fully waterproof",
+      "wide calf fit",
+      "chemical-resistant"
+    ],
+    "description": "The Lakeshore Marsh Classic is a dependable rain boot made from brown natural rubber. Built for gardening, it features fully waterproof, wide calf fit and chemical-resistant. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Runs half a size large, order down. Quality of the natural rubber is excellent.",
+      "Solid boot for the price, the sole has held up for a year."
+    ],
+    "image": "images/BOOT-040.png"
+  },
+  {
+    "id": "BOOT-041",
+    "name": "Granite Forge Highline Lite",
+    "brand": "Granite Forge",
+    "category": "logger",
+    "color": "oxblood",
+    "material": "oil-tanned leather",
+    "price": 264.99,
+    "waterproof": true,
+    "safety_toe": "steel",
+    "features": [
+      "raised logger heel",
+      "aggressive lug sole",
+      "triple-stitched seams",
+      "waterproof lining",
+      "steel safety toe"
+    ],
+    "description": "The Granite Forge Highline Lite is a lightweight logger boot made from oxblood oil-tanned leather. Built for lumber yards, it features raised logger heel, aggressive lug sole, triple-stitched seams, waterproof lining and steel safety toe. Fully waterproof to keep you dry. Meets ASTM safety standards with a steel toe cap. ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Looks even better in person, the oxblood color is rich and deep."
+    ],
+    "image": "images/BOOT-041.png"
+  },
+  {
+    "id": "BOOT-042",
+    "name": "Ironpeak Timber",
+    "brand": "Ironpeak",
+    "category": "logger",
+    "color": "brown",
+    "material": "heavy-duty leather",
+    "price": 369.99,
+    "waterproof": true,
+    "safety_toe": "steel",
+    "features": [
+      "kiltie lace guard",
+      "aggressive lug sole",
+      "steel shank",
+      "waterproof lining",
+      "steel safety toe"
+    ],
+    "description": "The Ironpeak Timber is a versatile logger boot made from brown heavy-duty leather. Built for rough terrain, it features kiltie lace guard, aggressive lug sole, steel shank, waterproof lining and steel safety toe. Fully waterproof to keep you dry. Meets ASTM safety standards with a steel toe cap. ",
+    "reviews": [
+      "Solid boot for the price, the sole has held up for a year.",
+      "Kept my feet dry through a full day of forestry.",
+      "Kept my feet dry through a full day of rough terrain."
+    ],
+    "image": "images/BOOT-042.png"
+  },
+  {
+    "id": "BOOT-043",
+    "name": "Northline Cascade",
+    "brand": "Northline",
+    "category": "logger",
+    "color": "olive",
+    "material": "oil-tanned leather",
+    "price": 389.99,
+    "waterproof": true,
+    "safety_toe": "composite",
+    "features": [
+      "steel shank",
+      "raised logger heel",
+      "kiltie lace guard",
+      "waterproof lining",
+      "composite safety toe"
+    ],
+    "description": "The Northline Cascade is a rugged logger boot made from olive oil-tanned leather. Built for rough terrain, it features steel shank, raised logger heel, kiltie lace guard, waterproof lining and composite safety toe. Fully waterproof to keep you dry. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Solid boot for the price, the sole has held up for a year.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Kept my feet dry through a full day of lumber yards."
+    ],
+    "image": "images/BOOT-043.png"
+  },
+  {
+    "id": "BOOT-044",
+    "name": "Ironpeak Highline II",
+    "brand": "Ironpeak",
+    "category": "logger",
+    "color": "tan",
+    "material": "oil-tanned leather",
+    "price": 299.99,
+    "waterproof": true,
+    "safety_toe": "composite",
+    "features": [
+      "steel shank",
+      "raised logger heel",
+      "aggressive lug sole",
+      "waterproof lining",
+      "composite safety toe"
+    ],
+    "description": "The Ironpeak Highline II is a dependable logger boot made from tan oil-tanned leather. Built for forestry, it features steel shank, raised logger heel, aggressive lug sole, waterproof lining and composite safety toe. Fully waterproof to keep you dry. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "Looks even better in person, the tan color is rich and deep.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Kept my feet dry through a full day of forestry."
+    ],
+    "image": "images/BOOT-044.png"
+  },
+  {
+    "id": "BOOT-045",
+    "name": "Granite Forge Cascade",
+    "brand": "Granite Forge",
+    "category": "logger",
+    "color": "olive",
+    "material": "oil-tanned leather",
+    "price": 374.99,
+    "waterproof": false,
+    "safety_toe": "steel",
+    "features": [
+      "raised logger heel",
+      "steel shank",
+      "kiltie lace guard",
+      "steel safety toe"
+    ],
+    "description": "The Granite Forge Cascade is a all-day logger boot made from olive oil-tanned leather. Built for lumber yards, it features raised logger heel, steel shank, kiltie lace guard and steel safety toe. Meets ASTM safety standards with a steel toe cap. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Looks even better in person, the olive color is rich and deep.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own."
+    ],
+    "image": "images/BOOT-045.png"
+  },
+  {
+    "id": "BOOT-046",
+    "name": "Timber Trail Sawmill Pro",
+    "brand": "Timber Trail",
+    "category": "logger",
+    "color": "tan",
+    "material": "oil-tanned leather",
+    "price": 364.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "steel shank",
+      "triple-stitched seams",
+      "raised logger heel",
+      "waterproof lining"
+    ],
+    "description": "The Timber Trail Sawmill Pro is a rugged logger boot made from tan oil-tanned leather. Built for linemen work, it features steel shank, triple-stitched seams, raised logger heel and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "Kept my feet dry through a full day of forestry.",
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Kept my feet dry through a full day of forestry.",
+      "Looks even better in person, the tan color is rich and deep."
+    ],
+    "image": "images/BOOT-046.png"
+  },
+  {
+    "id": "BOOT-047",
+    "name": "Lakeshore Cascade Lite",
+    "brand": "Lakeshore",
+    "category": "logger",
+    "color": "olive",
+    "material": "oil-tanned leather",
+    "price": 259.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "steel shank",
+      "triple-stitched seams",
+      "aggressive lug sole",
+      "waterproof lining"
+    ],
+    "description": "The Lakeshore Cascade Lite is a classic logger boot made from olive oil-tanned leather. Built for linemen work, it features steel shank, triple-stitched seams, aggressive lug sole and waterproof lining. Fully waterproof to keep you dry. ",
+    "reviews": [
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Runs half a size large, order down. Quality of the oil-tanned leather is excellent.",
+      "A bit heavy, but very supportive and stable on uneven ground."
+    ],
+    "image": "images/BOOT-047.png"
+  },
+  {
+    "id": "BOOT-048",
+    "name": "Granite Forge Cascade II",
+    "brand": "Granite Forge",
+    "category": "logger",
+    "color": "olive",
+    "material": "oil-tanned leather",
+    "price": 349.99,
+    "waterproof": false,
+    "safety_toe": "composite",
+    "features": [
+      "aggressive lug sole",
+      "steel shank",
+      "kiltie lace guard",
+      "composite safety toe"
+    ],
+    "description": "The Granite Forge Cascade II is a heritage logger boot made from olive oil-tanned leather. Built for lumber yards, it features aggressive lug sole, steel shank, kiltie lace guard and composite safety toe. Meets ASTM safety standards with a composite toe cap. ",
+    "reviews": [
+      "Kept my feet dry through a full day of linemen work.",
+      "A bit heavy, but very supportive and stable on uneven ground.",
+      "Wore these for rough terrain and my feet felt great after 10 hours.",
+      "Looks even better in person, the olive color is rich and deep."
+    ],
+    "image": "images/BOOT-048.png"
+  },
+  {
+    "id": "BOOT-001",
+    "name": "Lakeshore Foreman Classic",
+    "brand": "Lakeshore",
+    "category": "work",
+    "color": "brown",
+    "material": "full-grain leather",
+    "price": 169.99,
+    "waterproof": true,
+    "safety_toe": "none",
+    "features": [
+      "puncture-resistant midsole",
+      "electrical hazard rated",
+      "Goodyear welt construction",
+      "waterproof lining"
+    ],
+    "description": "  THE LAKESHORE FOREMAN CLASSIC IS A RUGGED WORK BOOT MADE FROM BROWN FULL-GRAIN LEATHER. BUILT FOR CONSTRUCTION SITES, IT FEATURES PUNCTURE-RESISTANT MIDSOLE, ELECTRICAL HAZARD RATED, GOODYEAR WELT CONSTRUCTION AND WATERPROOF LINING. FULLY WATERPROOF TO KEEP YOU DRY.   <br> ",
+    "reviews": [
+      "Took about two weeks to break in, now they are the most comfortable boots I own.",
+      "Solid boot for the price, the sole has held up for a year."
+    ],
+    "image": "images/BOOT-001.png"
+  },
+  {
+    "id": "BOOT-BAD",
+    "name": "",
+    "price": "n/a"
+  }
+]

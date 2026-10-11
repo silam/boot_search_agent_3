@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------------
+# API container for Vercel (Container Runtime, beta). Referenced from vercel.json.
+# Differences from docker/api.Dockerfile:
+#   * Listens on $PORT, defaulting to 80 (Vercel routes to port 80 unless PORT is set).
+#   * Stateless by default: embedded in-memory Qdrant that self-indexes at cold start
+#     (~1-2 s with the lite backend), SQLite in /tmp. For persistence set QDRANT_URL /
+#     QDRANT_API_KEY (Qdrant Cloud), REDIS_URL and DATABASE_URL (hosted Postgres) in the
+#     Vercel project's environment variables.
+#   * Lite embeddings keep the image small and cold starts fast. Build with
+#     EMBEDDING_BACKEND=clip only if you accept a multi-GB image and slower cold starts.
+# ---------------------------------------------------------------------------
+FROM python:3.12-slim
+ENV PIP_NO_CACHE_DIR=1 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 \
+    EMBEDDING_BACKEND=lite \
+    QDRANT_URL=:memory: \
+    DATABASE_URL=sqlite:////tmp/app.db \
+    ENVIRONMENT=production
+WORKDIR /srv
+COPY requirements/api.txt requirements/api.txt
+RUN pip install -r requirements/api.txt
+COPY app/ app/
+COPY scripts/ scripts/
+COPY data/raw/ data/raw/
+COPY data/eval/ data/eval/
+RUN python scripts/ingest.py --transform-only && useradd --uid 10001 app && chown -R app:app /srv
+USER app
+CMD ["sh", "-c", "uvicorn app.api.main:app --host 0.0.0.0 --port ${PORT:-80} --proxy-headers --forwarded-allow-ips='*'"]

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.pytest_cache/
+.ruff_cache/
+data/app.db
+data/eval/report.json
+data/eval/llm_report.json
+qdrant_data/
+.vercel/
+.DS_Store

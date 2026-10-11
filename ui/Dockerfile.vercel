@@ -1,0 +1,15 @@
+# ---------------------------------------------------------------------------
+# Streamlit UI container for Vercel (service root = ui/).
+# Streamlit keeps a WebSocket open to the browser; Vercel Functions support WebSockets
+# (public beta), but a connection closes at the function's max duration (300 s on Hobby).
+# Streamlit reconnects automatically; the page state survives in the browser session.
+# Set API_URL in the Vercel project to https://<your-project>.vercel.app/api
+# ---------------------------------------------------------------------------
+FROM python:3.12-slim
+ENV PIP_NO_CACHE_DIR=1 PYTHONUNBUFFERED=1
+WORKDIR /srv
+COPY requirements.txt .
+RUN pip install -r requirements.txt && useradd --uid 10001 app
+COPY streamlit_app.py .
+USER app
+CMD ["sh", "-c", "streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port ${PORT:-80} --server.headless true --browser.gatherUsageStats false"]

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet               # stateful: each replica keeps its own persistent volume
+metadata: {name: qdrant, namespace: boot-search}
+spec:
+  serviceName: qdrant
+  replicas: 1
+  selector: {matchLabels: {app: qdrant}}
+  template:
+    metadata: {labels: {app: qdrant}}
+    spec:
+      containers:
+        - name: qdrant
+          image: qdrant/qdrant:latest
+          ports: [{containerPort: 6333}]
+          volumeMounts: [{name: storage, mountPath: /qdrant/storage}]
+          resources: {requests: {cpu: 250m, memory: 512Mi}, limits: {memory: 2Gi}}
+          readinessProbe: {httpGet: {path: /readyz, port: 6333}, periodSeconds: 5}
+  volumeClaimTemplates:
+    - metadata: {name: storage}
+      spec: {accessModes: [ReadWriteOnce], resources: {requests: {storage: 5Gi}}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: qdrant, namespace: boot-search}
+spec: {selector: {app: qdrant}, ports: [{port: 6333}]}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: redis, namespace: boot-search}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: redis}}
+  template:
+    metadata: {labels: {app: redis}}
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          args: ["--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+          ports: [{containerPort: 6379}]
+          resources: {requests: {cpu: 50m, memory: 64Mi}, limits: {memory: 300Mi}}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: redis, namespace: boot-search}
+spec: {selector: {app: redis}, ports: [{port: 6379}]}

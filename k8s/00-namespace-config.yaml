@@ -1,0 +1,24 @@
+# kubectl apply -f k8s/      (works on EKS, GKE, AKS, kind, minikube)
+apiVersion: v1
+kind: Namespace
+metadata: {name: boot-search}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: boot-search-config, namespace: boot-search}
+data:
+  EMBEDDING_BACKEND: "lite"
+  QDRANT_URL: "http://qdrant:6333"
+  REDIS_URL: "redis://redis:6379/0"
+  LOG_LEVEL: "INFO"
+  ENVIRONMENT: "production"
+---
+# Real secrets come from your secret manager (AWS Secrets Manager + External Secrets, etc.)
+apiVersion: v1
+kind: Secret
+metadata: {name: boot-search-secrets, namespace: boot-search}
+type: Opaque
+stringData:
+  ANTHROPIC_API_KEY: ""
+  DATABASE_URL: "postgresql+psycopg://boots:change-me@postgres:5432/boots"
+  API_KEY: ""
