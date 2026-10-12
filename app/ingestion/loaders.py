@@ -40,7 +40,7 @@ class JsonCatalogLoader(BaseLoader):
 class CsvCatalogLoader(BaseLoader):
     """Loads a CSV export (e.g. from a PIM or a spreadsheet). List fields use '|' separators."""
 
-    LIST_FIELDS = ("features", "reviews")
+    LIST_FIELDS = ("features", "reviews", "images")   # images: "a.png|b.png|c.png"
 
     def __init__(self, path: Path):
         self.path = Path(path)

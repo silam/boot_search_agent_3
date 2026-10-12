@@ -5,6 +5,10 @@ The UI is a THIN CLIENT: it only talks to the FastAPI backend over HTTP (API_URL
 No model, no vector DB, no business logic here — so frontend and backend deploy,
 scale and fail independently (microservice boundary).
 
+Image search: upload one or more photos of the same boot (different angles), or pick a catalog
+boot and choose which of its 8-10 photos to search with. Each result shows the photo that
+matched ("matched: sole view") and an expandable gallery of all the boot's photos.
+
 UX-for-AI choices worth mentioning in an interview:
   * Transparency: every result shows WHICH retrievers found it and the evidence text.
   * Control: the user can override the agent (mode selector, explicit filters).
@@ -87,6 +91,15 @@ def esc(text: str) -> str:
     return html.escape(str(text))
 
 
+@st.cache_data(ttl=3600, show_spinner=False)
+def fetch_gallery(boot_id: str) -> list[dict]:
+    """[{index, view, url}] for every photo of a boot."""
+    try:
+        return requests.get(f"{API_URL}/boots/{boot_id}/images", headers=HEADERS, timeout=10).json()
+    except requests.RequestException:
+        return []
+
+
 def call_search(payload: dict) -> dict:
     r = requests.post(f"{API_URL}/search", json=payload, headers=HEADERS, timeout=60)
     if r.status_code != 200:
@@ -157,16 +170,19 @@ with col_q:
     if ex != "—" and not query:
         query = ex
 with col_img:
-    upload = st.file_uploader("Reference photo (optional)", type=["png", "jpg", "jpeg", "webp"])
+    uploads = st.file_uploader("Reference photos (optional, up to 5 angles of the same boot)",
+                               type=["png", "jpg", "jpeg", "webp"], accept_multiple_files=True)
     catalog = fetch_catalog()
-    sample = st.selectbox("…or use a catalog photo", ["—"] + [b["id"] + " · " + b["name"] for b in catalog])
-    image_bytes = None
-    if upload is not None:
-        image_bytes = upload.getvalue()
-    elif sample != "—":
-        image_bytes = fetch_image(f"/boots/{sample.split(' · ')[0]}/image")
-    if image_bytes:
-        st.image(image_bytes, width=160, caption="Query image")
+    sample = st.selectbox("…or use a catalog boot", ["—"] + [b["id"] + " · " + b["name"] for b in catalog])
+    query_images: list[bytes] = [u.getvalue() for u in (uploads or [])][:5]
+    if not query_images and sample != "—":
+        boot_id = sample.split(" · ")[0]
+        gallery = fetch_gallery(boot_id)
+        views = st.multiselect("Which of its photos to search with", [g["view"] for g in gallery],
+                               default=[gallery[0]["view"]] if gallery else [], max_selections=5)
+        query_images = [img for g in gallery if g["view"] in views and (img := fetch_image(g["url"]))]
+    if query_images:
+        st.image(query_images, width=96, caption=[f"query photo {i + 1}" for i in range(len(query_images))])
 
 go = st.button("Search", type="primary", width="stretch")
 
@@ -174,8 +190,9 @@ go = st.button("Search", type="primary", width="stretch")
 if go:
     payload = {"query": query or "", "mode": mode, "top_k": top_k, "filters": filters,
                "session_id": st.session_state.session_id, "use_cache": use_cache}
-    if image_bytes:
-        payload["image_base64"] = base64.b64encode(image_bytes).decode()
+    if query_images:   # first photo + extra angles; the API combines them (symmetric MaxSim)
+        payload["image_base64"] = base64.b64encode(query_images[0]).decode()
+        payload["images_base64"] = [base64.b64encode(b).decode() for b in query_images[1:]]
     try:
         with st.spinner("Agent is planning, retrieving and checking results…"):
             st.session_state.last = call_search(payload)
@@ -219,7 +236,10 @@ if res:
         with cols[i % 4]:
             with st.container(border=True):
                 if item.get("image_url") and (img := fetch_image(item["image_url"])):
-                    st.image(img, width="stretch")
+                    # when an image retriever found this boot, show the photo that matched
+                    cap = (f"matched: {item['matched_view'].replace('_', ' ')} view"
+                           if item.get("matched_view") else None)
+                    st.image(img, width="stretch", caption=cap)
                 badges = "".join(f'<span class="badge src-{s}">{label.get(s, s)}</span>' for s in item["sources"])
                 extras = " · ".join(x for x in [
                     "waterproof" if b["waterproof"] else "",
@@ -233,7 +253,11 @@ if res:
                     + (f'<div class="evidence">“{evidence}”</div>' if evidence else ""),
                     unsafe_allow_html=True,
                 )
-                st.caption(f"RRF score {item['score']:.4f}")
+                st.caption(f"RRF score {item['score']:.4f} · {len(item.get('image_urls', []))} photos")
+                if item.get("image_urls"):
+                    with st.expander("All photos"):
+                        thumbs = [t for u in item["image_urls"] if (t := fetch_image(u))]
+                        st.image(thumbs, width=72)
 
     # ---- trace
     if show_trace and res.get("trace"):

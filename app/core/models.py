@@ -16,6 +16,12 @@ SafetyToe = Literal["steel", "composite", "none"]
 SearchMode = Literal["auto", "keyword", "semantic", "image", "hybrid"]
 
 
+class ProductImage(BaseModel):
+    """One product photo. A boot has many (side, front, back, sole, top, close-ups...)."""
+    path: str                      # relative to data/raw/, e.g. images/BOOT-001/01_side_right.png
+    view: str = "unknown"          # which angle the photo shows
+
+
 class Boot(BaseModel):
     """A clean, validated catalog product."""
     id: str
@@ -30,7 +36,12 @@ class Boot(BaseModel):
     features: list[str] = []
     description: str
     reviews: list[str] = []
-    image: str | None = None
+    images: list[ProductImage] = []
+
+    @property
+    def image(self) -> str | None:
+        """Primary photo (the first one): used for thumbnails and as the default image."""
+        return self.images[0].path if self.images else None
 
 
 class Chunk(BaseModel):
@@ -83,6 +94,10 @@ class RetrievedItem(BaseModel):
     score: float
     source: Literal["bm25", "text_vector", "image_vector", "clip_text_to_image"]
     evidence: str | None = None
+    # image retrievers only: which of the boot's photos matched best, and how many matched
+    matched_image: str | None = None
+    matched_view: str | None = None
+    image_hits: int | None = None
 
 
 class SearchResult(BaseModel):
@@ -91,3 +106,5 @@ class SearchResult(BaseModel):
     score: float
     sources: list[str]
     evidence: str | None = None
+    matched_image: str | None = None   # best-matching photo when an image retriever found this boot
+    matched_view: str | None = None

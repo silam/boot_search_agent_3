@@ -35,10 +35,11 @@ def get_engine() -> SearchEngine:
     else:
         boots, chunks = load_processed(s)
 
+    n_images = sum(len(b.images) for b in boots)       # one Qdrant point per photo
     needs_index = (
         reprocessed
         or store.count(s.text_collection) != len(chunks)
-        or store.count(s.image_collection) == 0
+        or store.count(s.image_collection) != n_images
     )
     if needs_index:
         log.info("Vector index empty or stale -> indexing")
@@ -50,4 +51,5 @@ def get_engine() -> SearchEngine:
             index(s, store, text_emb, img_emb, boots, chunks)
 
     return SearchEngine(store, text_emb, img_emb, {b.id: b for b in boots}, chunks,
-                        candidate_k=s.candidate_k, rrf_k=s.rrf_k)
+                        candidate_k=s.candidate_k, rrf_k=s.rrf_k,
+                        photos_per_boot=s.image_photos_per_boot, image_aggregation=s.image_aggregation)

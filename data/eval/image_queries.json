@@ -1,0 +1,965 @@
+{
+  "_doc": "Held-out shopper photos (not in the index) for app/evaluation/image_eval.py. Each one is a new shot of one view of boot_id.",
+  "queries": [
+    {
+      "path": "query_photos/BOOT-001_front.png",
+      "boot_id": "BOOT-001",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-001_side_left.png",
+      "boot_id": "BOOT-001",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-001_detail_toe.png",
+      "boot_id": "BOOT-001",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-001_sole.png",
+      "boot_id": "BOOT-001",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-002_back.png",
+      "boot_id": "BOOT-002",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-002_detail_toe.png",
+      "boot_id": "BOOT-002",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-002_side_left.png",
+      "boot_id": "BOOT-002",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-002_front.png",
+      "boot_id": "BOOT-002",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-003_side_left.png",
+      "boot_id": "BOOT-003",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-003_side_right.png",
+      "boot_id": "BOOT-003",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-003_lifestyle.png",
+      "boot_id": "BOOT-003",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-003_three_quarter.png",
+      "boot_id": "BOOT-003",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-004_side_right.png",
+      "boot_id": "BOOT-004",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-004_front.png",
+      "boot_id": "BOOT-004",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-004_back.png",
+      "boot_id": "BOOT-004",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-004_detail_toe.png",
+      "boot_id": "BOOT-004",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-005_detail_toe.png",
+      "boot_id": "BOOT-005",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-005_sole.png",
+      "boot_id": "BOOT-005",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-005_lifestyle.png",
+      "boot_id": "BOOT-005",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-005_back.png",
+      "boot_id": "BOOT-005",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-006_sole.png",
+      "boot_id": "BOOT-006",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-006_detail_toe.png",
+      "boot_id": "BOOT-006",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-006_side_left.png",
+      "boot_id": "BOOT-006",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-006_back.png",
+      "boot_id": "BOOT-006",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-007_back.png",
+      "boot_id": "BOOT-007",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-007_sole.png",
+      "boot_id": "BOOT-007",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-007_three_quarter.png",
+      "boot_id": "BOOT-007",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-007_front.png",
+      "boot_id": "BOOT-007",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-008_front.png",
+      "boot_id": "BOOT-008",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-008_side_right.png",
+      "boot_id": "BOOT-008",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-008_back.png",
+      "boot_id": "BOOT-008",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-008_three_quarter.png",
+      "boot_id": "BOOT-008",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-009_back.png",
+      "boot_id": "BOOT-009",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-009_lifestyle.png",
+      "boot_id": "BOOT-009",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-009_sole.png",
+      "boot_id": "BOOT-009",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-009_detail_heel.png",
+      "boot_id": "BOOT-009",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-010_sole.png",
+      "boot_id": "BOOT-010",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-010_lifestyle.png",
+      "boot_id": "BOOT-010",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-010_back.png",
+      "boot_id": "BOOT-010",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-010_front.png",
+      "boot_id": "BOOT-010",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-011_detail_heel.png",
+      "boot_id": "BOOT-011",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-011_sole.png",
+      "boot_id": "BOOT-011",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-011_back.png",
+      "boot_id": "BOOT-011",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-011_front.png",
+      "boot_id": "BOOT-011",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-012_detail_toe.png",
+      "boot_id": "BOOT-012",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-012_side_right.png",
+      "boot_id": "BOOT-012",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-012_front.png",
+      "boot_id": "BOOT-012",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-012_lifestyle.png",
+      "boot_id": "BOOT-012",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-013_sole.png",
+      "boot_id": "BOOT-013",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-013_front.png",
+      "boot_id": "BOOT-013",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-013_three_quarter.png",
+      "boot_id": "BOOT-013",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-013_back.png",
+      "boot_id": "BOOT-013",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-014_side_left.png",
+      "boot_id": "BOOT-014",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-014_sole.png",
+      "boot_id": "BOOT-014",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-014_side_right.png",
+      "boot_id": "BOOT-014",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-014_top.png",
+      "boot_id": "BOOT-014",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-015_detail_toe.png",
+      "boot_id": "BOOT-015",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-015_side_right.png",
+      "boot_id": "BOOT-015",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-015_back.png",
+      "boot_id": "BOOT-015",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-015_front.png",
+      "boot_id": "BOOT-015",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-016_detail_toe.png",
+      "boot_id": "BOOT-016",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-016_front.png",
+      "boot_id": "BOOT-016",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-016_back.png",
+      "boot_id": "BOOT-016",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-016_side_right.png",
+      "boot_id": "BOOT-016",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-017_detail_toe.png",
+      "boot_id": "BOOT-017",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-017_back.png",
+      "boot_id": "BOOT-017",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-017_front.png",
+      "boot_id": "BOOT-017",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-017_side_right.png",
+      "boot_id": "BOOT-017",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-018_sole.png",
+      "boot_id": "BOOT-018",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-018_back.png",
+      "boot_id": "BOOT-018",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-018_detail_heel.png",
+      "boot_id": "BOOT-018",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-018_lifestyle.png",
+      "boot_id": "BOOT-018",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-019_back.png",
+      "boot_id": "BOOT-019",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-019_sole.png",
+      "boot_id": "BOOT-019",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-019_side_left.png",
+      "boot_id": "BOOT-019",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-019_top.png",
+      "boot_id": "BOOT-019",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-020_back.png",
+      "boot_id": "BOOT-020",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-020_top.png",
+      "boot_id": "BOOT-020",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-020_detail_toe.png",
+      "boot_id": "BOOT-020",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-020_lifestyle.png",
+      "boot_id": "BOOT-020",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-021_detail_heel.png",
+      "boot_id": "BOOT-021",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-021_side_right.png",
+      "boot_id": "BOOT-021",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-021_top.png",
+      "boot_id": "BOOT-021",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-021_front.png",
+      "boot_id": "BOOT-021",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-022_three_quarter.png",
+      "boot_id": "BOOT-022",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-022_detail_toe.png",
+      "boot_id": "BOOT-022",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-022_side_left.png",
+      "boot_id": "BOOT-022",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-022_side_right.png",
+      "boot_id": "BOOT-022",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-023_sole.png",
+      "boot_id": "BOOT-023",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-023_front.png",
+      "boot_id": "BOOT-023",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-023_lifestyle.png",
+      "boot_id": "BOOT-023",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-023_side_right.png",
+      "boot_id": "BOOT-023",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-024_sole.png",
+      "boot_id": "BOOT-024",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-024_side_right.png",
+      "boot_id": "BOOT-024",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-024_three_quarter.png",
+      "boot_id": "BOOT-024",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-024_back.png",
+      "boot_id": "BOOT-024",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-025_top.png",
+      "boot_id": "BOOT-025",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-025_detail_toe.png",
+      "boot_id": "BOOT-025",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-025_side_right.png",
+      "boot_id": "BOOT-025",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-025_sole.png",
+      "boot_id": "BOOT-025",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-026_front.png",
+      "boot_id": "BOOT-026",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-026_top.png",
+      "boot_id": "BOOT-026",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-026_back.png",
+      "boot_id": "BOOT-026",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-026_side_right.png",
+      "boot_id": "BOOT-026",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-027_side_left.png",
+      "boot_id": "BOOT-027",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-027_sole.png",
+      "boot_id": "BOOT-027",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-027_side_right.png",
+      "boot_id": "BOOT-027",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-027_back.png",
+      "boot_id": "BOOT-027",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-028_top.png",
+      "boot_id": "BOOT-028",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-028_side_left.png",
+      "boot_id": "BOOT-028",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-028_detail_toe.png",
+      "boot_id": "BOOT-028",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-028_back.png",
+      "boot_id": "BOOT-028",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-029_detail_heel.png",
+      "boot_id": "BOOT-029",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-029_front.png",
+      "boot_id": "BOOT-029",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-029_three_quarter.png",
+      "boot_id": "BOOT-029",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-029_back.png",
+      "boot_id": "BOOT-029",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-030_detail_toe.png",
+      "boot_id": "BOOT-030",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-030_three_quarter.png",
+      "boot_id": "BOOT-030",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-030_sole.png",
+      "boot_id": "BOOT-030",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-030_side_right.png",
+      "boot_id": "BOOT-030",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-031_back.png",
+      "boot_id": "BOOT-031",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-031_detail_toe.png",
+      "boot_id": "BOOT-031",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-031_sole.png",
+      "boot_id": "BOOT-031",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-031_side_right.png",
+      "boot_id": "BOOT-031",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-032_three_quarter.png",
+      "boot_id": "BOOT-032",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-032_detail_toe.png",
+      "boot_id": "BOOT-032",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-032_back.png",
+      "boot_id": "BOOT-032",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-032_side_left.png",
+      "boot_id": "BOOT-032",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-033_back.png",
+      "boot_id": "BOOT-033",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-033_top.png",
+      "boot_id": "BOOT-033",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-033_side_right.png",
+      "boot_id": "BOOT-033",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-033_detail_toe.png",
+      "boot_id": "BOOT-033",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-034_side_right.png",
+      "boot_id": "BOOT-034",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-034_side_left.png",
+      "boot_id": "BOOT-034",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-034_three_quarter.png",
+      "boot_id": "BOOT-034",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-034_sole.png",
+      "boot_id": "BOOT-034",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-035_side_right.png",
+      "boot_id": "BOOT-035",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-035_front.png",
+      "boot_id": "BOOT-035",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-035_detail_toe.png",
+      "boot_id": "BOOT-035",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-035_detail_heel.png",
+      "boot_id": "BOOT-035",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-036_side_right.png",
+      "boot_id": "BOOT-036",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-036_front.png",
+      "boot_id": "BOOT-036",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-036_lifestyle.png",
+      "boot_id": "BOOT-036",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-036_back.png",
+      "boot_id": "BOOT-036",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-037_top.png",
+      "boot_id": "BOOT-037",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-037_side_left.png",
+      "boot_id": "BOOT-037",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-037_sole.png",
+      "boot_id": "BOOT-037",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-037_detail_toe.png",
+      "boot_id": "BOOT-037",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-038_detail_toe.png",
+      "boot_id": "BOOT-038",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-038_front.png",
+      "boot_id": "BOOT-038",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-038_sole.png",
+      "boot_id": "BOOT-038",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-038_side_right.png",
+      "boot_id": "BOOT-038",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-039_detail_toe.png",
+      "boot_id": "BOOT-039",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-039_sole.png",
+      "boot_id": "BOOT-039",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-039_detail_heel.png",
+      "boot_id": "BOOT-039",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-039_top.png",
+      "boot_id": "BOOT-039",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-040_front.png",
+      "boot_id": "BOOT-040",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-040_sole.png",
+      "boot_id": "BOOT-040",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-040_top.png",
+      "boot_id": "BOOT-040",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-040_side_right.png",
+      "boot_id": "BOOT-040",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-041_side_left.png",
+      "boot_id": "BOOT-041",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-041_detail_heel.png",
+      "boot_id": "BOOT-041",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-041_three_quarter.png",
+      "boot_id": "BOOT-041",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-041_lifestyle.png",
+      "boot_id": "BOOT-041",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-042_top.png",
+      "boot_id": "BOOT-042",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-042_detail_heel.png",
+      "boot_id": "BOOT-042",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-042_side_left.png",
+      "boot_id": "BOOT-042",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-042_three_quarter.png",
+      "boot_id": "BOOT-042",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-043_detail_toe.png",
+      "boot_id": "BOOT-043",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-043_top.png",
+      "boot_id": "BOOT-043",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-043_side_left.png",
+      "boot_id": "BOOT-043",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-043_back.png",
+      "boot_id": "BOOT-043",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-044_lifestyle.png",
+      "boot_id": "BOOT-044",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-044_side_right.png",
+      "boot_id": "BOOT-044",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-044_three_quarter.png",
+      "boot_id": "BOOT-044",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-044_back.png",
+      "boot_id": "BOOT-044",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-045_top.png",
+      "boot_id": "BOOT-045",
+      "view": "top"
+    },
+    {
+      "path": "query_photos/BOOT-045_detail_toe.png",
+      "boot_id": "BOOT-045",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-045_back.png",
+      "boot_id": "BOOT-045",
+      "view": "back"
+    },
+    {
+      "path": "query_photos/BOOT-045_sole.png",
+      "boot_id": "BOOT-045",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-046_front.png",
+      "boot_id": "BOOT-046",
+      "view": "front"
+    },
+    {
+      "path": "query_photos/BOOT-046_detail_toe.png",
+      "boot_id": "BOOT-046",
+      "view": "detail_toe"
+    },
+    {
+      "path": "query_photos/BOOT-046_three_quarter.png",
+      "boot_id": "BOOT-046",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-046_lifestyle.png",
+      "boot_id": "BOOT-046",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-047_side_left.png",
+      "boot_id": "BOOT-047",
+      "view": "side_left"
+    },
+    {
+      "path": "query_photos/BOOT-047_three_quarter.png",
+      "boot_id": "BOOT-047",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-047_detail_heel.png",
+      "boot_id": "BOOT-047",
+      "view": "detail_heel"
+    },
+    {
+      "path": "query_photos/BOOT-047_side_right.png",
+      "boot_id": "BOOT-047",
+      "view": "side_right"
+    },
+    {
+      "path": "query_photos/BOOT-048_lifestyle.png",
+      "boot_id": "BOOT-048",
+      "view": "lifestyle"
+    },
+    {
+      "path": "query_photos/BOOT-048_sole.png",
+      "boot_id": "BOOT-048",
+      "view": "sole"
+    },
+    {
+      "path": "query_photos/BOOT-048_three_quarter.png",
+      "boot_id": "BOOT-048",
+      "view": "three_quarter"
+    },
+    {
+      "path": "query_photos/BOOT-048_top.png",
+      "boot_id": "BOOT-048",
+      "view": "top"
+    }
+  ]
+}

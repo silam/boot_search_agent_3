@@ -6,7 +6,9 @@ Endpoints
   GET  /ready                 readiness probe (index loaded, counts)
   POST /search                agentic multimodal search (text and/or base64 image)
   GET  /boots/{id}            product details
-  GET  /boots/{id}/image      product photo
+  GET  /boots/{id}/image      primary product photo
+  GET  /boots/{id}/images     the boot's photo gallery (8-10 views)
+  GET  /boots/{id}/images/{i} one photo
   POST /feedback              thumbs up/down on a search            (human-in-the-loop)
   GET  /feedback/review       negative-feedback review queue        (human-in-the-loop)
   GET  /feedback/stats        A/B results per prompt variant
@@ -45,7 +47,7 @@ from app.agent.graph import BootSearchAgent
 from app.agent.llm import LLMClient
 from app.agent.prompts import PROMPT_VERSION
 from app.api import metrics as m
-from app.api.schemas import FeedbackRequest, ResultItem, SearchRequest, SearchResponse
+from app.api.schemas import BootImage, FeedbackRequest, ResultItem, SearchRequest, SearchResponse
 from app.cache.cache import build_cache, make_key
 from app.core.config import get_settings
 from app.core.container import get_engine
@@ -163,22 +165,25 @@ def search(req: SearchRequest, request: Request):
     rid = request_id_var.get()
     variant = ab_variant(req.session_id)
 
-    image, image_hash = None, None
-    if req.image_base64:
+    images, image_hashes = [], []
+    encoded = ([req.image_base64] if req.image_base64 else []) + list(req.images_base64)
+    if len(encoded) > settings.max_query_images:
+        raise HTTPException(422, f"Too many photos: send at most {settings.max_query_images}")
+    for n, item in enumerate(encoded, start=1):
         try:
-            raw = base64.b64decode(req.image_base64.split(",")[-1], validate=True)
-            image = load_image(raw, settings.max_image_bytes)
+            raw = base64.b64decode(item.split(",")[-1], validate=True)
+            images.append(load_image(raw, settings.max_image_bytes))
         except (ValueError, binascii.Error) as e:
-            raise HTTPException(422, f"Bad image: {e}") from e
-        image_hash = hashlib.sha256(raw).hexdigest()
-    if not req.query.strip() and image is None:
+            raise HTTPException(422, f"Bad image #{n}: {e}") from e
+        image_hashes.append(hashlib.sha256(raw).hexdigest())
+    if not req.query.strip() and not images:
         raise HTTPException(422, "Provide a query, an image, or both")
-    if req.mode == "image" and image is None:
+    if req.mode == "image" and not images:
         raise HTTPException(422, "mode=image requires an image")
 
     # ---------------- cache lookup
     key = make_key({"q": req.query, "mode": req.mode, "f": req.filters.model_dump(), "k": req.top_k,
-                    "v": variant, "img": image_hash, "pv": PROMPT_VERSION, "n": len(state.agent.engine.catalog)})
+                    "v": variant, "img": image_hashes, "pv": PROMPT_VERSION, "n": len(state.agent.engine.catalog)})
     if req.use_cache and (cached := state.cache.get(key)):
         m.CACHE_HITS.inc()
         cached = dict(cached)   # never mutate the cached object (in-memory backend shares it)
@@ -188,7 +193,7 @@ def search(req: SearchRequest, request: Request):
     m.CACHE_MISSES.inc()
 
     # ---------------- run the agent
-    out = state.agent.run(query=req.query, image=image, mode=req.mode, user_filters=req.filters,
+    out = state.agent.run(query=req.query, images=images, mode=req.mode, user_filters=req.filters,
                           top_k=req.top_k, variant=variant)
     usage = out.get("usage")
     results = out.get("results", [])
@@ -214,7 +219,9 @@ def search(req: SearchRequest, request: Request):
         request_id=rid,
         answer=out.get("answer", ""),
         results=[ResultItem(boot=r.boot, score=r.score, sources=r.sources, evidence=r.evidence,
-                            image_url=f"/boots/{r.boot.id}/image" if r.boot.image else None) for r in results],
+                            image_url=_image_url(r.boot, r.matched_image), matched_view=r.matched_view,
+                            image_urls=[f"/boots/{r.boot.id}/images/{i}" for i in range(len(r.boot.images))])
+                 for r in results],
         clarifying_question=out.get("clarifying_question"),
         filters_applied=out["filters"].model_dump(exclude_none=True) if out.get("filters") else {},
         relaxed_filters=out.get("relaxed", []),
@@ -239,7 +246,7 @@ def _log(rid: str, req: SearchRequest, body: dict, variant: str) -> None:
         safe_query = next((t.get("search_text") for t in body.get("trace", []) if t["node"] == "understand"), None)
         state.store.log_search(
             request_id=rid, session_id=req.session_id, query=safe_query, mode=req.mode,
-            has_image=int(bool(req.image_base64)), variant=variant, tools=body["tools_used"],
+            has_image=int(bool(req.image_base64)) + len(req.images_base64), variant=variant, tools=body["tools_used"],
             filters=body["filters_applied"], result_ids=[r["boot"]["id"] for r in body["results"]],
             n_results=len(body["results"]), latency_ms=body["latency_ms"],
             cost_usd=body.get("llm", {}).get("cost_usd", 0.0), grounded=int(body["grounded"]),
@@ -260,15 +267,42 @@ def get_boot(boot_id: str):
     return boot
 
 
-@router.get("/boots/{boot_id}/image", tags=["catalog"])
-def get_boot_image(boot_id: str):
+def _image_url(boot, matched_path: str | None) -> str | None:
+    """URL of the photo to show for a result: the one that matched the query photo(s), if any."""
+    if not boot.images:
+        return None
+    idx = next((i for i, im in enumerate(boot.images) if im.path == matched_path), 0)
+    return f"/boots/{boot.id}/images/{idx}"
+
+
+def _photo_file(boot_id: str, index: int):
     boot = state.agent.engine.catalog.get(boot_id)
-    if not boot or not boot.image:
+    if not boot or not 0 <= index < len(boot.images):
         raise HTTPException(404, "Image not found")
-    path = (settings.raw_dir / boot.image).resolve()
-    if settings.raw_dir.resolve() not in path.parents or not path.exists():   # path-traversal safe
+    path = (settings.raw_dir / boot.images[index].path).resolve()
+    if settings.raw_dir.resolve() not in path.parents or not path.is_file():   # path-traversal safe
         raise HTTPException(404, "Image not found")
     return FileResponse(path, media_type="image/png", headers={"Cache-Control": "public, max-age=86400"})
+
+
+@router.get("/boots/{boot_id}/image", tags=["catalog"])
+def get_boot_image(boot_id: str):
+    """Primary photo (kept for backwards compatibility)."""
+    return _photo_file(boot_id, 0)
+
+
+@router.get("/boots/{boot_id}/images", response_model=list[BootImage], tags=["catalog"])
+def list_boot_images(boot_id: str):
+    """The boot's whole gallery: index, view and URL of every photo."""
+    boot = state.agent.engine.catalog.get(boot_id)
+    if not boot:
+        raise HTTPException(404, "Boot not found")
+    return [BootImage(index=i, view=im.view, url=f"/boots/{boot_id}/images/{i}") for i, im in enumerate(boot.images)]
+
+
+@router.get("/boots/{boot_id}/images/{index}", tags=["catalog"])
+def get_boot_photo(boot_id: str, index: int):
+    return _photo_file(boot_id, index)
 
 
 @router.get("/boots", tags=["catalog"])

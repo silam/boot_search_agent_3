@@ -1,5 +1,5 @@
 # Common tasks.  `make help` lists them.
-.PHONY: help install install-clip data ingest api ui test lint eval llm-eval up up-monitoring down clean
+.PHONY: help install install-clip data ingest api ui test lint eval image-eval llm-eval up up-monitoring down clean
 
 help:            ## list targets
 	@grep -E '^[a-z-]+:.*##' Makefile | awk -F':.*## ' '{printf "  %-15s %s\n", $$1, $$2}'
@@ -31,6 +31,9 @@ lint:            ## ruff
 eval:            ## offline retrieval evaluation (keyword vs semantic vs hybrid vs agent)
 	python -m app.evaluation.retrieval_eval
 
+image-eval:      ## image search eval: one photo per boot vs every photo (MaxSim)
+	python -m app.evaluation.image_eval
+
 llm-eval:        ## generation eval + prompt A/B (needs ANTHROPIC_API_KEY for the judge)
 	python -m app.evaluation.llm_eval
 
@@ -44,4 +47,4 @@ down:            ## stop the Docker stack
 	docker compose --profile monitoring down
 
 clean:           ## remove generated state
-	rm -rf data/processed data/app.db data/eval/report.json data/eval/llm_report.json qdrant_data .pytest_cache
+	rm -rf data/processed data/app.db data/eval/report.json data/eval/llm_report.json data/eval/image_report.json qdrant_data .pytest_cache

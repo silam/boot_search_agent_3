@@ -15,7 +15,8 @@ checked for hallucinations before it reaches the user.
 | **LLM** | Anthropic Claude (optional — falls back to rules + templates, so the demo never breaks) |
 | **API / UI** | FastAPI (OpenAPI docs, metrics, feedback) · Streamlit thin client |
 | **Ops** | Docker, Docker Compose, Vercel containers, Kubernetes, GitHub Actions, Prometheus + Grafana, DVC |
-| **Quality** | 38 tests, offline eval (P@5, R@10, MRR, nDCG), CI quality gate, LLM-as-judge + A/B prompts |
+| **Images** | 8–10 photos per boot (side, front, back, sole, top, close-ups), one vector per photo, grouped MaxSim search, multi-photo queries |
+| **Quality** | 47 tests, text + image evals, CI quality gates, LLM-as-judge + A/B prompts |
 
 ---
 
@@ -24,7 +25,7 @@ checked for hallucinations before it reaches the user.
 ```bash
 python -m venv .venv && source .venv/bin/activate
 make install                      # pip install -r requirements/dev.txt
-make test                         # 38 tests incl. the retrieval quality gate
+make test                         # 47 tests incl. the text and image quality gates
 make api                          # terminal 1 → http://localhost:8000/docs
 make ui                           # terminal 2 → http://localhost:8501
 ```
@@ -76,7 +77,8 @@ Search modes:
 |---|---|
 | "waterproof hiking boots under $200" | filters extracted (`hiking`, `waterproof`, `≤$200`) → BM25 + text vectors (+ CLIP text→image) → RRF |
 | "BOOT-042" or "kiltie lace guard" | intent = keyword lookup → BM25 weighted ×2 |
-| a photo | image vectors |
+| a photo | every product photo is searched, photos are grouped by boot, a boot scores by its best-matching photo (MaxSim) |
+| several photos of one boot (e.g. side + sole) | each photo searched separately, boot score = average of its best match per photo |
 | a photo + "but waterproof" | image (weight 1.5) + BM25 + text vectors, `waterproof` enforced on all of them |
 | something impossible ("navy western boots under $100") | empty → agent relaxes a filter, retries, and says what it relaxed |
 | "ignore previous instructions…" | blocked by the input guard before any LLM call |
@@ -90,7 +92,8 @@ Search modes:
 | Prompt engineering | `app/agent/prompts.py` — structured JSON output, few-shot, grounding, injection-safe tags, versioned prompts |
 | Embeddings & vector representations | `app/embeddings/` — interface + lite (hashing, colour/shape) + Hugging Face (MiniLM, OpenCLIP) |
 | RAG | `app/agent/graph.py` — retrieve → grounded generation → verification |
-| Vector database (Qdrant) | `app/retrieval/qdrant_store.py` — collections, payload indexes, filter pushdown, idempotent upserts |
+| Vector database (Qdrant) | `app/retrieval/qdrant_store.py` — collections, payload indexes, filter pushdown, idempotent upserts, `query_points_groups` for multi-photo products |
+| Multi-image products | `scripts/generate_sample_data.py` (8–10 views), `app/ingestion/pipeline.py::index_images`, `app/retrieval/search_engine.py::combine_query_images`, `app/evaluation/image_eval.py` |
 | Keyword search (BM25) | `app/retrieval/bm25_index.py` |
 | Hybrid search / fusion | `app/retrieval/fusion.py` (RRF), `app/retrieval/search_engine.py` |
 | Document loaders & chunking | `app/ingestion/loaders.py` (JSON/CSV/HTTP), `app/ingestion/chunking.py` (section-aware + recursive) |
@@ -138,6 +141,23 @@ mainly improves MRR. The big jump comes from the agent's **structured filter ext
 `clip` backend the semantic retriever handles paraphrases ("boots for linemen" → logger boots) that BM25
 misses, which is the point of hybrid search. Re-run `make eval` after switching backends to compare.
 
+
+### Image search: one photo per boot vs every photo
+
+`make image-eval` — 192 held-out "shopper photos" (new shots of a boot from one of its angles, never
+indexed), searched against 437 catalog photos:
+
+| index strategy | product@1 | product@5 | MRR |
+|---|---|---|---|
+| one photo per boot (side view) | 0.667 | 0.927 | 0.777 |
+| **every photo, MaxSim** (default) | **0.771** | 0.901 | **0.832** |
+| every photo, mean of best 3 | 0.693 | 0.911 | 0.790 |
+
+Indexing every angle lets a photo of a sole or a toe close-up match the catalog's sole or toe
+photo of the same boot. The eval also runs an "unseen angle" stress test (the catalog has no photo
+from the query's angle): there the single side photo wins (MRR 0.75 vs 0.50), because the other
+boots' photos from that angle compete. Both results are in `data/eval/image_report.json`.
+
 ---
 
 ## Project layout
@@ -161,6 +181,6 @@ docker/ k8s/ monitoring/ .github/   deployment and operations
 docs/           ARCHITECTURE.md · INTERVIEW_GUIDE.md · DEPLOYMENT.md
 ```
 
-The data is synthetic (48 boots, generated deterministically by `scripts/generate_sample_data.py`,
-fictional brands) so the repo is safe to make public. Point `scripts/ingest.py --source` at a real
+The data is synthetic (48 boots with 437 photos, generated deterministically by
+`scripts/generate_sample_data.py`, fictional brands) so the repo is safe to make public. Point `scripts/ingest.py --source` at a real
 catalog JSON, CSV or REST endpoint to use your own.

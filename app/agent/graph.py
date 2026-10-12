@@ -62,7 +62,7 @@ MAX_RETRIES = 3
 class AgentState(TypedDict, total=False):
     # inputs
     query: str
-    image: Any                    # PIL.Image | None
+    images: list[Any]             # 0..N query photos (PIL.Image)
     mode: str                     # auto | keyword | semantic | image | hybrid
     user_filters: Filters         # explicit filters from the UI (always win)
     top_k: int
@@ -89,6 +89,13 @@ class AgentState(TypedDict, total=False):
     usage: LLMUsage
 
 
+def _as_list(images) -> list:
+    """Accept None, one PIL image, or a list of them."""
+    if images is None:
+        return []
+    return list(images) if isinstance(images, (list, tuple)) else [images]
+
+
 def _trace(state: AgentState, node: str, t0: float, **detail) -> list[dict]:
     return [*state.get("trace", []), {"node": node, "ms": round((time.perf_counter() - t0) * 1000, 2), **detail}]
 
@@ -106,7 +113,7 @@ class BootSearchAgent:
             return {"blocked": True, "safe_query": check.text, "results": [],
                     "answer": "Sorry, I can only help with finding boots. Please describe what you're looking for.",
                     "trace": _trace(state, "guard_input", t0, allowed=False, risk=check.risk_score, reasons=check.reasons)}
-        if not check.text and state.get("image") is None:
+        if not check.text and not state.get("images"):
             return {"blocked": True, "safe_query": "", "results": [],
                     "answer": "Type a description or upload a boot photo to start searching.",
                     "trace": _trace(state, "guard_input", t0, allowed=False, reasons=["empty request"])}
@@ -115,7 +122,7 @@ class BootSearchAgent:
 
     def understand(self, state: AgentState) -> AgentState:
         t0 = time.perf_counter()
-        query, image, mode = state["safe_query"], state.get("image"), state.get("mode", "auto")
+        query, images, mode = state["safe_query"], state.get("images") or [], state.get("mode", "auto")
         usage = state.get("usage") or LLMUsage()
         available = self.engine.available_tools()
 
@@ -151,9 +158,9 @@ class BootSearchAgent:
             tools, weights = ["image"], {}
         else:  # auto / hybrid
             tools, weights = [], {}
-            if image is not None:
+            if images:
                 tools.append("image")
-                weights["image"] = 1.5 if query else 1.0      # the photo is the strongest signal
+                weights["image"] = 1.5 if query else 1.0      # the photos are the strongest signal
             if query:
                 tools += ["keyword", "semantic"]
                 if parsed["intent"] == "keyword_lookup":
@@ -167,16 +174,17 @@ class BootSearchAgent:
         return {
             "filters": filters, "search_text": parsed["search_text"] or query, "intent": parsed["intent"],
             "tools": tools, "weights": weights, "usage": usage, "attempts": 0, "relaxed": [],
-            "clarifying_question": parsed["clarifying_question"] if parsed["needs_clarification"] and image is None else None,
+            "clarifying_question": parsed["clarifying_question"] if parsed["needs_clarification"] and not images else None,
             "understood_by": understood_by,
             "trace": _trace(state, "understand", t0, by=understood_by, intent=parsed["intent"], tools=tools,
+                            query_images=len(images),
                             weights=weights, filters=filters.model_dump(exclude_none=True),
                             search_text=parsed["search_text"]),
         }
 
     def retrieve(self, state: AgentState) -> AgentState:
         t0 = time.perf_counter()
-        plan = RetrievalPlan(query=state["search_text"], image=state.get("image"), tools=state["tools"],
+        plan = RetrievalPlan(query=state["search_text"], images=state.get("images") or [], tools=state["tools"],
                              weights=state["weights"], filters=state["filters"], top_k=state.get("top_k", 8))
         raw, latencies = self.engine.retrieve(plan)
         results = self.engine.fuse(raw, plan)
@@ -205,8 +213,10 @@ class BootSearchAgent:
         variant = state.get("variant", "A")
         answer = None
         if results and self.llm.available and state["safe_query"]:
+            n_photos = len(state.get("images") or [])
+            photo_note = f"The shopper also uploaded {n_photos} reference photo(s)." if n_photos else ""
             user_msg = (f"Shopper request: <query>{state['safe_query']}</query>\n"
-                        f"{'The shopper also uploaded a reference photo.' if state.get('image') is not None else ''}\n"
+                        f"{photo_note}\n"
                         f"{format_catalog_context(results[:5])}")
             answer = self.llm.complete(ANSWER_SYSTEM.get(variant, ANSWER_SYSTEM["A"]), user_msg, usage)
         source = "llm" if answer else "template"
@@ -257,10 +267,10 @@ class BootSearchAgent:
         g.add_edge("guard_output", END)
         return g.compile()
 
-    def run(self, query: str = "", image=None, mode: str = "auto", user_filters: Filters | None = None,
+    def run(self, query: str = "", images=None, mode: str = "auto", user_filters: Filters | None = None,
             top_k: int = 8, variant: str = "A") -> AgentState:
         return self.graph.invoke({
-            "query": query, "image": image, "mode": mode, "user_filters": user_filters or Filters(),
+            "query": query, "images": _as_list(images), "mode": mode, "user_filters": user_filters or Filters(),
             "top_k": top_k, "variant": variant, "trace": [], "usage": LLMUsage(),
         })
 

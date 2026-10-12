@@ -184,6 +184,7 @@ tr.win td { background: var(--accent-soft); }
     <li><a href="#ingest"><span>02</span>Ingestion (ETL)</a></li>
     <li><a href="#embed"><span>03</span>Embeddings</a></li>
     <li><a href="#qdrant"><span>04</span>Qdrant store</a></li>
+    <li><a href="#photos"><span>04b</span>Many photos per boot</a></li>
     <li><a href="#bm25"><span>05</span>BM25 keywords</a></li>
     <li><a href="#rrf"><span>06</span>RRF fusion</a></li>
     <li><a href="#engine"><span>07</span>Search engine</a></li>
@@ -269,7 +270,7 @@ tr.win td { background: var(--accent-soft); }
       <rect class="bx k-vec" x="762" y="176" width="216" height="40" rx="7"/>
       <text class="tl" x="870" y="201" text-anchor="middle">Qdrant · text chunks</text>
       <rect class="bx k-img" x="762" y="224" width="216" height="40" rx="7"/>
-      <text class="tl" x="870" y="249" text-anchor="middle">Qdrant · image vectors</text>
+      <text class="tl" x="870" y="249" text-anchor="middle">Qdrant · photo vectors</text>
       <text class="ts" x="870" y="281" text-anchor="middle">retrieval tools</text>
       <line class="ln" x1="710" y1="210" x2="760" y2="150" marker-end="url(#a1)"/>
       <line class="ln" x1="710" y1="220" x2="760" y2="197" marker-end="url(#a1)"/>
@@ -316,7 +317,7 @@ tr.win td { background: var(--accent-soft); }
       <tr><td><code>app/cache/</code>, <code>app/storage/</code></td><td>Redis response cache; SQL search logs and feedback</td><td><code>cache.py</code></td></tr>
       <tr><td><code>app/evaluation/</code></td><td>Retrieval metrics, LLM-as-judge, prompt A/B</td><td><code>retrieval_eval.py</code></td></tr>
       <tr><td><code>ui/</code></td><td>Streamlit thin client</td><td><code>streamlit_app.py</code></td></tr>
-      <tr><td><code>tests/</code></td><td>38 tests incl. a fake LLM and the CI quality gate</td><td><code>test_agent.py</code></td></tr>
+      <tr><td><code>tests/</code></td><td>47 tests incl. a fake LLM and the text and image quality gates</td><td><code>test_agent.py</code></td></tr>
       <tr><td><code>docker/</code>, <code>k8s/</code>, <code>.github/</code>, <code>monitoring/</code></td><td>Images, Compose, Vercel, Kubernetes, CI, Grafana</td><td><code>docker-compose.yml</code></td></tr>
     </tbody>
   </table></div>
@@ -336,7 +337,7 @@ tr.win td { background: var(--accent-soft); }
        retriever's hit) and <code>SearchResult</code> (a fused, final hit). <code>Filters</code> is the one with behaviour:
        it is the single definition of "does this boot match", used by BM25, by the final safety net, and in the eval.</p>
   </div>
-  <figure class="code"><figcaption><span class="path">app/core/models.py:45</span><span class="loc">33 lines</span></figcaption><pre><code class="language-python">class Filters(BaseModel):
+  <figure class="code"><figcaption><span class="path">app/core/models.py:56</span><span class="loc">33 lines</span></figcaption><pre><code class="language-python">class Filters(BaseModel):
     &quot;&quot;&quot;Structured constraints extracted from the query (by the LLM or the rule parser).&quot;&quot;&quot;
     category: Category | None = None
     color: str | None = None
@@ -395,7 +396,7 @@ image_collection: str = &quot;boot_images&quot;</code></pre></figure>
 
   <h3>Composition root: build once, heal on startup</h3>
   <p class="prose"><code>get_engine()</code> is cached with <code>lru_cache</code>, so the models and index are built once per process. It re-runs the ETL if the raw data or chunking settings changed, and re-indexes if Qdrant is empty, which is what makes a brand-new container (Vercel cold start, new Kubernetes pod) able to start on its own.</p>
-  <figure class="code"><figcaption><span class="path">app/core/container.py:25</span><span class="loc">29 lines</span></figcaption><pre><code class="language-python">@lru_cache
+  <figure class="code"><figcaption><span class="path">app/core/container.py:25</span><span class="loc">31 lines</span></figcaption><pre><code class="language-python">@lru_cache
 def get_engine() -&gt; SearchEngine:
     s = get_settings()
     text_emb, img_emb = get_embedders()
@@ -408,10 +409,11 @@ def get_engine() -&gt; SearchEngine:
     else:
         boots, chunks = load_processed(s)
 
+    n_images = sum(len(b.images) for b in boots)       # one Qdrant point per photo
     needs_index = (
         reprocessed
         or store.count(s.text_collection) != len(chunks)
-        or store.count(s.image_collection) == 0
+        or store.count(s.image_collection) != n_images
     )
     if needs_index:
         log.info(&quot;Vector index empty or stale -&gt; indexing&quot;)
@@ -423,7 +425,8 @@ def get_engine() -&gt; SearchEngine:
             index(s, store, text_emb, img_emb, boots, chunks)
 
     return SearchEngine(store, text_emb, img_emb, {b.id: b for b in boots}, chunks,
-                        candidate_k=s.candidate_k, rrf_k=s.rrf_k)</code></pre></figure>
+                        candidate_k=s.candidate_k, rrf_k=s.rrf_k,
+                        photos_per_boot=s.image_photos_per_boot, image_aggregation=s.image_aggregation)</code></pre></figure>
 
   <div class="say"><div class="lbl">Say it in the interview</div>
     <p>"Validation happens at the edges, in ingestion and in the API schemas, so the inner layers can trust their inputs. And <code>Filters.matches</code> is the single source of truth for what a match is."</p>
@@ -440,7 +443,7 @@ def get_engine() -&gt; SearchEngine:
       <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
       <rect class="bx" x="20" y="30" width="140" height="64" rx="8"/>
       <text class="tl" x="90" y="57" text-anchor="middle">catalog.json</text>
-      <text class="ts" x="90" y="76" text-anchor="middle">data/raw/</text>
+      <text class="ts" x="90" y="76" text-anchor="middle">+ 437 photos</text>
       <line class="ln" x1="160" y1="62" x2="180" y2="62" marker-end="url(#a2)"/>
       <rect class="bx" x="182" y="30" width="140" height="64" rx="8"/>
       <text class="tl" x="252" y="57" text-anchor="middle">Load</text>
@@ -448,7 +451,7 @@ def get_engine() -&gt; SearchEngine:
       <line class="ln" x1="322" y1="62" x2="342" y2="62" marker-end="url(#a2)"/>
       <rect class="bx" x="344" y="30" width="140" height="64" rx="8"/>
       <text class="tl" x="414" y="57" text-anchor="middle">Clean</text>
-      <text class="ts" x="414" y="76" text-anchor="middle">normalise · dedup</text>
+      <text class="ts" x="414" y="76" text-anchor="middle">records + galleries</text>
       <line class="ln" x1="484" y1="62" x2="504" y2="62" marker-end="url(#a2)"/>
       <rect class="bx" x="506" y="30" width="140" height="64" rx="8"/>
       <text class="tl" x="576" y="57" text-anchor="middle">Chunk</text>
@@ -456,13 +459,14 @@ def get_engine() -&gt; SearchEngine:
       <line class="ln" x1="646" y1="62" x2="666" y2="62" marker-end="url(#a2)"/>
       <rect class="bx acc" x="668" y="30" width="140" height="64" rx="8"/>
       <text class="tl" x="738" y="57" text-anchor="middle">Embed</text>
-      <text class="ts" x="738" y="76" text-anchor="middle">text + image</text>
+      <text class="ts" x="738" y="76" text-anchor="middle">chunks + every photo</text>
       <line class="ln" x1="808" y1="50" x2="828" y2="40" marker-end="url(#a2)"/>
       <line class="ln" x1="808" y1="74" x2="828" y2="84" marker-end="url(#a2)"/>
       <rect class="bx k-vec" x="830" y="20" width="150" height="38" rx="7"/>
       <text class="tm" x="905" y="44" text-anchor="middle">boot_text_chunks</text>
       <rect class="bx k-img" x="830" y="66" width="150" height="38" rx="7"/>
       <text class="tm" x="905" y="90" text-anchor="middle">boot_images</text>
+      <text class="ts" x="905" y="118" text-anchor="middle">1 point per photo</text>
 
       <line class="ln" x1="380" y1="94" x2="270" y2="148" marker-end="url(#a2)"/>
       <rect class="bx dash" x="182" y="150" width="140" height="40" rx="7"/>
@@ -494,7 +498,7 @@ def get_engine() -&gt; SearchEngine:
     return JsonCatalogLoader(Path(s))</code></pre></figure>
 
   <h3>Transform: clean, validate, reject with a reason</h3>
-  <figure class="code"><figcaption><span class="path">app/ingestion/cleaning.py:28</span><span class="loc">12 lines</span></figcaption><pre><code class="language-python">def clean_text(text: str | None) -&gt; str:
+  <figure class="code"><figcaption><span class="path">app/ingestion/cleaning.py:34</span><span class="loc">12 lines</span></figcaption><pre><code class="language-python">def clean_text(text: str | None) -&gt; str:
     if not text:
         return &quot;&quot;
     text = html.unescape(text)
@@ -506,21 +510,29 @@ def get_engine() -&gt; SearchEngine:
     if letters and sum(c.isupper() for c in letters) / len(letters) &gt; 0.8:
         text = &quot;. &quot;.join(s.strip().capitalize() for s in text.lower().split(&quot;. &quot;))
     return text</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">app/ingestion/cleaning.py:69</span><span class="loc">18 lines</span></figcaption><pre><code class="language-python">def clean_catalog(raw_records: list[dict[str, Any]]) -&gt; tuple[list[Boot], list[dict[str, str]]]:
-    &quot;&quot;&quot;Returns (clean boots, rejected rows with reasons).&quot;&quot;&quot;
+  <figure class="code"><figcaption><span class="path">app/ingestion/cleaning.py:107</span><span class="loc">26 lines</span></figcaption><pre><code class="language-python">def clean_catalog(raw_records: list[dict[str, Any]], image_root: Path | None = None
+                  ) -&gt; tuple[list[Boot], list[dict[str, str]]]:
+    &quot;&quot;&quot;Returns (clean boots, issues). Issues with kind &quot;record&quot; are rejected rows; issues with
+    kind &quot;image&quot; are photos dropped from an otherwise valid boot.&quot;&quot;&quot;
     boots: list[Boot] = []
     rejected: list[dict[str, str]] = []
     seen: set[str] = set()
     for raw in raw_records:
         rid = str(raw.get(&quot;id&quot;, &quot;?&quot;))
         if rid in seen:
-            rejected.append({&quot;id&quot;: rid, &quot;reason&quot;: &quot;duplicate id&quot;})
+            rejected.append({&quot;id&quot;: rid, &quot;kind&quot;: &quot;record&quot;, &quot;reason&quot;: &quot;duplicate id&quot;})
             continue
+        _, image_problems = normalise_images(raw)
         try:
             boot = Boot(**normalise_record(raw))
         except ValidationError as e:
-            rejected.append({&quot;id&quot;: rid, &quot;reason&quot;: e.errors()[0][&quot;msg&quot;]})
+            rejected.append({&quot;id&quot;: rid, &quot;kind&quot;: &quot;record&quot;, &quot;reason&quot;: e.errors()[0][&quot;msg&quot;]})
             continue
+        rejected += [{&quot;id&quot;: rid, &quot;kind&quot;: &quot;image&quot;, &quot;reason&quot;: p} for p in image_problems]
+        if image_root is not None:
+            missing = [im for im in boot.images if not (Path(image_root) / im.path).is_file()]
+            rejected += [{&quot;id&quot;: rid, &quot;kind&quot;: &quot;image&quot;, &quot;reason&quot;: f&quot;file not found: {im.path}&quot;} for im in missing]
+            boot.images = [im for im in boot.images if im not in missing]
         seen.add(boot.id)
         boots.append(boot)
     return boots, rejected</code></pre></figure>
@@ -585,7 +597,7 @@ def get_engine() -&gt; SearchEngine:
   </ul>
 
   <h3>Load: embed in batches, upsert idempotently, detect staleness</h3>
-  <figure class="code"><figcaption><span class="path">app/ingestion/pipeline.py:100</span><span class="loc">25 lines</span></figcaption><pre><code class="language-python">def index(settings: Settings, store: QdrantStore, text_emb: TextEmbedder, img_emb: ImageEmbedder,
+  <figure class="code"><figcaption><span class="path">app/ingestion/pipeline.py:121</span><span class="loc">21 lines</span></figcaption><pre><code class="language-python">def index(settings: Settings, store: QdrantStore, text_emb: TextEmbedder, img_emb: ImageEmbedder,
           boots: list[Boot], chunks: list[Chunk], recreate: bool = False) -&gt; None:
     &quot;&quot;&quot;LOAD step: embed and upsert into Qdrant.&quot;&quot;&quot;
     t0 = time.perf_counter()
@@ -595,11 +607,7 @@ def get_engine() -&gt; SearchEngine:
     vectors = text_emb.embed_texts([c.text for c in chunks])
     store.upsert_chunks(chunks, vectors, catalog)
 
-    with_images = [b for b in boots if b.image and (settings.raw_dir / b.image).exists()]
-    for i in range(0, len(with_images), 32):
-        batch = with_images[i:i + 32]
-        imgs = [Image.open(settings.raw_dir / b.image) for b in batch]
-        store.upsert_images(batch, img_emb.embed_images(imgs))
+    n_images = index_images(settings, store, img_emb, boots)
 
     manifest_path = settings.processed_dir / &quot;manifest.json&quot;
     if manifest_path.exists():
@@ -607,20 +615,23 @@ def get_engine() -&gt; SearchEngine:
         manifest.update({&quot;text_embedder&quot;: text_emb.name, &quot;image_embedder&quot;: img_emb.name,
                          &quot;text_dim&quot;: text_emb.dim, &quot;image_dim&quot;: img_emb.dim})
         manifest_path.write_text(json.dumps(manifest, indent=2))
-    log_event(log, &quot;index_done&quot;, chunks=len(chunks), images=len(with_images),
+    log_event(log, &quot;index_done&quot;, chunks=len(chunks), images=n_images,
               text_embedder=text_emb.name, image_embedder=img_emb.name,
               ms=round((time.perf_counter() - t0) * 1000))</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">app/ingestion/pipeline.py:80</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">def processed_is_stale(settings: Settings) -&gt; bool:
+  <figure class="code"><figcaption><span class="path">app/ingestion/pipeline.py:98</span><span class="loc">14 lines</span></figcaption><pre><code class="language-python">def processed_is_stale(settings: Settings) -&gt; bool:
     &quot;&quot;&quot;True if the raw data, chunking params or pipeline code changed since the last ETL run.&quot;&quot;&quot;
     manifest_path = settings.processed_dir / &quot;manifest.json&quot;
     if not (settings.processed_dir / &quot;boots.jsonl&quot;).exists() or not manifest_path.exists():
         return True
     m = json.loads(manifest_path.read_text())
     raw = settings.raw_dir / &quot;catalog.json&quot;
-    return (m.get(&quot;pipeline_version&quot;) != PIPELINE_VERSION
+    if (m.get(&quot;pipeline_version&quot;) != PIPELINE_VERSION
             or m.get(&quot;chunk_size&quot;) != settings.chunk_size
             or m.get(&quot;chunk_overlap&quot;) != settings.chunk_overlap
-            or (raw.exists() and m.get(&quot;source_sha256&quot;) not in (None, _sha256(raw))))</code></pre></figure>
+            or (raw.exists() and m.get(&quot;source_sha256&quot;) not in (None, _sha256(raw)))):
+        return True
+    boots, _ = load_processed(settings)
+    return m.get(&quot;images_sha256&quot;) != _images_fingerprint(boots, settings.raw_dir)</code></pre></figure>
 
   <div class="say"><div class="lbl">Say it in the interview</div>
     <p>"Garbage in, garbage out is worse in RAG, because a dirty description becomes a dirty vector and dirty LLM context. So the pipeline validates, rejects with reasons, chunks by section so I can show evidence, and records lineage so I know when to re-index."</p>
@@ -735,7 +746,7 @@ def get_embedders() -&gt; tuple[TextEmbedder, ImageEmbedder]:
   <div class="eyebrow"><b>04 · VECTOR DATABASE</b><span>app/retrieval/qdrant_store.py</span></div>
   <h2>Qdrant: payload filters inside the search, not after it</h2>
   <div class="prose">
-    <p>Two collections: <code>boot_text_chunks</code> (one point per chunk) and <code>boot_images</code> (one point per photo). Every point carries the product attributes as a payload, with payload indexes on the filter fields. The important choice is where filtering happens.</p>
+    <p>Two collections: <code>boot_text_chunks</code> (one point per chunk) and <code>boot_images</code> (one point per photo, so 8–10 points per boot). Every point carries the product attributes as a payload, with payload indexes on the filter fields. The important choice is where filtering happens.</p>
   </div>
 
   <figure class="dgm">
@@ -770,7 +781,7 @@ def get_embedders() -&gt; tuple[TextEmbedder, ImageEmbedder]:
     <figcaption>Filled dots match the filter (say, waterproof hiking boots under $200). BM25 lives outside Qdrant, so it filters in Python, but it walks the whole ranked list until it has enough matches, which avoids the left-hand failure at this catalog size.</figcaption>
   </figure>
 
-  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:54</span><span class="loc">19 lines</span></figcaption><pre><code class="language-python">def to_qdrant_filter(f: Filters | None) -&gt; models.Filter | None:
+  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:76</span><span class="loc">19 lines</span></figcaption><pre><code class="language-python">def to_qdrant_filter(f: Filters | None) -&gt; models.Filter | None:
     &quot;&quot;&quot;Translate our Filters model into a Qdrant payload filter (pushdown).&quot;&quot;&quot;
     if f is None or f.is_empty():
         return None
@@ -789,7 +800,7 @@ def get_embedders() -&gt; tuple[TextEmbedder, ImageEmbedder]:
     if f.max_price is not None or f.min_price is not None:
         must.append(models.FieldCondition(key=&quot;price&quot;, range=models.Range(lte=f.max_price, gte=f.min_price)))
     return models.Filter(must=must or None, must_not=must_not or None)</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:149</span><span class="loc">8 lines</span></figcaption><pre><code class="language-python">def search_text(self, vector: np.ndarray, filters: Filters | None, limit: int) -&gt; list[RetrievedItem]:
+  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:180</span><span class="loc">8 lines</span></figcaption><pre><code class="language-python">def search_text(self, vector: np.ndarray, filters: Filters | None, limit: int) -&gt; list[RetrievedItem]:
     &quot;&quot;&quot;Chunk-level search, aggregated to product level with MAX score per boot.&quot;&quot;&quot;
     best: dict[str, RetrievedItem] = {}
     for p in self._query(self.text_collection, vector, filters, limit):
@@ -801,7 +812,7 @@ def get_embedders() -&gt; tuple[TextEmbedder, ImageEmbedder]:
     <li><span>Search runs over chunks, then keeps the <b>MAX</b> score per boot. A boot whose review says "kept my feet dry all day" can win on that one chunk, and that chunk becomes the evidence shown in the UI.</span></li>
     <li><span>The search over-fetches chunks (<code>k × 3</code> in the engine) because aggregation to boots shrinks the list.</span></li>
   </ul>
-  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:90</span><span class="loc">22 lines</span></figcaption><pre><code class="language-python">def ensure_collections(self, text_dim: int, image_dim: int, recreate: bool = False) -&gt; None:
+  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:112</span><span class="loc">23 lines</span></figcaption><pre><code class="language-python">def ensure_collections(self, text_dim: int, image_dim: int, recreate: bool = False) -&gt; None:
     for name, dim in ((self.text_collection, text_dim), (self.image_collection, image_dim)):
         exists = self.client.collection_exists(name)
         if exists and recreate:
@@ -821,12 +832,292 @@ def get_embedders() -&gt; tuple[TextEmbedder, ImageEmbedder]:
             )
             # Payload indexes make filtered search fast (no effect in :memory: mode, required at scale)
             for field, schema in ((&quot;category&quot;, &quot;keyword&quot;), (&quot;color&quot;, &quot;keyword&quot;), (&quot;safety_toe&quot;, &quot;keyword&quot;),
-                                  (&quot;waterproof&quot;, &quot;bool&quot;), (&quot;price&quot;, &quot;float&quot;), (&quot;boot_id&quot;, &quot;keyword&quot;)):
+                                  (&quot;waterproof&quot;, &quot;bool&quot;), (&quot;price&quot;, &quot;float&quot;), (&quot;boot_id&quot;, &quot;keyword&quot;),
+                                  (&quot;view&quot;, &quot;keyword&quot;), (&quot;path&quot;, &quot;keyword&quot;)):
                 self.client.create_payload_index(name, field_name=field, field_schema=schema)</code></pre></figure>
   <p class="prose">If the embedding dimension changes (lite 768-d → MiniLM 384-d), old vectors are meaningless, so the collection is dropped and rebuilt. Point ids are <code>uuid5(chunk_id)</code>, so running ingestion twice overwrites instead of duplicating.</p>
 
   <div class="say"><div class="lbl">Say it in the interview</div>
     <p>"I filter inside the HNSW search, because post-filtering a top-k can leave you with nothing. HNSW is an approximate nearest-neighbour graph; <code>m</code>, <code>ef_construct</code> and <code>hnsw_ef</code> trade recall for latency."</p>
+  </div>
+</section>
+
+<!-- ===================================================== 04b PHOTOS -->
+<section id="photos">
+  <div class="eyebrow"><b>04b · MANY PHOTOS PER BOOT</b><span>catalog.json · pipeline.py · qdrant_store.py · search_engine.py</span></div>
+  <h2>One vector per photo, grouped by boot, scored by the best photo</h2>
+  <div class="prose">
+    <p>Every boot has a gallery of 8–10 photos: side, mirrored side, three-quarter, front, back, top, sole,
+       a toe close-up, and sometimes a heel close-up and an on-the-floor shot. Each photo is embedded and
+       stored as its own Qdrant point carrying the boot's id. A search groups those points by boot and
+       gives each boot the score of its best-matching photo. That is MaxSim.</p>
+  </div>
+
+  <figure class="dgm">
+    <div class="scroll">
+    <svg viewBox="0 0 1000 250" role="img" aria-label="A sole photo is searched with query_points_groups grouped by boot_id. BOOT-012's best photo is its sole view at 0.93, BOOT-034's best is its sole view at 0.88. Each boot's score is its best photo, so BOOT-012 ranks first.">
+      <defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+      <rect class="bx k-img" x="20" y="95" width="120" height="60" rx="8"/>
+      <text class="tl" x="80" y="120" text-anchor="middle">query photo</text>
+      <text class="ts" x="80" y="138" text-anchor="middle">a sole shot</text>
+      <line class="ln" x1="140" y1="125" x2="178" y2="125" marker-end="url(#a5)"/>
+      <rect class="bx strong" x="180" y="85" width="170" height="80" rx="8"/>
+      <text class="tm" x="265" y="111" text-anchor="middle">query_points_groups</text>
+      <text class="ts" x="265" y="130" text-anchor="middle">group_by = boot_id</text>
+      <text class="ts" x="265" y="147" text-anchor="middle">group_size = 3 photos</text>
+      <line class="ln" x1="350" y1="110" x2="398" y2="72" marker-end="url(#a5)"/>
+      <line class="ln" x1="350" y1="140" x2="398" y2="182" marker-end="url(#a5)"/>
+
+      <rect class="bx sunk" x="400" y="22" width="330" height="96" rx="10"/>
+      <text class="tm" x="414" y="44">BOOT-012 · 9 photos</text>
+      <rect class="bx acc" x="412" y="58" width="96" height="44" rx="6"/>
+      <text class="tm" x="460" y="78" text-anchor="middle">sole</text><text class="ts" x="460" y="94" text-anchor="middle">0.93</text>
+      <rect class="bx" x="516" y="58" width="96" height="44" rx="6"/>
+      <text class="tm" x="564" y="78" text-anchor="middle">side_right</text><text class="ts" x="564" y="94" text-anchor="middle">0.71</text>
+      <rect class="bx" x="620" y="58" width="96" height="44" rx="6"/>
+      <text class="tm" x="668" y="78" text-anchor="middle">front</text><text class="ts" x="668" y="94" text-anchor="middle">0.66</text>
+
+      <rect class="bx sunk" x="400" y="136" width="330" height="96" rx="10"/>
+      <text class="tm" x="414" y="158">BOOT-034 · 10 photos</text>
+      <rect class="bx" x="412" y="172" width="96" height="44" rx="6"/>
+      <text class="tm" x="460" y="192" text-anchor="middle">sole</text><text class="ts" x="460" y="208" text-anchor="middle">0.88</text>
+      <rect class="bx" x="516" y="172" width="96" height="44" rx="6"/>
+      <text class="tm" x="564" y="192" text-anchor="middle">back</text><text class="ts" x="564" y="208" text-anchor="middle">0.70</text>
+      <rect class="bx" x="620" y="172" width="96" height="44" rx="6"/>
+      <text class="tm" x="668" y="192" text-anchor="middle">top</text><text class="ts" x="668" y="208" text-anchor="middle">0.62</text>
+
+      <line class="ln" x1="730" y1="70" x2="778" y2="70" marker-end="url(#a5)"/>
+      <rect class="bx acc" x="780" y="46" width="200" height="48" rx="8"/>
+      <text class="tl" x="880" y="67" text-anchor="middle">#1 · score 0.93</text>
+      <text class="ts" x="880" y="84" text-anchor="middle">matched: sole view</text>
+      <line class="ln" x1="730" y1="184" x2="778" y2="184" marker-end="url(#a5)"/>
+      <rect class="bx" x="780" y="160" width="200" height="48" rx="8"/>
+      <text class="tl" x="880" y="181" text-anchor="middle">#2 · score 0.88</text>
+      <text class="ts" x="880" y="198" text-anchor="middle">matched: sole view</text>
+    </svg>
+    </div>
+    <figcaption>Illustrative scores. Grouping stops one boot with many similar photos from filling every slot; the best photo decides the boot's score, and that photo is what the UI shows ("matched: sole view").</figcaption>
+  </figure>
+
+  <h3>The catalog record</h3>
+  <p class="prose">The first photo is the primary one (thumbnails, the old <code>/image</code> endpoint). The view name travels with every photo.</p>
+  <figure class="code"><figcaption><span class="path">data/raw/catalog.json:23</span><span class="loc">34 lines</span></figcaption><pre><code class="language-json">&quot;images&quot;: [
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/01_side_right.png&quot;,
+    &quot;view&quot;: &quot;side_right&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/02_side_left.png&quot;,
+    &quot;view&quot;: &quot;side_left&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/03_three_quarter.png&quot;,
+    &quot;view&quot;: &quot;three_quarter&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/04_front.png&quot;,
+    &quot;view&quot;: &quot;front&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/05_back.png&quot;,
+    &quot;view&quot;: &quot;back&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/06_top.png&quot;,
+    &quot;view&quot;: &quot;top&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/07_sole.png&quot;,
+    &quot;view&quot;: &quot;sole&quot;
+  },
+  {
+    &quot;path&quot;: &quot;images/BOOT-001/08_detail_toe.png&quot;,
+    &quot;view&quot;: &quot;detail_toe&quot;
+  }
+]</code></pre></figure>
+
+  <h3>Cleaning the gallery</h3>
+  <figure class="code"><figcaption><span class="path">app/ingestion/cleaning.py:70</span><span class="loc">19 lines</span></figcaption><pre><code class="language-python">def normalise_images(rec: dict[str, Any]) -&gt; tuple[list[dict[str, str]], list[str]]:
+    &quot;&quot;&quot;Return (clean image list, problems). Order is kept: the first photo is the primary one.&quot;&quot;&quot;
+    raw = rec.get(&quot;images&quot;) or ([rec[&quot;image&quot;]] if rec.get(&quot;image&quot;) else [])
+    if isinstance(raw, str):
+        raw = [p for p in raw.split(&quot;|&quot;) if p.strip()]
+    images, problems, seen = [], [], set()
+    for item in raw:
+        path = item.get(&quot;path&quot;, &quot;&quot;) if isinstance(item, dict) else str(item)
+        path = path.strip().replace(&quot;\\&quot;, &quot;/&quot;)
+        pure = PurePosixPath(path)
+        if not path or pure.is_absolute() or &quot;..&quot; in pure.parts:
+            problems.append(f&quot;unsafe or empty image path: {path!r}&quot;)
+            continue
+        if path in seen:
+            continue                                     # same photo listed twice
+        seen.add(path)
+        view = (item.get(&quot;view&quot;) if isinstance(item, dict) else None) or view_from_path(path)
+        images.append({&quot;path&quot;: path, &quot;view&quot;: str(view).strip().lower()})
+    return images, problems</code></pre></figure>
+  <ul class="read">
+    <li><span>Accepts a list of <code>{path, view}</code> objects, plain paths, a <code>"a.png|b.png"</code> CSV cell, or the old single <code>image</code> field.</span></li>
+    <li><span>Blocks absolute paths and <code>..</code> so a bad catalog row can't make the API serve files outside <code>data/raw/</code>.</span></li>
+    <li><span>Missing files are dropped and reported in <code>rejected.json</code> with <code>kind: "image"</code>; the boot itself stays.</span></li>
+  </ul>
+
+  <h3>Indexing every photo</h3>
+  <figure class="code"><figcaption><span class="path">app/ingestion/pipeline.py:144</span><span class="loc">17 lines</span></figcaption><pre><code class="language-python">def index_images(settings: Settings, store: QdrantStore, img_emb: ImageEmbedder, boots: list[Boot],
+                 batch_size: int = 32) -&gt; int:
+    &quot;&quot;&quot;Embed EVERY photo of every boot and store one Qdrant point per photo.
+
+    A boot with 9 photos becomes 9 points that share the same boot_id payload. At query time
+    the search groups points by boot_id and scores each boot by its best-matching photo
+    (MaxSim), so a photo of a sole finds the boot whose sole view looks like it.
+    &quot;&quot;&quot;
+    pairs = [(b, im) for b in boots for im in b.images if (settings.raw_dir / im.path).is_file()]
+    for i in range(0, len(pairs), batch_size):
+        batch = pairs[i:i + batch_size]
+        imgs = []
+        for _, im in batch:
+            with Image.open(settings.raw_dir / im.path) as f:
+                imgs.append(f.convert(&quot;RGB&quot;))          # load fully, then close the file handle
+        store.upsert_images(batch, img_emb.embed_images(imgs))
+    return len(pairs)</code></pre></figure>
+  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:154</span><span class="loc">14 lines</span></figcaption><pre><code class="language-python">def upsert_images(self, pairs: Sequence[tuple[Boot, ProductImage]], vectors: np.ndarray) -&gt; None:
+    &quot;&quot;&quot;One point per photo. The id is derived from (boot, photo path), so re-indexing
+    overwrites instead of duplicating; the payload carries the boot&#x27;s attributes (for
+    filters) plus which photo and which view this is.&quot;&quot;&quot;
+    points = [
+        models.PointStruct(
+            id=point_id(f&quot;img:{b.id}:{im.path}&quot;),
+            vector=v.tolist(),
+            payload={**boot_payload(b), &quot;path&quot;: im.path, &quot;view&quot;: im.view,
+                     &quot;image_index&quot;: next(i for i, x in enumerate(b.images) if x.path == im.path)},
+        )
+        for (b, im), v in zip(pairs, vectors)
+    ]
+    self.client.upsert(self.image_collection, points=points, wait=True)</code></pre></figure>
+  <p class="prose">The point id is <code>uuid5("img:{boot}:{path}")</code>, so re-running ingestion overwrites. The manifest now also stores a hash over every photo's bytes, so a re-shot photo triggers re-indexing even when <code>catalog.json</code> is unchanged.</p>
+
+  <h3>Grouped search</h3>
+  <figure class="code"><figcaption><span class="path">app/retrieval/qdrant_store.py:189</span><span class="loc">35 lines</span></figcaption><pre><code class="language-python">def search_images(self, vector: np.ndarray, filters: Filters | None, limit: int,
+                  source: str = &quot;image_vector&quot;, photos_per_boot: int = 3, aggregation: str = &quot;max&quot;,
+                  views: list[str] | None = None, exclude_paths: list[str] | None = None) -&gt; list[RetrievedItem]:
+    &quot;&quot;&quot;Photo-level search grouped to boot level.
+
+    limit           -&gt; how many BOOTS to return (not photos)
+    photos_per_boot -&gt; how many of each boot&#x27;s best photos Qdrant returns (group_size)
+    aggregation     -&gt; &quot;max&quot; (MaxSim) or &quot;mean_top3&quot;
+    views           -&gt; optional: only search these views (e.g. [&quot;sole&quot;])
+    exclude_paths   -&gt; optional: ignore these photos (used by the leave-one-out eval)
+    &quot;&quot;&quot;
+    must = [models.FieldCondition(key=&quot;view&quot;, match=models.MatchAny(any=views))] if views else []
+    must_not = ([models.FieldCondition(key=&quot;path&quot;, match=models.MatchAny(any=exclude_paths))]
+                if exclude_paths else [])
+    result = self.client.query_points_groups(
+        collection_name=self.image_collection,
+        query=vector.tolist(),
+        group_by=&quot;boot_id&quot;,
+        limit=limit,
+        group_size=photos_per_boot,
+        query_filter=with_conditions(to_qdrant_filter(filters), must, must_not),
+        with_payload=True,
+        search_params=models.SearchParams(hnsw_ef=128),
+    )
+    items = []
+    for group in result.groups:
+        hits = sorted(group.hits, key=lambda h: h.score, reverse=True)
+        scores = [h.score for h in hits]
+        score = scores[0] if aggregation == &quot;max&quot; else sum(scores[:3]) / len(scores[:3])
+        best = hits[0].payload
+        items.append(RetrievedItem(
+            boot_id=str(group.id), score=float(score), source=source,
+            matched_image=best.get(&quot;path&quot;), matched_view=best.get(&quot;view&quot;), image_hits=len(hits),
+        ))
+    return sorted(items, key=lambda r: r.score, reverse=True)</code></pre></figure>
+  <ul class="read">
+    <li><span><code>limit</code> counts boots, not photos. <code>group_size=3</code> brings back each boot's best three photos for the optional <code>mean_top3</code> scoring.</span></li>
+    <li><span>Product filters (waterproof, price, …) are in every photo's payload, so they still run inside the HNSW search.</span></li>
+    <li><span><code>views</code> and <code>exclude_paths</code> exist for the evaluation: "search only side photos" simulates the old one-photo index, and excluding the query photo makes a leave-one-out test possible.</span></li>
+  </ul>
+
+  <h3>Several query photos at once</h3>
+  <figure class="code"><figcaption><span class="path">app/retrieval/search_engine.py:81</span><span class="loc">12 lines</span></figcaption><pre><code class="language-python">def image(self, imgs: Image.Image | list[Image.Image], filters: Filters | None = None, k: int | None = None,
+          exclude_paths: list[str] | None = None) -&gt; list[RetrievedItem]:
+    imgs = [imgs] if isinstance(imgs, Image.Image) else list(imgs)
+    if not imgs:
+        return []
+    vectors = self.image_embedder.embed_images(imgs)            # one batch for all query photos
+    per_query = [
+        self.store.search_images(v, filters, k or self.candidate_k, photos_per_boot=self.photos_per_boot,
+                                 aggregation=self.image_aggregation, exclude_paths=exclude_paths)
+        for v in vectors
+    ]
+    return per_query[0] if len(per_query) == 1 else combine_query_images(per_query)</code></pre></figure>
+  <figure class="code"><figcaption><span class="path">app/retrieval/search_engine.py:148</span><span class="loc">23 lines</span></figcaption><pre><code class="language-python">def combine_query_images(per_query: list[list[RetrievedItem]]) -&gt; list[RetrievedItem]:
+    &quot;&quot;&quot;Average each boot&#x27;s best-photo score over all query photos (symmetric MaxSim).
+
+    A boot missing from one query photo&#x27;s result list scored below that list&#x27;s cut-off, so we
+    use that list&#x27;s lowest score as an upper-bound estimate instead of 0 (less harsh, still
+    ranks it below boots that did make the list).
+    &quot;&quot;&quot;
+    floors = [min((r.score for r in lst), default=0.0) for lst in per_query]
+    boots = {r.boot_id for lst in per_query for r in lst}
+    combined = []
+    for bid in boots:
+        scores, best = [], None
+        for lst, floor in zip(per_query, floors):
+            hit = next((r for r in lst if r.boot_id == bid), None)
+            scores.append(hit.score if hit else floor)
+            if hit and (best is None or hit.score &gt; best.score):
+                best = hit
+        combined.append(RetrievedItem(
+            boot_id=bid, score=sum(scores) / len(scores), source=&quot;image_vector&quot;,
+            matched_image=best.matched_image, matched_view=best.matched_view,
+            image_hits=sum(1 for lst in per_query if any(r.boot_id == bid for r in lst)),
+        ))
+    return sorted(combined, key=lambda r: r.score, reverse=True)</code></pre></figure>
+  <div class="formula">score(boot) = mean<sub>q ∈ query photos</sub> &nbsp;max<sub>p ∈ boot photos</sub>&nbsp; cos(q, p)</div>
+  <p class="prose">This is symmetric MaxSim (Chamfer similarity) between two sets of photos. Each query photo only needs to match the catalog view taken from the same angle, but the boot has to look right from every angle the shopper showed. The unit test checks that a boot good from both angles beats a boot that is great from one and absent from the other.</p>
+
+  <h3>Does it help? Measured on held-out photos</h3>
+  <p class="prose">The generator also writes 192 "shopper photos": new shots of a boot from one of its angles with stronger rotation, scale, lighting and background changes. They are never indexed.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Index strategy</th><th class="num">product@1</th><th class="num">product@5</th><th class="num">MRR</th></tr></thead>
+    <tbody>
+      <tr><td>One photo per boot (side view)</td><td class="num">0.667</td><td class="num">0.927</td><td class="num">0.777</td></tr>
+      <tr class="win"><td>Every photo, MaxSim (default)</td><td class="num">0.771</td><td class="num">0.901</td><td class="num">0.832</td></tr>
+      <tr><td>Every photo, mean of best 3</td><td class="num">0.693</td><td class="num">0.911</td><td class="num">0.790</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">The gain is largest for angles a single side photo can't cover: sole (MRR 0.71 → 0.83), top (0.37 → 0.57) and toe close-ups (0.83 → 0.94). A second test removes the query's own angle from the target boot. There one canonical photo wins (MRR 0.75 vs 0.50), because other boots' photos from that angle compete. A CI gate requires every-photo MaxSim to beat one photo per boot on the shopper set.</p>
+  <figure class="code"><figcaption><span class="path">app/evaluation/image_eval.py:50</span><span class="loc">27 lines</span></figcaption><pre><code class="language-python">def _run(engine, queries, vectors, exclude_self: bool) -&gt; tuple[dict, dict]:
+    catalog = engine.catalog
+    primary_views = sorted({b.images[0].view for b in catalog.values() if b.images})
+    strategies, by_view = {}, {}
+    for name, cfg in STRATEGIES.items():
+        p1, p5, rr, look, lat = [], [], [], [], []
+        for (boot_id, path, view), vec in zip(queries, vectors):
+            views = primary_views if cfg[&quot;views&quot;] == [&quot;__primary__&quot;] else None
+            t0 = time.perf_counter()
+            hits = engine.store.search_images(vec, None, limit=10, photos_per_boot=3, aggregation=cfg[&quot;aggregation&quot;],
+                                              views=views, exclude_paths=[path] if exclude_self else None)
+            lat.append((time.perf_counter() - t0) * 1000)
+            ranked = [h.boot_id for h in hits]
+            rank = ranked.index(boot_id) + 1 if boot_id in ranked else None
+            p1.append(1.0 if rank == 1 else 0.0)
+            p5.append(1.0 if rank and rank &lt;= 5 else 0.0)
+            rr.append(1 / rank if rank else 0.0)
+            target = catalog[boot_id]
+            top5 = [catalog[b] for b in ranked[:5]]
+            look.append(sum(b.category == target.category and b.color == target.color for b in top5) / max(len(top5), 1))
+            by_view.setdefault(view, {}).setdefault(name, []).append(rr[-1])
+        strategies[name] = {
+            &quot;product@1&quot;: round(statistics.mean(p1), 3), &quot;product@5&quot;: round(statistics.mean(p5), 3),
+            &quot;MRR&quot;: round(statistics.mean(rr), 3), &quot;lookalike@5&quot;: round(statistics.mean(look), 3),
+            &quot;p50_ms&quot;: round(sorted(lat)[len(lat) // 2], 2),
+        }
+    return strategies, {v: {k: round(statistics.mean(x), 3) for k, x in d.items()} for v, d in sorted(by_view.items())}</code></pre></figure>
+
+  <div class="say"><div class="lbl">Say it in the interview</div>
+    <p>"Each photo is its own vector, Qdrant groups hits by product, and the product scores by its best photo. That lets a sole photo match the sole view and tells the shopper which photo matched. I measured it on held-out photos, product@1 went from 0.67 to 0.77, and I found where it's weaker: when the catalog lacks the query's angle, which points to a view-invariant embedder or blending in a per-product centroid."</p>
   </div>
 </section>
 
@@ -911,16 +1202,18 @@ def tokenize(text: str) -&gt; list[str]:
     </tbody>
   </table></div>
   <p class="prose">B wins even though BM25 ranked A first, because both retrievers placed B near the top. Weights shift this: for a SKU lookup the agent sets <code>keyword: 2.0</code>, and when a photo is uploaded with text it sets <code>image: 1.5</code>. The unit test <code>test_rrf_weights</code> checks exactly that.</p>
-  <figure class="code"><figcaption><span class="path">app/retrieval/fusion.py:24</span><span class="loc">22 lines</span></figcaption><pre><code class="language-python">def reciprocal_rank_fusion(
+  <figure class="code"><figcaption><span class="path">app/retrieval/fusion.py:24</span><span class="loc">28 lines</span></figcaption><pre><code class="language-python">def reciprocal_rank_fusion(
     result_lists: dict[str, list[RetrievedItem]],
     weights: dict[str, float] | None = None,
     k: int = 60,
-) -&gt; list[tuple[str, float, list[str], str | None]]:
-    &quot;&quot;&quot;Returns [(boot_id, fused_score, contributing_sources, best_evidence)] sorted by score.&quot;&quot;&quot;
+) -&gt; list[tuple[str, float, list[str], str | None, tuple[str, str | None] | None]]:
+    &quot;&quot;&quot;Returns [(boot_id, fused_score, contributing_sources, best_evidence, best_photo)] sorted by
+    score. best_photo is (path, view) of the photo an image retriever matched, if any.&quot;&quot;&quot;
     weights = weights or {}
     scores: dict[str, float] = defaultdict(float)
     sources: dict[str, list[str]] = defaultdict(list)
     evidence: dict[str, tuple[int, str]] = {}
+    photo: dict[str, tuple[int, str, str | None]] = {}
 
     for name, items in result_lists.items():
         w = weights.get(name, 1.0)
@@ -930,8 +1223,12 @@ def tokenize(text: str) -&gt; list[str]:
             # keep the evidence from whichever retriever ranked this boot highest
             if item.evidence and (item.boot_id not in evidence or rank &lt; evidence[item.boot_id][0]):
                 evidence[item.boot_id] = (rank, item.evidence)
+            # and the best-matching photo from whichever image retriever ranked it highest
+            if item.matched_image and (item.boot_id not in photo or rank &lt; photo[item.boot_id][0]):
+                photo[item.boot_id] = (rank, item.matched_image, item.matched_view)
 
-    fused = [(bid, s, sources[bid], evidence.get(bid, (0, None))[1]) for bid, s in scores.items()]
+    fused = [(bid, s, sources[bid], evidence.get(bid, (0, None))[1],
+              (photo[bid][1], photo[bid][2]) if bid in photo else None) for bid, s in scores.items()]
     return sorted(fused, key=lambda x: x[1], reverse=True)</code></pre></figure>
 
   <div class="say"><div class="lbl">Say it in the interview</div>
@@ -946,15 +1243,15 @@ def tokenize(text: str) -&gt; list[str]:
   <div class="prose">
     <p><code>SearchEngine</code> exposes four tools: <code>keyword</code> (BM25), <code>semantic</code> (text vectors), <code>image</code> (image vectors) and <code>text_to_image</code> (CLIP only). The agent hands it a <code>RetrievalPlan</code>: which tools, what weights, which filters. <code>retrieve()</code> runs the chosen tools on a thread pool and times each one; <code>fuse()</code> applies RRF and a final filter check.</p>
   </div>
-  <figure class="code"><figcaption><span class="path">app/retrieval/search_engine.py:85</span><span class="loc">20 lines</span></figcaption><pre><code class="language-python">def retrieve(self, plan: RetrievalPlan) -&gt; tuple[dict[str, list[RetrievedItem]], dict[str, float]]:
+  <figure class="code"><figcaption><span class="path">app/retrieval/search_engine.py:108</span><span class="loc">20 lines</span></figcaption><pre><code class="language-python">def retrieve(self, plan: RetrievalPlan) -&gt; tuple[dict[str, list[RetrievedItem]], dict[str, float]]:
     &quot;&quot;&quot;Run the selected retrievers IN PARALLEL (they&#x27;re I/O + CPU bound and independent).
     Returns (results per tool, latency ms per tool).&quot;&quot;&quot;
     jobs = {}
     for tool in plan.tools:
         if tool in (&quot;keyword&quot;, &quot;semantic&quot;, &quot;text_to_image&quot;) and plan.query.strip():
             jobs[tool] = (getattr(self, tool), plan.query)
-        elif tool == &quot;image&quot; and plan.image is not None:
-            jobs[tool] = (self.image, plan.image)
+        elif tool == &quot;image&quot; and plan.images:
+            jobs[tool] = (self.image, plan.images)
 
     def timed(fn, arg):
         t0 = time.perf_counter()
@@ -966,14 +1263,16 @@ def tokenize(text: str) -&gt; list[str]:
     for tool, fut in futures.items():
         results[tool], latencies[tool] = fut.result()
     return results, latencies</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">app/retrieval/search_engine.py:106</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">def fuse(self, results: dict[str, list[RetrievedItem]], plan: RetrievalPlan) -&gt; list[SearchResult]:
+  <figure class="code"><figcaption><span class="path">app/retrieval/search_engine.py:129</span><span class="loc">13 lines</span></figcaption><pre><code class="language-python">def fuse(self, results: dict[str, list[RetrievedItem]], plan: RetrievalPlan) -&gt; list[SearchResult]:
     fused = reciprocal_rank_fusion(results, plan.weights, self.rrf_k)
     out: list[SearchResult] = []
-    for boot_id, score, sources, evidence in fused:
+    for boot_id, score, sources, evidence, photo in fused:
         boot = self.catalog.get(boot_id)
         if boot is None or not plan.filters.matches(boot):   # final safety net for every retriever
             continue
-        out.append(SearchResult(boot=boot, score=round(score, 5), sources=sources, evidence=evidence))
+        out.append(SearchResult(boot=boot, score=round(score, 5), sources=sources, evidence=evidence,
+                                matched_image=photo[0] if photo else None,
+                                matched_view=photo[1] if photo else None))
         if len(out) &gt;= plan.top_k:
             break
     return out</code></pre></figure>
@@ -1049,7 +1348,7 @@ def tokenize(text: str) -&gt; list[str]:
   </figure>
 
   <h3>Wiring the graph</h3>
-  <figure class="code"><figcaption><span class="path">app/agent/graph.py:241</span><span class="loc">18 lines</span></figcaption><pre><code class="language-python">def _build(self):
+  <figure class="code"><figcaption><span class="path">app/agent/graph.py:251</span><span class="loc">18 lines</span></figcaption><pre><code class="language-python">def _build(self):
     g = StateGraph(AgentState)
     for name in (&quot;guard_input&quot;, &quot;understand&quot;, &quot;retrieve&quot;, &quot;reflect&quot;, &quot;generate&quot;, &quot;guard_output&quot;):
         g.add_node(name, getattr(self, name))
@@ -1073,7 +1372,7 @@ def tokenize(text: str) -&gt; list[str]:
   <figure class="code"><figcaption><span class="path">app/agent/graph.py:62</span><span class="loc">28 lines</span></figcaption><pre><code class="language-python">class AgentState(TypedDict, total=False):
     # inputs
     query: str
-    image: Any                    # PIL.Image | None
+    images: list[Any]             # 0..N query photos (PIL.Image)
     mode: str                     # auto | keyword | semantic | image | hybrid
     user_filters: Filters         # explicit filters from the UI (always win)
     top_k: int
@@ -1100,7 +1399,7 @@ def tokenize(text: str) -&gt; list[str]:
     usage: LLMUsage</code></pre></figure>
 
   <h3>understand: LLM first, rules as the safety net</h3>
-  <figure class="code"><figcaption><span class="path">app/agent/graph.py:124</span><span class="loc">16 lines</span></figcaption><pre><code class="language-python">understood_by = &quot;rules&quot;
+  <figure class="code"><figcaption><span class="path">app/agent/graph.py:131</span><span class="loc">16 lines</span></figcaption><pre><code class="language-python">understood_by = &quot;rules&quot;
 # Only spend LLM tokens when the agent is choosing the strategy (auto mode) and there is text
 if mode == &quot;auto&quot; and query and self.llm.available:
     data = self.llm.complete_json(QUERY_UNDERSTANDING_SYSTEM, f&quot;&lt;query&gt;{query}&lt;/query&gt;&quot;, usage)
@@ -1150,7 +1449,7 @@ if mode == &quot;auto&quot; and query and self.llm.available:
     if m := PRICE_MIN.search(q):</code></pre></figure>
 
   <h3>Planning: which tools, with what weight</h3>
-  <figure class="code"><figcaption><span class="path">app/agent/graph.py:145</span><span class="loc">21 lines</span></figcaption><pre><code class="language-python"># ---- tool selection + weights (the &quot;planning&quot; step)
+  <figure class="code"><figcaption><span class="path">app/agent/graph.py:152</span><span class="loc">21 lines</span></figcaption><pre><code class="language-python"># ---- tool selection + weights (the &quot;planning&quot; step)
 if mode == &quot;keyword&quot;:
     tools, weights = [&quot;keyword&quot;], {}
 elif mode == &quot;semantic&quot;:
@@ -1159,9 +1458,9 @@ elif mode == &quot;image&quot;:
     tools, weights = [&quot;image&quot;], {}
 else:  # auto / hybrid
     tools, weights = [], {}
-    if image is not None:
+    if images:
         tools.append(&quot;image&quot;)
-        weights[&quot;image&quot;] = 1.5 if query else 1.0      # the photo is the strongest signal
+        weights[&quot;image&quot;] = 1.5 if query else 1.0      # the photos are the strongest signal
     if query:
         tools += [&quot;keyword&quot;, &quot;semantic&quot;]
         if parsed[&quot;intent&quot;] == &quot;keyword_lookup&quot;:
@@ -1183,7 +1482,7 @@ if mode != &quot;auto&quot;:
   </table></div>
 
   <h3>reflect: the self-correction loop</h3>
-  <figure class="code"><figcaption><span class="path">app/agent/graph.py:188</span><span class="loc">13 lines</span></figcaption><pre><code class="language-python">def reflect(self, state: AgentState) -&gt; AgentState:
+  <figure class="code"><figcaption><span class="path">app/agent/graph.py:196</span><span class="loc">13 lines</span></figcaption><pre><code class="language-python">def reflect(self, state: AgentState) -&gt; AgentState:
     &quot;&quot;&quot;If nothing matched, relax the most restrictive remaining filter and retry.&quot;&quot;&quot;
     t0 = time.perf_counter()
     if state[&quot;results&quot;] or state[&quot;attempts&quot;] &gt; MAX_RETRIES:
@@ -1203,14 +1502,16 @@ if mode != &quot;auto&quot;:
   </ul>
 
   <h3>generate</h3>
-  <figure class="code"><figcaption><span class="path">app/agent/graph.py:202</span><span class="loc">15 lines</span></figcaption><pre><code class="language-python">def generate(self, state: AgentState) -&gt; AgentState:
+  <figure class="code"><figcaption><span class="path">app/agent/graph.py:210</span><span class="loc">17 lines</span></figcaption><pre><code class="language-python">def generate(self, state: AgentState) -&gt; AgentState:
     t0 = time.perf_counter()
     results, usage = state[&quot;results&quot;], state[&quot;usage&quot;]
     variant = state.get(&quot;variant&quot;, &quot;A&quot;)
     answer = None
     if results and self.llm.available and state[&quot;safe_query&quot;]:
+        n_photos = len(state.get(&quot;images&quot;) or [])
+        photo_note = f&quot;The shopper also uploaded {n_photos} reference photo(s).&quot; if n_photos else &quot;&quot;
         user_msg = (f&quot;Shopper request: &lt;query&gt;{state[&#x27;safe_query&#x27;]}&lt;/query&gt;\n&quot;
-                    f&quot;{&#x27;The shopper also uploaded a reference photo.&#x27; if state.get(&#x27;image&#x27;) is not None else &#x27;&#x27;}\n&quot;
+                    f&quot;{photo_note}\n&quot;
                     f&quot;{format_catalog_context(results[:5])}&quot;)
         answer = self.llm.complete(ANSWER_SYSTEM.get(variant, ANSWER_SYSTEM[&quot;A&quot;]), user_msg, usage)
     source = &quot;llm&quot; if answer else &quot;template&quot;
@@ -1441,7 +1742,7 @@ BLOCK_THRESHOLD = 0.8</code></pre></figure>
   </figure>
 
   <h3>Startup and middleware</h3>
-  <figure class="code"><figcaption><span class="path">app/api/main.py:70</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">@asynccontextmanager
+  <figure class="code"><figcaption><span class="path">app/api/main.py:72</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">@asynccontextmanager
 async def lifespan(_: FastAPI):
     t0 = time.perf_counter()
     engine = get_engine()
@@ -1452,7 +1753,7 @@ async def lifespan(_: FastAPI):
               llm=state.agent.llm.available, cache=state.cache.backend,
               ms=round((time.perf_counter() - t0) * 1000))
     yield</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">app/api/main.py:90</span><span class="loc">18 lines</span></figcaption><pre><code class="language-python">@app.middleware(&quot;http&quot;)
+  <figure class="code"><figcaption><span class="path">app/api/main.py:92</span><span class="loc">18 lines</span></figcaption><pre><code class="language-python">@app.middleware(&quot;http&quot;)
 async def observe(request: Request, call_next):
     rid = request.headers.get(&quot;x-request-id&quot;) or uuid.uuid4().hex[:16]
     request_id_var.set(rid)
@@ -1477,7 +1778,7 @@ async def observe(request: Request, call_next):
   </ul>
 
   <h3>Security dependency and the A/B split</h3>
-  <figure class="code"><figcaption><span class="path">app/api/main.py:114</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">def security(request: Request) -&gt; None:
+  <figure class="code"><figcaption><span class="path">app/api/main.py:116</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">def security(request: Request) -&gt; None:
     &quot;&quot;&quot;Optional API key + per-IP sliding-window rate limit.&quot;&quot;&quot;
     if settings.api_key and request.headers.get(&quot;x-api-key&quot;) != settings.api_key:
         raise HTTPException(401, &quot;Invalid or missing X-API-Key&quot;)
@@ -1488,16 +1789,16 @@ async def observe(request: Request, call_next):
     if len(window) &gt;= settings.rate_limit_per_minute:
         raise HTTPException(429, &quot;Rate limit exceeded, slow down&quot;)
     window.append(now)</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">app/api/main.py:127</span><span class="loc">5 lines</span></figcaption><pre><code class="language-python">def ab_variant(session_id: str | None) -&gt; str:
+  <figure class="code"><figcaption><span class="path">app/api/main.py:129</span><span class="loc">5 lines</span></figcaption><pre><code class="language-python">def ab_variant(session_id: str | None) -&gt; str:
     &quot;&quot;&quot;Stable 50/50 split: the same session always sees the same prompt variant.&quot;&quot;&quot;
     if not session_id:
         return &quot;A&quot;
     return &quot;A&quot; if int(hashlib.md5(session_id.encode()).hexdigest(), 16) % 2 == 0 else &quot;B&quot;</code></pre></figure>
 
   <h3>The heart of <code>/search</code>: cache, then agent</h3>
-  <figure class="code"><figcaption><span class="path">app/api/main.py:179</span><span class="loc">16 lines</span></figcaption><pre><code class="language-python"># ---------------- cache lookup
+  <figure class="code"><figcaption><span class="path">app/api/main.py:184</span><span class="loc">16 lines</span></figcaption><pre><code class="language-python"># ---------------- cache lookup
 key = make_key({&quot;q&quot;: req.query, &quot;mode&quot;: req.mode, &quot;f&quot;: req.filters.model_dump(), &quot;k&quot;: req.top_k,
-                &quot;v&quot;: variant, &quot;img&quot;: image_hash, &quot;pv&quot;: PROMPT_VERSION, &quot;n&quot;: len(state.agent.engine.catalog)})
+                &quot;v&quot;: variant, &quot;img&quot;: image_hashes, &quot;pv&quot;: PROMPT_VERSION, &quot;n&quot;: len(state.agent.engine.catalog)})
 if req.use_cache and (cached := state.cache.get(key)):
     m.CACHE_HITS.inc()
     cached = dict(cached)   # never mutate the cached object (in-memory backend shares it)
@@ -1507,7 +1808,7 @@ if req.use_cache and (cached := state.cache.get(key)):
 m.CACHE_MISSES.inc()
 
 # ---------------- run the agent
-out = state.agent.run(query=req.query, image=image, mode=req.mode, user_filters=req.filters,
+out = state.agent.run(query=req.query, images=images, mode=req.mode, user_filters=req.filters,
                       top_k=req.top_k, variant=variant)
 usage = out.get(&quot;usage&quot;)
 results = out.get(&quot;results&quot;, [])</code></pre></figure>
@@ -1597,18 +1898,19 @@ FEEDBACK = Counter(&quot;feedback_total&quot;, &quot;User feedback&quot;, [&quot
   <div class="prose">
     <p>The UI holds no model and no index. It builds a payload, posts it, and renders what comes back, which is why it can deploy and fail independently of the API. The design choices are about trust: show which retriever found each boot and the text that matched, say which filters were relaxed, let the user override the agent, and collect feedback.</p>
   </div>
-  <figure class="code"><figcaption><span class="path">ui/streamlit_app.py:174</span><span class="loc">11 lines</span></figcaption><pre><code class="language-python">if go:
+  <figure class="code"><figcaption><span class="path">ui/streamlit_app.py:190</span><span class="loc">12 lines</span></figcaption><pre><code class="language-python">if go:
     payload = {&quot;query&quot;: query or &quot;&quot;, &quot;mode&quot;: mode, &quot;top_k&quot;: top_k, &quot;filters&quot;: filters,
                &quot;session_id&quot;: st.session_state.session_id, &quot;use_cache&quot;: use_cache}
-    if image_bytes:
-        payload[&quot;image_base64&quot;] = base64.b64encode(image_bytes).decode()
+    if query_images:   # first photo + extra angles; the API combines them (symmetric MaxSim)
+        payload[&quot;image_base64&quot;] = base64.b64encode(query_images[0]).decode()
+        payload[&quot;images_base64&quot;] = [base64.b64encode(b).decode() for b in query_images[1:]]
     try:
         with st.spinner(&quot;Agent is planning, retrieving and checking results…&quot;):
             st.session_state.last = call_search(payload)
     except Exception as e:  # noqa: BLE001 — show any API error to the user
         st.session_state.last = None
         st.error(f&quot;Search failed: {e}&quot;)</code></pre></figure>
-  <figure class="code"><figcaption><span class="path">ui/streamlit_app.py:79</span><span class="loc">9 lines</span></figcaption><pre><code class="language-python">def md(text: str) -&gt; str:
+  <figure class="code"><figcaption><span class="path">ui/streamlit_app.py:83</span><span class="loc">9 lines</span></figcaption><pre><code class="language-python">def md(text: str) -&gt; str:
     &quot;&quot;&quot;Escape &#x27;$&#x27; so Streamlit markdown doesn&#x27;t render prices as LaTeX math.&quot;&quot;&quot;
     return text.replace(&quot;$&quot;, &quot;\\$&quot;)
 
@@ -1631,6 +1933,7 @@ def esc(text: str) -&gt; str:
   <div class="prose">
     <p>The golden set has 15 queries. Relevance is defined by attribute rules (for example <code>{"category": "hiking", "waterproof": true}</code>) instead of hand-picked ids, so it stays valid if the catalog is regenerated. Four systems are scored on the same queries.</p>
   </div>
+  <p class="prose">Image search has its own evaluation and gate; see <a href="#photos">Many photos per boot</a>.</p>
   <h3>nDCG@10 by system (lite embedder)</h3>
   <div class="bars" role="img" aria-label="nDCG at 10: keyword 0.807, vector only 0.663, hybrid 0.788, full agent 0.913.">
     <div class="bar"><span>Keyword (BM25)</span><div class="track"><div class="fill" style="width:80.7%"></div></div><span class="v">0.807</span></div>
@@ -1671,7 +1974,7 @@ def ndcg_at(ranked, rel, k):
     return dcg / ideal if ideal else 0.0</code></pre></figure>
 
   <h3>The quality gate in CI</h3>
-  <figure class="code"><figcaption><span class="path">tests/test_eval_gate.py</span><span class="loc">10 lines</span></figcaption><pre><code class="language-python">&quot;&quot;&quot;CI QUALITY GATE: the build fails if retrieval quality regresses below these thresholds.
+  <figure class="code"><figcaption><span class="path">tests/test_eval_gate.py</span><span class="loc">18 lines</span></figcaption><pre><code class="language-python">&quot;&quot;&quot;CI QUALITY GATE: the build fails if retrieval quality regresses below these thresholds.
 Thresholds are for the lite embedder; raise them when CI runs with the clip backend.&quot;&quot;&quot;
 from app.evaluation.retrieval_eval import evaluate
 
@@ -1680,7 +1983,15 @@ def test_retrieval_quality_gate(engine):
     report = evaluate(systems=[&quot;hybrid&quot;, &quot;agent&quot;])[&quot;systems&quot;]
     assert report[&quot;hybrid&quot;][&quot;nDCG@10&quot;] &gt;= 0.70, report
     assert report[&quot;agent&quot;][&quot;nDCG@10&quot;] &gt;= 0.80, report
-    assert report[&quot;agent&quot;][&quot;MRR&quot;] &gt;= 0.90, report</code></pre></figure>
+    assert report[&quot;agent&quot;][&quot;MRR&quot;] &gt;= 0.90, report
+
+
+def test_image_search_quality_gate(engine):
+    &quot;&quot;&quot;Indexing every photo (MaxSim) must beat one photo per boot on held-out shopper photos.&quot;&quot;&quot;
+    from app.evaluation.image_eval import evaluate as evaluate_images
+    shopper = evaluate_images(protocols=(&quot;shopper&quot;,))[&quot;protocols&quot;][&quot;shopper&quot;][&quot;strategies&quot;]
+    assert shopper[&quot;all_max&quot;][&quot;product@1&quot;] &gt;= 0.70, shopper
+    assert shopper[&quot;all_max&quot;][&quot;MRR&quot;] &gt; shopper[&quot;primary_only&quot;][&quot;MRR&quot;], shopper</code></pre></figure>
 
   <h3>Testing the LLM path without an LLM</h3>
   <p class="prose">A fake client returns canned JSON for understanding and a canned answer for generation. That makes the LLM path deterministic, fast and free to test, including the failure case where the model invents a product.</p>
@@ -1916,7 +2227,7 @@ spec:
     </div>
     <figcaption>A pull request that lowers retrieval quality fails at the first box, before any image is built.</figcaption>
   </figure>
-  <figure class="code"><figcaption><span class="path">.github/workflows/ci.yml:10</span><span class="loc">18 lines</span></figcaption><pre><code class="language-yaml">jobs:
+  <figure class="code"><figcaption><span class="path">.github/workflows/ci.yml:10</span><span class="loc">19 lines</span></figcaption><pre><code class="language-yaml">jobs:
   test:
     runs-on: ubuntu-latest
     steps:
@@ -1931,9 +2242,10 @@ spec:
       - name: Retrieval eval report
         run: |
           python -m app.evaluation.retrieval_eval &gt; eval.md
+          python -m app.evaluation.image_eval &gt;&gt; eval.md
           cat eval.md &gt;&gt; &quot;$GITHUB_STEP_SUMMARY&quot;
       - uses: actions/upload-artifact@v4
-        with: {name: eval-report, path: data/eval/report.json}</code></pre></figure>
+        with: {name: eval-report, path: &quot;data/eval/*report.json&quot;}</code></pre></figure>
 
   <h3>What the Grafana dashboard shows</h3>
   <div class="tbl"><table>

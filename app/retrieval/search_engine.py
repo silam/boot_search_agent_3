@@ -4,8 +4,18 @@ SearchEngine — the retrieval "tools" the agent can call, plus hybrid orchestra
 Retrievers (each returns product-level RetrievedItems):
   keyword(query)        -> BM25 over chunks                       (exact terms, SKUs, jargon)
   semantic(query)       -> text embedding vs text-chunk vectors   (meaning / paraphrase)
-  image(img)            -> image embedding vs product images      (visual similarity)
-  text_to_image(query)  -> CLIP text embedding vs product images  (cross-modal; clip backend only)
+  image(imgs)           -> image embedding vs EVERY product photo (visual similarity)
+  text_to_image(query)  -> CLIP text embedding vs product photos  (cross-modal; clip backend only)
+
+Multi-image search, both sides:
+  * catalog side: each boot has 8-10 photos, each its own vector. Qdrant groups photo hits by
+    boot and the boot's score is its best photo's score (MaxSim), see QdrantStore.search_images.
+  * query side: a shopper may upload several photos of the boot they want (e.g. a side shot
+    and a sole shot). Each query photo is searched separately and a boot's final score is the
+    AVERAGE over query photos of its best match:  score(b) = mean_q max_p sim(q, p)
+    That's the symmetric "MaxSim" (Chamfer) similarity between two sets of images: a boot
+    must look right from every angle the shopper showed, while each query photo only needs
+    to match the one catalog view that shows the same angle.
 
 `run(plan)` executes the retrievers the agent selected, fuses them with weighted RRF,
 applies hard filters, and hydrates full Boot objects.
@@ -37,7 +47,7 @@ class RetrievalPlan(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     query: str = ""
-    image: Image.Image | None = None
+    images: list[Image.Image] = []          # 0..N query photos
     tools: list[str] = ["keyword", "semantic"]
     weights: dict[str, float] = {}
     filters: Filters = Filters()
@@ -46,7 +56,8 @@ class RetrievalPlan(BaseModel):
 
 class SearchEngine:
     def __init__(self, store: QdrantStore, text_embedder: TextEmbedder, image_embedder: ImageEmbedder,
-                 catalog: dict[str, Boot], chunks: list[Chunk], candidate_k: int = 40, rrf_k: int = 60):
+                 catalog: dict[str, Boot], chunks: list[Chunk], candidate_k: int = 40, rrf_k: int = 60,
+                 photos_per_boot: int = 3, image_aggregation: str = "max"):
         self.store = store
         self.text_embedder = text_embedder
         self.image_embedder = image_embedder
@@ -54,6 +65,8 @@ class SearchEngine:
         self.bm25 = BM25Index(chunks)
         self.candidate_k = candidate_k
         self.rrf_k = rrf_k
+        self.photos_per_boot = photos_per_boot
+        self.image_aggregation = image_aggregation
         self._pool = ThreadPoolExecutor(max_workers=4)
 
     # ------------------------------------------------------------- individual tools
@@ -65,15 +78,25 @@ class SearchEngine:
         # chunks -> boots aggregation shrinks the list, so over-fetch chunks
         return self.store.search_text(vec, filters, (k or self.candidate_k) * 3)
 
-    def image(self, img: Image.Image, filters: Filters | None = None, k: int | None = None) -> list[RetrievedItem]:
-        vec = self.image_embedder.embed_images([img])[0]
-        return self.store.search_images(vec, filters, k or self.candidate_k)
+    def image(self, imgs: Image.Image | list[Image.Image], filters: Filters | None = None, k: int | None = None,
+              exclude_paths: list[str] | None = None) -> list[RetrievedItem]:
+        imgs = [imgs] if isinstance(imgs, Image.Image) else list(imgs)
+        if not imgs:
+            return []
+        vectors = self.image_embedder.embed_images(imgs)            # one batch for all query photos
+        per_query = [
+            self.store.search_images(v, filters, k or self.candidate_k, photos_per_boot=self.photos_per_boot,
+                                     aggregation=self.image_aggregation, exclude_paths=exclude_paths)
+            for v in vectors
+        ]
+        return per_query[0] if len(per_query) == 1 else combine_query_images(per_query)
 
     def text_to_image(self, query: str, filters: Filters | None = None, k: int | None = None) -> list[RetrievedItem]:
         if not self.image_embedder.supports_text_to_image:
             return []
         vec = self.image_embedder.embed_text_for_image(query)
-        return self.store.search_images(vec, filters, k or self.candidate_k, source="clip_text_to_image")
+        return self.store.search_images(vec, filters, k or self.candidate_k, source="clip_text_to_image",
+                                        photos_per_boot=self.photos_per_boot, aggregation=self.image_aggregation)
 
     def available_tools(self) -> list[str]:
         tools = ["keyword", "semantic", "image"]
@@ -89,8 +112,8 @@ class SearchEngine:
         for tool in plan.tools:
             if tool in ("keyword", "semantic", "text_to_image") and plan.query.strip():
                 jobs[tool] = (getattr(self, tool), plan.query)
-            elif tool == "image" and plan.image is not None:
-                jobs[tool] = (self.image, plan.image)
+            elif tool == "image" and plan.images:
+                jobs[tool] = (self.image, plan.images)
 
         def timed(fn, arg):
             t0 = time.perf_counter()
@@ -106,11 +129,13 @@ class SearchEngine:
     def fuse(self, results: dict[str, list[RetrievedItem]], plan: RetrievalPlan) -> list[SearchResult]:
         fused = reciprocal_rank_fusion(results, plan.weights, self.rrf_k)
         out: list[SearchResult] = []
-        for boot_id, score, sources, evidence in fused:
+        for boot_id, score, sources, evidence, photo in fused:
             boot = self.catalog.get(boot_id)
             if boot is None or not plan.filters.matches(boot):   # final safety net for every retriever
                 continue
-            out.append(SearchResult(boot=boot, score=round(score, 5), sources=sources, evidence=evidence))
+            out.append(SearchResult(boot=boot, score=round(score, 5), sources=sources, evidence=evidence,
+                                    matched_image=photo[0] if photo else None,
+                                    matched_view=photo[1] if photo else None))
             if len(out) >= plan.top_k:
                 break
         return out
@@ -118,3 +143,28 @@ class SearchEngine:
     def run(self, plan: RetrievalPlan) -> list[SearchResult]:
         results, _ = self.retrieve(plan)
         return self.fuse(results, plan)
+
+
+def combine_query_images(per_query: list[list[RetrievedItem]]) -> list[RetrievedItem]:
+    """Average each boot's best-photo score over all query photos (symmetric MaxSim).
+
+    A boot missing from one query photo's result list scored below that list's cut-off, so we
+    use that list's lowest score as an upper-bound estimate instead of 0 (less harsh, still
+    ranks it below boots that did make the list).
+    """
+    floors = [min((r.score for r in lst), default=0.0) for lst in per_query]
+    boots = {r.boot_id for lst in per_query for r in lst}
+    combined = []
+    for bid in boots:
+        scores, best = [], None
+        for lst, floor in zip(per_query, floors):
+            hit = next((r for r in lst if r.boot_id == bid), None)
+            scores.append(hit.score if hit else floor)
+            if hit and (best is None or hit.score > best.score):
+                best = hit
+        combined.append(RetrievedItem(
+            boot_id=bid, score=sum(scores) / len(scores), source="image_vector",
+            matched_image=best.matched_image, matched_view=best.matched_view,
+            image_hits=sum(1 for lst in per_query if any(r.boot_id == bid for r in lst)),
+        ))
+    return sorted(combined, key=lambda r: r.score, reverse=True)

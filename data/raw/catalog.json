@@ -20,7 +20,40 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Solid boot for the price, the sole has held up for a year."
     ],
-    "image": "images/BOOT-001.png"
+    "images": [
+      {
+        "path": "images/BOOT-001/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-001/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-001/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-001/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-001/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-001/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-001/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-001/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-002",
@@ -44,7 +77,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Wore these for construction sites and my feet felt great after 10 hours."
     ],
-    "image": "images/BOOT-002.png"
+    "images": [
+      {
+        "path": "images/BOOT-002/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-002/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-002/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-002/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-002/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-002/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-002/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-002/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-002/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-003",
@@ -68,7 +138,44 @@
       "Looks even better in person, the brown color is rich and deep.",
       "Wore these for warehouse shifts and my feet felt great after 10 hours."
     ],
-    "image": "images/BOOT-003.png"
+    "images": [
+      {
+        "path": "images/BOOT-003/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-003/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-003/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-003/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-003/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-003/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-003/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-003/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-003/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-004",
@@ -93,7 +200,40 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Kept my feet dry through a full day of factory floors."
     ],
-    "image": "images/BOOT-004.png"
+    "images": [
+      {
+        "path": "images/BOOT-004/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-004/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-004/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-004/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-004/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-004/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-004/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-004/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-005",
@@ -118,7 +258,48 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-005.png"
+    "images": [
+      {
+        "path": "images/BOOT-005/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-005/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-005/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-005/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-005/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-005/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-005/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-005/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-005/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-005/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-006",
@@ -144,7 +325,44 @@
       "Solid boot for the price, the sole has held up for a year.",
       "Solid boot for the price, the sole has held up for a year."
     ],
-    "image": "images/BOOT-006.png"
+    "images": [
+      {
+        "path": "images/BOOT-006/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-006/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-006/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-006/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-006/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-006/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-006/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-006/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-006/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-007",
@@ -169,7 +387,48 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-007.png"
+    "images": [
+      {
+        "path": "images/BOOT-007/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-007/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-007/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-007/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-007/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-007/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-007/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-007/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-007/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-007/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-008",
@@ -194,7 +453,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-008.png"
+    "images": [
+      {
+        "path": "images/BOOT-008/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-008/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-008/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-008/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-008/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-008/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-008/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-008/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-008/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-009",
@@ -217,7 +513,48 @@
       "Wore these for day hikes and my feet felt great after 10 hours.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-009.png"
+    "images": [
+      {
+        "path": "images/BOOT-009/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-009/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-009/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-009/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-009/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-009/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-009/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-009/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-009/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-009/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-010",
@@ -240,7 +577,48 @@
       "Solid boot for the price, the sole has held up for a year.",
       "Runs half a size large, order down. Quality of the synthetic ripstop is excellent."
     ],
-    "image": "images/BOOT-010.png"
+    "images": [
+      {
+        "path": "images/BOOT-010/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-010/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-010/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-010/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-010/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-010/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-010/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-010/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-010/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-010/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-011",
@@ -264,7 +642,44 @@
       "Kept my feet dry through a full day of mountain trails.",
       "Looks even better in person, the tan color is rich and deep."
     ],
-    "image": "images/BOOT-011.png"
+    "images": [
+      {
+        "path": "images/BOOT-011/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-011/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-011/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-011/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-011/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-011/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-011/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-011/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-011/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-012",
@@ -287,7 +702,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Kept my feet dry through a full day of mountain trails."
     ],
-    "image": "images/BOOT-012.png"
+    "images": [
+      {
+        "path": "images/BOOT-012/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-012/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-012/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-012/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-012/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-012/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-012/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-012/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-012/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-013",
@@ -310,7 +762,40 @@
       "Runs half a size large, order down. Quality of the suede and mesh is excellent.",
       "Looks even better in person, the black color is rich and deep."
     ],
-    "image": "images/BOOT-013.png"
+    "images": [
+      {
+        "path": "images/BOOT-013/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-013/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-013/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-013/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-013/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-013/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-013/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-013/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-014",
@@ -334,7 +819,48 @@
       "Looks even better in person, the oxblood color is rich and deep.",
       "Kept my feet dry through a full day of mountain trails."
     ],
-    "image": "images/BOOT-014.png"
+    "images": [
+      {
+        "path": "images/BOOT-014/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-014/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-014/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-014/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-014/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-014/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-014/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-014/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-014/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-014/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-015",
@@ -358,7 +884,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Wore these for muddy forest paths and my feet felt great after 10 hours."
     ],
-    "image": "images/BOOT-015.png"
+    "images": [
+      {
+        "path": "images/BOOT-015/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-015/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-015/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-015/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-015/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-015/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-015/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-015/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-015/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-016",
@@ -382,7 +945,40 @@
       "Solid boot for the price, the sole has held up for a year.",
       "Looks even better in person, the brown color is rich and deep."
     ],
-    "image": "images/BOOT-016.png"
+    "images": [
+      {
+        "path": "images/BOOT-016/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-016/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-016/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-016/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-016/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-016/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-016/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-016/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-017",
@@ -406,7 +1002,44 @@
       "Wore these for everyday western style and my feet felt great after 10 hours.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-017.png"
+    "images": [
+      {
+        "path": "images/BOOT-017/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-017/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-017/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-017/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-017/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-017/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-017/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-017/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-017/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-018",
@@ -430,7 +1063,48 @@
       "Solid boot for the price, the sole has held up for a year.",
       "Kept my feet dry through a full day of country concerts."
     ],
-    "image": "images/BOOT-018.png"
+    "images": [
+      {
+        "path": "images/BOOT-018/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-018/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-018/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-018/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-018/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-018/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-018/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-018/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-018/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-018/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-019",
@@ -452,7 +1126,40 @@
       "Kept my feet dry through a full day of ranch work.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-019.png"
+    "images": [
+      {
+        "path": "images/BOOT-019/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-019/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-019/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-019/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-019/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-019/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-019/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-019/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-020",
@@ -474,7 +1181,48 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Looks even better in person, the olive color is rich and deep."
     ],
-    "image": "images/BOOT-020.png"
+    "images": [
+      {
+        "path": "images/BOOT-020/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-020/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-020/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-020/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-020/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-020/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-020/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-020/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-020/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-020/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-021",
@@ -498,7 +1246,48 @@
       "Runs half a size large, order down. Quality of the exotic-look embossed leather is excellent.",
       "Kept my feet dry through a full day of ranch work."
     ],
-    "image": "images/BOOT-021.png"
+    "images": [
+      {
+        "path": "images/BOOT-021/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-021/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-021/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-021/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-021/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-021/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-021/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-021/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-021/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-021/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-022",
@@ -522,7 +1311,44 @@
       "Solid boot for the price, the sole has held up for a year.",
       "Looks even better in person, the olive color is rich and deep."
     ],
-    "image": "images/BOOT-022.png"
+    "images": [
+      {
+        "path": "images/BOOT-022/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-022/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-022/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-022/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-022/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-022/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-022/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-022/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-022/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-023",
@@ -546,7 +1372,44 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-023.png"
+    "images": [
+      {
+        "path": "images/BOOT-023/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-023/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-023/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-023/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-023/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-023/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-023/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-023/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-023/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-024",
@@ -568,7 +1431,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Looks even better in person, the navy color is rich and deep."
     ],
-    "image": "images/BOOT-024.png"
+    "images": [
+      {
+        "path": "images/BOOT-024/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-024/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-024/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-024/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-024/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-024/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-024/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-024/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-024/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-025",
@@ -591,7 +1491,44 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-025.png"
+    "images": [
+      {
+        "path": "images/BOOT-025/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-025/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-025/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-025/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-025/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-025/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-025/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-025/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-025/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-026",
@@ -614,7 +1551,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-026.png"
+    "images": [
+      {
+        "path": "images/BOOT-026/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-026/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-026/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-026/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-026/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-026/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-026/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-026/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-026/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-027",
@@ -639,7 +1613,40 @@
       "Kept my feet dry through a full day of weekend errands.",
       "Looks even better in person, the olive color is rich and deep."
     ],
-    "image": "images/BOOT-027.png"
+    "images": [
+      {
+        "path": "images/BOOT-027/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-027/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-027/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-027/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-027/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-027/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-027/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-027/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-028",
@@ -663,7 +1670,40 @@
       "Runs half a size large, order down. Quality of the polished leather is excellent.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-028.png"
+    "images": [
+      {
+        "path": "images/BOOT-028/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-028/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-028/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-028/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-028/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-028/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-028/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-028/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-029",
@@ -687,7 +1727,48 @@
       "Wore these for city walking and my feet felt great after 10 hours.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-029.png"
+    "images": [
+      {
+        "path": "images/BOOT-029/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-029/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-029/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-029/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-029/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-029/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-029/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-029/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-029/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-029/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-030",
@@ -710,7 +1791,44 @@
       "Runs half a size large, order down. Quality of the polished leather is excellent.",
       "Looks even better in person, the black color is rich and deep."
     ],
-    "image": "images/BOOT-030.png"
+    "images": [
+      {
+        "path": "images/BOOT-030/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-030/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-030/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-030/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-030/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-030/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-030/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-030/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-030/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-031",
@@ -734,7 +1852,40 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Runs half a size large, order down. Quality of the suede is excellent."
     ],
-    "image": "images/BOOT-031.png"
+    "images": [
+      {
+        "path": "images/BOOT-031/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-031/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-031/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-031/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-031/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-031/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-031/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-031/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-032",
@@ -759,7 +1910,44 @@
       "Looks even better in person, the olive color is rich and deep.",
       "Wore these for date nights and my feet felt great after 10 hours."
     ],
-    "image": "images/BOOT-032.png"
+    "images": [
+      {
+        "path": "images/BOOT-032/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-032/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-032/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-032/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-032/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-032/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-032/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-032/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-032/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-033",
@@ -783,7 +1971,40 @@
       "Kept my feet dry through a full day of muddy festivals.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-033.png"
+    "images": [
+      {
+        "path": "images/BOOT-033/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-033/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-033/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-033/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-033/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-033/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-033/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-033/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-034",
@@ -805,7 +2026,48 @@
       "Kept my feet dry through a full day of gardening.",
       "Runs half a size large, order down. Quality of the natural rubber is excellent."
     ],
-    "image": "images/BOOT-034.png"
+    "images": [
+      {
+        "path": "images/BOOT-034/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-034/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-034/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-034/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-034/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-034/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-034/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-034/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-034/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-034/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-035",
@@ -829,7 +2091,44 @@
       "Wore these for farm chores and my feet felt great after 10 hours.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-035.png"
+    "images": [
+      {
+        "path": "images/BOOT-035/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-035/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-035/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-035/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-035/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-035/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-035/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-035/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-035/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-036",
@@ -854,7 +2153,44 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Looks even better in person, the olive color is rich and deep."
     ],
-    "image": "images/BOOT-036.png"
+    "images": [
+      {
+        "path": "images/BOOT-036/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-036/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-036/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-036/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-036/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-036/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-036/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-036/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-036/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-037",
@@ -876,7 +2212,40 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Runs half a size large, order down. Quality of the PVC is excellent."
     ],
-    "image": "images/BOOT-037.png"
+    "images": [
+      {
+        "path": "images/BOOT-037/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-037/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-037/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-037/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-037/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-037/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-037/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-037/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-038",
@@ -898,7 +2267,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Solid boot for the price, the sole has held up for a year."
     ],
-    "image": "images/BOOT-038.png"
+    "images": [
+      {
+        "path": "images/BOOT-038/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-038/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-038/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-038/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-038/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-038/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-038/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-038/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-038/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-039",
@@ -920,7 +2326,48 @@
       "Solid boot for the price, the sole has held up for a year.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-039.png"
+    "images": [
+      {
+        "path": "images/BOOT-039/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-039/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-039/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-039/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-039/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-039/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-039/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-039/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-039/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-039/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-040",
@@ -943,7 +2390,44 @@
       "Runs half a size large, order down. Quality of the natural rubber is excellent.",
       "Solid boot for the price, the sole has held up for a year."
     ],
-    "image": "images/BOOT-040.png"
+    "images": [
+      {
+        "path": "images/BOOT-040/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-040/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-040/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-040/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-040/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-040/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-040/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-040/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-040/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-041",
@@ -967,7 +2451,48 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Looks even better in person, the oxblood color is rich and deep."
     ],
-    "image": "images/BOOT-041.png"
+    "images": [
+      {
+        "path": "images/BOOT-041/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-041/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-041/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-041/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-041/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-041/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-041/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-041/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-041/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-041/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-042",
@@ -992,7 +2517,44 @@
       "Kept my feet dry through a full day of forestry.",
       "Kept my feet dry through a full day of rough terrain."
     ],
-    "image": "images/BOOT-042.png"
+    "images": [
+      {
+        "path": "images/BOOT-042/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-042/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-042/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-042/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-042/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-042/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-042/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-042/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-042/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-043",
@@ -1018,7 +2580,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Kept my feet dry through a full day of lumber yards."
     ],
-    "image": "images/BOOT-043.png"
+    "images": [
+      {
+        "path": "images/BOOT-043/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-043/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-043/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-043/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-043/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-043/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-043/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-043/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-043/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-044",
@@ -1043,7 +2642,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Kept my feet dry through a full day of forestry."
     ],
-    "image": "images/BOOT-044.png"
+    "images": [
+      {
+        "path": "images/BOOT-044/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-044/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-044/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-044/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-044/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-044/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-044/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-044/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-044/09_lifestyle.png",
+        "view": "lifestyle"
+      }
+    ]
   },
   {
     "id": "BOOT-045",
@@ -1068,7 +2704,44 @@
       "A bit heavy, but very supportive and stable on uneven ground.",
       "Took about two weeks to break in, now they are the most comfortable boots I own."
     ],
-    "image": "images/BOOT-045.png"
+    "images": [
+      {
+        "path": "images/BOOT-045/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-045/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-045/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-045/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-045/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-045/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-045/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-045/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-045/09_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-046",
@@ -1093,7 +2766,48 @@
       "Kept my feet dry through a full day of forestry.",
       "Looks even better in person, the tan color is rich and deep."
     ],
-    "image": "images/BOOT-046.png"
+    "images": [
+      {
+        "path": "images/BOOT-046/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-046/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-046/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-046/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-046/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-046/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-046/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-046/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-046/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-046/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-047",
@@ -1117,7 +2831,48 @@
       "Runs half a size large, order down. Quality of the oil-tanned leather is excellent.",
       "A bit heavy, but very supportive and stable on uneven ground."
     ],
-    "image": "images/BOOT-047.png"
+    "images": [
+      {
+        "path": "images/BOOT-047/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-047/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-047/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-047/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-047/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-047/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-047/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-047/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-047/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-047/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-048",
@@ -1142,7 +2897,48 @@
       "Wore these for rough terrain and my feet felt great after 10 hours.",
       "Looks even better in person, the olive color is rich and deep."
     ],
-    "image": "images/BOOT-048.png"
+    "images": [
+      {
+        "path": "images/BOOT-048/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-048/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-048/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-048/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-048/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-048/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-048/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-048/08_detail_toe.png",
+        "view": "detail_toe"
+      },
+      {
+        "path": "images/BOOT-048/09_lifestyle.png",
+        "view": "lifestyle"
+      },
+      {
+        "path": "images/BOOT-048/10_detail_heel.png",
+        "view": "detail_heel"
+      }
+    ]
   },
   {
     "id": "BOOT-001",
@@ -1165,7 +2961,40 @@
       "Took about two weeks to break in, now they are the most comfortable boots I own.",
       "Solid boot for the price, the sole has held up for a year."
     ],
-    "image": "images/BOOT-001.png"
+    "images": [
+      {
+        "path": "images/BOOT-001/01_side_right.png",
+        "view": "side_right"
+      },
+      {
+        "path": "images/BOOT-001/02_side_left.png",
+        "view": "side_left"
+      },
+      {
+        "path": "images/BOOT-001/03_three_quarter.png",
+        "view": "three_quarter"
+      },
+      {
+        "path": "images/BOOT-001/04_front.png",
+        "view": "front"
+      },
+      {
+        "path": "images/BOOT-001/05_back.png",
+        "view": "back"
+      },
+      {
+        "path": "images/BOOT-001/06_top.png",
+        "view": "top"
+      },
+      {
+        "path": "images/BOOT-001/07_sole.png",
+        "view": "sole"
+      },
+      {
+        "path": "images/BOOT-001/08_detail_toe.png",
+        "view": "detail_toe"
+      }
+    ]
   },
   {
     "id": "BOOT-BAD",

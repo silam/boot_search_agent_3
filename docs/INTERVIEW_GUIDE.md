@@ -20,7 +20,7 @@ Open the UI with the agent trace on.
 2. **Keyword / SKU** — `BOOT-042`, then `kiltie lace guard`.
    "Dense embeddings are bad at exact tokens and rare jargon — this is why hybrid search exists.
    The agent detects a lookup and weights BM25 ×2."
-3. **Image** — pick a catalog photo, mode `image`. The same boot comes back first, then the same style.
+3. **Image** — upload two of the held-out shopper photos for one boot (e.g. `data/eval/query_photos/BOOT-012_front.png` and `BOOT-012_detail_toe.png`). The right boot comes back first, and each card says which of its 8–10 photos matched ("matched: front view"). Open "All photos" to show the gallery.
 4. **Image + text** — keep the photo, type `but waterproof`, mode `auto`. "Image weighted 1.5,
    text retrievers add the constraint, the waterproof filter is enforced on every list, RRF rewards
    boots that show up in several lists."
@@ -74,6 +74,13 @@ Open the UI with the agent trace on.
 - *Why two embedding models?* MiniLM is trained for sentence similarity (good for product copy);
   CLIP's text tower is trained on short captions with a 77-token limit, so I use it only to search the
   image space.
+- *A product has many photos. How do you search them?* One vector per photo, all carrying the
+  boot id. Qdrant's grouping query returns the top boots with their best photos, and a boot scores
+  by its best photo (MaxSim). Several query photos are each searched and averaged, so the boot has
+  to look right from every angle shown. I measured it: on held-out shopper photos product@1 goes
+  from 0.67 (one photo per boot) to 0.77. I also found the limit: if the catalog has no photo from
+  the query's angle, one canonical photo is better, which is an argument for a view-invariant
+  embedder or blending in a per-product centroid.
 - *What is HNSW?* A layered proximity graph for approximate nearest neighbours: log-time search,
   tunable recall/latency with `m`, `ef_construct`, `hnsw_ef`.
 - *When would you fine-tune?* When eval shows the embedding model confuses domain terms
@@ -131,8 +138,9 @@ Open the UI with the agent trace on.
 
 ## Numbers to remember
 
-- 48 boots → 145 chunks; 2 dirty rows rejected by the cleaner.
+- 48 boots → 145 chunks and 437 photos (8–10 per boot); 2 dirty rows rejected by the cleaner.
+- Image search on 192 held-out shopper photos: product@1 0.77 with every-photo MaxSim vs 0.67 with one photo per boot.
 - RRF k = 60; keyword weight ×2 for lookups; image weight ×1.5 when combined with text.
 - Agent nDCG@10 0.913 vs BM25 0.807 vs dense-lite 0.663 on the golden set.
 - Retrieval p50 ≈ 3–7 ms in-process; cache hit < 1 ms.
-- 38 automated tests, including a retrieval quality gate in CI.
+- 47 automated tests, including a retrieval quality gate in CI.

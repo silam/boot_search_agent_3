@@ -14,7 +14,7 @@ def client():
 def test_health_ready(client):
     assert client.get("/health").json()["status"] == "ok"
     ready = client.get("/ready").json()
-    assert ready["boots"] == 48 and ready["images"] == 48
+    assert ready["boots"] == 48 and ready["images"] >= 48 * 8
 
 
 def test_search_text_and_cache(client):
@@ -25,11 +25,38 @@ def test_search_text_and_cache(client):
     assert r2["cache_hit"] and r2["request_id"] != r1["request_id"]
 
 
+def _b64(engine_boot, settings, view):
+    im = next(i for i in engine_boot.images if i.view == view)
+    return base64.b64encode((settings.raw_dir / im.path).read_bytes()).decode()
+
+
 def test_search_image_and_prefix(client, settings):
-    img = base64.b64encode((settings.raw_dir / "images" / "BOOT-033.png").read_bytes()).decode()
-    r = client.post("/api/search", json={"image_base64": img, "mode": "image", "top_k": 3}).json()
-    assert r["results"][0]["boot"]["id"] == "BOOT-033"
-    assert client.get(r["results"][0]["image_url"]).status_code == 200
+    from app.core.container import get_engine
+    boot = get_engine().catalog["BOOT-033"]
+    r = client.post("/api/search", json={"image_base64": _b64(boot, settings, "sole"), "mode": "image",
+                                         "top_k": 3}).json()
+    top = r["results"][0]
+    assert top["boot"]["id"] == "BOOT-033" and top["matched_view"] == "sole"
+    assert top["image_url"].endswith(f"/images/{[i.view for i in boot.images].index('sole')}")
+    assert client.get(top["image_url"]).status_code == 200
+    assert len(top["image_urls"]) == len(boot.images)
+
+
+def test_multi_photo_search(client, settings):
+    from app.core.container import get_engine
+    boot = get_engine().catalog["BOOT-031"]
+    r = client.post("/search", json={"image_base64": _b64(boot, settings, "side_right"),
+                                     "images_base64": [_b64(boot, settings, "sole")], "mode": "image"}).json()
+    assert r["results"][0]["boot"]["id"] == "BOOT-031"
+    too_many = [_b64(boot, settings, "front")] * 6
+    assert client.post("/search", json={"images_base64": too_many, "mode": "image"}).status_code == 422
+
+
+def test_gallery_endpoints(client):
+    gallery = client.get("/boots/BOOT-001/images").json()
+    assert len(gallery) >= 8 and gallery[0]["view"] == "side_right"
+    assert client.get(gallery[-1]["url"]).status_code == 200
+    assert client.get("/boots/BOOT-001/images/99").status_code == 404
 
 
 def test_validation_errors(client):

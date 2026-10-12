@@ -11,6 +11,10 @@ from app.core.models import Boot, Filters, SearchMode
 class SearchRequest(BaseModel):
     query: str = Field("", max_length=2000, examples=["waterproof hiking boots under $200"])
     image_base64: str | None = Field(None, description="Optional reference photo (PNG/JPEG/WEBP), base64-encoded")
+    images_base64: list[str] = Field(
+        default_factory=list, max_length=10,
+        description="Optional extra photos of the SAME boot from other angles (side, sole, ...). "
+                    "All photos are combined: a boot must look right from every angle shown.")
     mode: SearchMode = "auto"
     filters: Filters = Filters()
     top_k: int = Field(8, ge=1, le=24)
@@ -23,7 +27,15 @@ class ResultItem(BaseModel):
     score: float
     sources: list[str]
     evidence: str | None = None
-    image_url: str | None = None
+    image_url: str | None = None            # best photo to show: the matched one, else the primary
+    matched_view: str | None = None         # which view matched the query photo(s), e.g. "sole"
+    image_urls: list[str] = []              # the boot's whole gallery
+
+
+class BootImage(BaseModel):
+    index: int
+    view: str
+    url: str
 
 
 class SearchResponse(BaseModel):

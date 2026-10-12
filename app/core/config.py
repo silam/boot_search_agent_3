@@ -53,6 +53,11 @@ class Settings(BaseSettings):
     candidate_k: int = 40        # how many chunks each retriever returns before fusion
     rrf_k: int = 60              # Reciprocal Rank Fusion constant (60 is the value from the original paper)
 
+    # ---- multi-image search (a boot has many photos; one vector per photo)
+    image_photos_per_boot: int = 3                           # Qdrant group_size
+    image_aggregation: Literal["max", "mean_top3"] = "max"   # MaxSim by default
+    max_query_images: int = 5                                # photos a shopper may upload at once
+
     # ---- LLM (Anthropic). No key -> deterministic rule-based fallback, so demos never break.
     anthropic_api_key: str | None = None
     llm_model: str = "claude-haiku-5-5"

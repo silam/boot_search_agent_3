@@ -25,12 +25,14 @@ def reciprocal_rank_fusion(
     result_lists: dict[str, list[RetrievedItem]],
     weights: dict[str, float] | None = None,
     k: int = 60,
-) -> list[tuple[str, float, list[str], str | None]]:
-    """Returns [(boot_id, fused_score, contributing_sources, best_evidence)] sorted by score."""
+) -> list[tuple[str, float, list[str], str | None, tuple[str, str | None] | None]]:
+    """Returns [(boot_id, fused_score, contributing_sources, best_evidence, best_photo)] sorted by
+    score. best_photo is (path, view) of the photo an image retriever matched, if any."""
     weights = weights or {}
     scores: dict[str, float] = defaultdict(float)
     sources: dict[str, list[str]] = defaultdict(list)
     evidence: dict[str, tuple[int, str]] = {}
+    photo: dict[str, tuple[int, str, str | None]] = {}
 
     for name, items in result_lists.items():
         w = weights.get(name, 1.0)
@@ -40,6 +42,10 @@ def reciprocal_rank_fusion(
             # keep the evidence from whichever retriever ranked this boot highest
             if item.evidence and (item.boot_id not in evidence or rank < evidence[item.boot_id][0]):
                 evidence[item.boot_id] = (rank, item.evidence)
+            # and the best-matching photo from whichever image retriever ranked it highest
+            if item.matched_image and (item.boot_id not in photo or rank < photo[item.boot_id][0]):
+                photo[item.boot_id] = (rank, item.matched_image, item.matched_view)
 
-    fused = [(bid, s, sources[bid], evidence.get(bid, (0, None))[1]) for bid, s in scores.items()]
+    fused = [(bid, s, sources[bid], evidence.get(bid, (0, None))[1],
+              (photo[bid][1], photo[bid][2]) if bid in photo else None) for bid, s in scores.items()]
     return sorted(fused, key=lambda x: x[1], reverse=True)

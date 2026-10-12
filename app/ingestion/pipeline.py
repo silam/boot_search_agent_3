@@ -40,11 +40,22 @@ from app.retrieval.qdrant_store import QdrantStore
 log = get_logger(__name__)
 
 # Bump when cleaning/chunking LOGIC changes, so deployed indexes know they are stale
-PIPELINE_VERSION = "1.0.0"
+PIPELINE_VERSION = "2.0.0"   # 2.0.0: many photos per boot (one vector per photo)
 
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else ""
+
+
+def _images_fingerprint(boots: list[Boot], raw_dir: Path) -> str:
+    """One hash over every photo's path + bytes: a re-shot photo means re-embedding."""
+    h = hashlib.sha256()
+    for b in boots:
+        for im in b.images:
+            h.update(im.path.encode())
+            f = raw_dir / im.path
+            h.update(f.read_bytes() if f.is_file() else b"missing")
+    return h.hexdigest()
 
 
 def transform(settings: Settings, source: str | Path | None = None) -> tuple[list[Boot], list[Chunk]]:
@@ -52,7 +63,8 @@ def transform(settings: Settings, source: str | Path | None = None) -> tuple[lis
     source = source or settings.raw_dir / "catalog.json"
     t0 = time.perf_counter()
     raw = loader_for(source).load()
-    boots, rejected = clean_catalog(raw)
+    is_local = not str(source).startswith(("http://", "https://"))
+    boots, rejected = clean_catalog(raw, image_root=settings.raw_dir if is_local else None)
     chunks = [c for b in boots for c in chunk_boot(b, settings.chunk_size, settings.chunk_overlap)]
 
     out = settings.processed_dir
@@ -66,14 +78,20 @@ def transform(settings: Settings, source: str | Path | None = None) -> tuple[lis
         "source_sha256": _sha256(Path(source)) if not str(source).startswith("http") else None,
         "raw_records": len(raw),
         "clean_boots": len(boots),
-        "rejected": len(rejected),
+        "rejected_records": sum(r["kind"] == "record" for r in rejected),
+        "image_issues": sum(r["kind"] == "image" for r in rejected),
+        "images": sum(len(b.images) for b in boots),
+        "images_per_boot": {"min": min((len(b.images) for b in boots), default=0),
+                            "max": max((len(b.images) for b in boots), default=0)},
+        "images_sha256": _images_fingerprint(boots, settings.raw_dir),
         "chunks": len(chunks),
         "chunk_size": settings.chunk_size,
         "chunk_overlap": settings.chunk_overlap,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }, indent=2))
-    log_event(log, "transform_done", raw=len(raw), clean=len(boots), rejected=len(rejected),
-              chunks=len(chunks), ms=round((time.perf_counter() - t0) * 1000))
+    log_event(log, "transform_done", raw=len(raw), clean=len(boots), issues=len(rejected),
+              images=sum(len(b.images) for b in boots), chunks=len(chunks),
+              ms=round((time.perf_counter() - t0) * 1000))
     return boots, chunks
 
 
@@ -84,10 +102,13 @@ def processed_is_stale(settings: Settings) -> bool:
         return True
     m = json.loads(manifest_path.read_text())
     raw = settings.raw_dir / "catalog.json"
-    return (m.get("pipeline_version") != PIPELINE_VERSION
+    if (m.get("pipeline_version") != PIPELINE_VERSION
             or m.get("chunk_size") != settings.chunk_size
             or m.get("chunk_overlap") != settings.chunk_overlap
-            or (raw.exists() and m.get("source_sha256") not in (None, _sha256(raw))))
+            or (raw.exists() and m.get("source_sha256") not in (None, _sha256(raw)))):
+        return True
+    boots, _ = load_processed(settings)
+    return m.get("images_sha256") != _images_fingerprint(boots, settings.raw_dir)
 
 
 def load_processed(settings: Settings) -> tuple[list[Boot], list[Chunk]]:
@@ -107,11 +128,7 @@ def index(settings: Settings, store: QdrantStore, text_emb: TextEmbedder, img_em
     vectors = text_emb.embed_texts([c.text for c in chunks])
     store.upsert_chunks(chunks, vectors, catalog)
 
-    with_images = [b for b in boots if b.image and (settings.raw_dir / b.image).exists()]
-    for i in range(0, len(with_images), 32):
-        batch = with_images[i:i + 32]
-        imgs = [Image.open(settings.raw_dir / b.image) for b in batch]
-        store.upsert_images(batch, img_emb.embed_images(imgs))
+    n_images = index_images(settings, store, img_emb, boots)
 
     manifest_path = settings.processed_dir / "manifest.json"
     if manifest_path.exists():
@@ -119,6 +136,25 @@ def index(settings: Settings, store: QdrantStore, text_emb: TextEmbedder, img_em
         manifest.update({"text_embedder": text_emb.name, "image_embedder": img_emb.name,
                          "text_dim": text_emb.dim, "image_dim": img_emb.dim})
         manifest_path.write_text(json.dumps(manifest, indent=2))
-    log_event(log, "index_done", chunks=len(chunks), images=len(with_images),
+    log_event(log, "index_done", chunks=len(chunks), images=n_images,
               text_embedder=text_emb.name, image_embedder=img_emb.name,
               ms=round((time.perf_counter() - t0) * 1000))
+
+
+def index_images(settings: Settings, store: QdrantStore, img_emb: ImageEmbedder, boots: list[Boot],
+                 batch_size: int = 32) -> int:
+    """Embed EVERY photo of every boot and store one Qdrant point per photo.
+
+    A boot with 9 photos becomes 9 points that share the same boot_id payload. At query time
+    the search groups points by boot_id and scores each boot by its best-matching photo
+    (MaxSim), so a photo of a sole finds the boot whose sole view looks like it.
+    """
+    pairs = [(b, im) for b in boots for im in b.images if (settings.raw_dir / im.path).is_file()]
+    for i in range(0, len(pairs), batch_size):
+        batch = pairs[i:i + batch_size]
+        imgs = []
+        for _, im in batch:
+            with Image.open(settings.raw_dir / im.path) as f:
+                imgs.append(f.convert("RGB"))          # load fully, then close the file handle
+        store.upsert_images(batch, img_emb.embed_images(imgs))
+    return len(pairs)
