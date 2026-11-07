@@ -816,7 +816,7 @@
     "name": "Lakeshore Ridge Lite",
     "brand": "Lakeshore",
     "category": "hiking",
-    "color": "oxblood",
+    "color": "brown",
     "material": "waterproof nubuck",
     "price": 119.99,
     "waterproof": false,
@@ -878,6 +878,7 @@
   },
   {
     "id": "BOOT-015",
+    "style":"00898",
     "name": "Ironpeak Trailhead II",
     "brand": "Ironpeak",
     "category": "hiking",
