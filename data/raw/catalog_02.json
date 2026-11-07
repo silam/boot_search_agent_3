@@ -940,6 +940,7 @@
   },
   {
     "id": "BOOT-016",
+    "style":"07984",
     "name": "Ironpeak Switchback II",
     "brand": "Ironpeak",
     "category": "hiking",
@@ -997,10 +998,11 @@
   },
   {
     "id": "BOOT-017",
+    "style":"07988",
     "name": "Ironpeak Stockyard II",
     "brand": "Ironpeak",
     "category": "western",
-    "color": "tan",
+    "color": "black",
     "material": "full-grain leather",
     "price": 319.99,
     "waterproof": true,
@@ -1058,6 +1060,7 @@
   },
   {
     "id": "BOOT-018",
+    "style":"07989",
     "name": "Lakeshore Maverick",
     "brand": "Lakeshore",
     "category": "western",
