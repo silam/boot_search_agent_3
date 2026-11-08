@@ -1126,6 +1126,7 @@
   },
   {
     "id": "BOOT-019",
+    "style":"05828",
     "name": "Lakeshore Ranger Pro",
     "brand": "Lakeshore",
     "category": "western",
@@ -1181,6 +1182,7 @@
   },
   {
     "id": "BOOT-020",
+    "style":"05906",
     "name": "Ironpeak Outlaw Classic",
     "brand": "Ironpeak",
     "category": "western",
@@ -1244,6 +1246,7 @@
   },
   {
     "id": "BOOT-021",
+    "style":"05909",
     "name": "Northline Outlaw",
     "brand": "Northline",
     "category": "western",
@@ -1309,6 +1312,7 @@
   },
   {
     "id": "BOOT-022",
+    "style":"05911",
     "name": "Prairie & Co. Maverick Classic",
     "brand": "Prairie & Co.",
     "category": "western",
