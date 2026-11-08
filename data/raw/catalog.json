@@ -1374,6 +1374,7 @@
   },
   {
     "id": "BOOT-023",
+    "style":"05923",
     "name": "Lakeshore Outlaw Lite",
     "brand": "Lakeshore",
     "category": "western",
@@ -1435,10 +1436,11 @@
   },
   {
     "id": "BOOT-024",
+    "style":"06105",
     "name": "Timber Trail Outlaw",
     "brand": "Timber Trail",
     "category": "western",
-    "color": "navy",
+    "color": "black",
     "material": "distressed leather",
     "price": 409.99,
     "waterproof": false,
@@ -1494,6 +1496,7 @@
   },
   {
     "id": "BOOT-025",
+    "style":"06109",
     "name": "Granite Forge Harbor Lite",
     "brand": "Granite Forge",
     "category": "chelsea",
