@@ -2,7 +2,7 @@
 Central configuration (12-factor style): every setting comes from environment variables
 or a .env file, so the SAME Docker image runs locally, in CI, and on Vercel.
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   "Config is code-free" — switching from local Qdrant to Qdrant Cloud, or from the
   lightweight embedder to CLIP, is an env-var change, not a code change.
 """

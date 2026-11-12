@@ -120,7 +120,7 @@ Search modes:
 | Human-in-the-loop | clarifying questions, thumbs up/down, `GET /feedback/review` |
 | Privacy (GDPR) | PII redacted before logs/LLM/cache, only redacted queries stored, no user identifiers |
 
-Not built (and said honestly in [docs/INTERVIEW_GUIDE.md](docs/INTERVIEW_GUIDE.md) with how I'd add them):
+Not built (and said honestly in [docs/DISCUSSION_GUIDE.md](docs/DISCUSSION_GUIDE.md) with how I'd add them):
 Kafka/Kinesis streaming ingestion, a feature store, vLLM/TGI self-hosted generation, a learned re-ranker.
 
 ---
@@ -178,7 +178,7 @@ ui/             Streamlit thin client (+ Dockerfile.vercel)
 scripts/        sample data generator, ingest CLI
 tests/          unit, integration, quality gate
 docker/ k8s/ monitoring/ .github/   deployment and operations
-docs/           ARCHITECTURE.md · INTERVIEW_GUIDE.md · DEPLOYMENT.md
+docs/           ARCHITECTURE.md ·DISCUSSION_GUIDE.md · DEPLOYMENT.md
 ```
 
 The data is synthetic (48 boots with 437 photos, generated deterministically by

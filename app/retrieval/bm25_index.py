@@ -7,7 +7,7 @@ Keyword search — BM25 (Okapi).
   * k1 (~1.2-2.0): term-frequency saturation — the 5th "waterproof" adds little.
   * b (~0.75): length normalisation — long chunks don't win just by being long.
 
-INTERVIEW NOTE — why keyword search in an "AI" system?
+DISCUSSION NOTE — why keyword search in an "AI" system?
   Dense embeddings are bad at exact tokens: SKUs ("BOOT-042"), model names ("Cascade"),
   rare jargon ("kiltie", "EH rated"), and numbers. BM25 nails those and is cheap and
   explainable. Dense vectors nail paraphrase ("keeps feet dry" ~ "waterproof"). Hybrid

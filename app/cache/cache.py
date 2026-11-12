@@ -1,7 +1,7 @@
 """
 Response cache — Redis in production, an in-process TTL dict as fallback.
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * What we cache: the full search response, keyed by a hash of everything that affects
     it (query, mode, filters, top_k, prompt variant, image bytes hash, index version).
     A hit skips embedding, retrieval AND the LLM — the biggest cost and latency win.

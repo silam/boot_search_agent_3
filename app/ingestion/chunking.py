@@ -1,7 +1,7 @@
 """
 Chunking: split each product into retrievable text pieces.
 
-Two strategies are combined — this is a good interview talking point:
+Two strategies are combined — this is a good discussion talking point:
 
 1. STRUCTURE-AWARE chunking (by section). A product has natural sections:
      - "profile":     a synthetic summary of the structured attributes

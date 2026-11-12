@@ -14,7 +14,7 @@ and a heel close-up), like a real e-commerce product gallery:
 Each boot also gets its own small style details (lace/stitch accent colour, sole colour,
 pull tab) so two boots of the same category and colour are still visually different.
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   In production this step is replaced by a real "Data Collection" job (catalog API,
   PIM export, web scrape). Keeping a deterministic generator (fixed seed) means the
   eval set in data/eval/golden_set.json always matches the data — reproducibility is

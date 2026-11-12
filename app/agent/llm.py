@@ -5,7 +5,7 @@ Thin LLM client around the Anthropic SDK, with the production concerns built in:
   * graceful degradation: no API key or an error -> returns None, and the agent falls
     back to deterministic rules/templates. Search must work even if the LLM is down.
 
-INTERVIEW NOTE — cost/latency levers:
+DISCUSSION NOTE — cost/latency levers:
   * Small fast model (Haiku class) for query understanding: it's a classification/
     extraction task. Use a bigger model only where quality matters (answer writing).
   * Cache: identical queries hit Redis and never call the LLM (app/cache).

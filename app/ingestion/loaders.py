@@ -5,7 +5,7 @@ Each loader turns a source (file, API, ...) into a list of raw dicts. They all s
 interface, so the pipeline doesn't care where data comes from — the same idea as
 LangChain / LlamaIndex "document loaders".
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   Adding a new source (e.g. a supplier's REST API, a Kafka topic, an S3 bucket) means
   writing one new class with a `load()` method. Nothing downstream changes.
 """

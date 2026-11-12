@@ -7,7 +7,7 @@ HashingTextEmbedder
   The "hashing trick": every token / bigram / character trigram is hashed into one of
   `dim` buckets and counted (sublinear tf), then L2-normalised. Character trigrams give
   typo tolerance ("waterprof" still overlaps "waterproof"). It is LEXICAL, not semantic:
-  "cowboy" will not match "western". Be upfront about that in an interview — it's why
+  "cowboy" will not match "western". Be upfront about that in the discussion — it's why
   the production backend is CLIP / sentence-transformers.
 
 ColorShapeImageEmbedder

@@ -5,7 +5,7 @@ Input guardrails — run BEFORE anything reaches the LLM or the logs.
 2. Prompt injection: heuristic detector for "ignore previous instructions"-style attacks
 3. PII redaction   : emails, phone numbers, card numbers (Luhn-checked), SSNs
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * Defence in depth. This regex layer is fast and catches the obvious; the real
     protections are architectural:
       - the LLM never has tools that can do damage (read-only search, no SQL, no shell),

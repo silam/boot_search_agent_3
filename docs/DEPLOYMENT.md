@@ -4,7 +4,7 @@ Three targets, same code and images:
 
 | Target | When | State lives in |
 |---|---|---|
-| **Vercel** (2 container services) | Public demo link for the interview | in-container (default) or Qdrant Cloud / hosted Redis / Postgres |
+| **Vercel** (2 container services) | Public demo link for the discussion | in-container (default) or Qdrant Cloud / hosted Redis / Postgres |
 | **Docker Compose** | Local full stack, monitoring demo | Docker volumes |
 | **Kubernetes** (EKS/GKE/AKS) | "How would you run this in production?" | PVC (Qdrant), Postgres, Redis |
 

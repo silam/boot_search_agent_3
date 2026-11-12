@@ -12,7 +12,7 @@ Scoring backends, best available wins:
   2. LLM-as-judge with Claude          -> rubric prompt below, JSON scores 1-5
   3. No LLM key                        -> only the deterministic grounding check
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * LLM-as-judge pitfalls: position bias, verbosity bias, self-preference. Mitigations: a
     rubric with anchored scores, temperature-free short JSON output, judge model different
     from (or at least blind to) the generator, and spot-checking judge labels by a human.

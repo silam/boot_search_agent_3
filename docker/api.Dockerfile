@@ -3,7 +3,7 @@
 #   docker build -f docker/api.Dockerfile -t boot-search-api .
 #   docker build -f docker/api.Dockerfile --build-arg EMBEDDING_BACKEND=clip -t boot-search-api:clip .
 #
-# Interview talking points:
+# discussion talking points:
 #   * Multi-stage build: compilers/wheels stay in the builder, the runtime is slim.
 #   * Dependencies are installed BEFORE copying code, so code edits reuse the cached layer.
 #   * ETL runs at build time and the clip models are downloaded at build time, so a new

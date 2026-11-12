@@ -9,7 +9,7 @@ The answer is only allowed to talk about products we actually retrieved. We chec
 If a check fails, the agent replaces the LLM answer with a safe, template-generated one
 and reports the failure (metric: answer_grounding_failures_total).
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   This is a cheap, deterministic "faithfulness" check that runs on EVERY request. Offline
   we also run LLM-as-judge faithfulness metrics (Ragas / DeepEval) on the eval set — those
   are richer but too slow and costly for the hot path.

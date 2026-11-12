@@ -8,7 +8,7 @@ Metrics (all @k, averaged over the golden queries):
   nDCG@10     : rank-aware quality; rewards relevant items near the top
   p50 / p95   : latency percentiles in ms
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * "How do you know your RAG system is good?" -> you build a golden set and measure,
     BEFORE and AFTER every change (chunk size, embedding model, fusion weights, prompts).
   * Retrieval quality bounds answer quality: if the right product isn't retrieved, no

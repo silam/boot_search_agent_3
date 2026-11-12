@@ -1,7 +1,7 @@
 """
 Composition root: builds the long-lived objects ONCE per process and wires them together.
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   Startup is "self-healing": if the processed data is missing it runs the ETL; if the
   Qdrant collections are empty (fresh container, in-memory mode, new embedding model)
   it re-indexes. That makes stateless deployments (Vercel, Kubernetes pods) safe —

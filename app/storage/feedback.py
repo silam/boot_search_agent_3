@@ -4,7 +4,7 @@ SQL store for search logs and user feedback — the "Continuous Improvement Loop
   search_logs : one row per search (redacted query, tools, results, latency, cost, variant)
   feedback    : thumbs up/down (+ optional comment, optional boot) linked by request_id
 
-How it closes the loop (interview talking points):
+How it closes the loop (discussion talking points):
   1. Human-in-the-loop review: /feedback/review lists thumbs-down searches for a
      merchandiser to inspect; fixes go into synonyms, chunking, or the golden eval set.
   2. A/B testing: /feedback/stats gives the thumbs-up rate per prompt variant.

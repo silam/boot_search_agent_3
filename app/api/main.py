@@ -19,7 +19,7 @@ Endpoints
 Every route is served both at "/" and under "/api", so the same container works behind
 a path-prefix router (Vercel Services rewrites `/api/*` to this service).
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * Sync endpoints (`def`, not `async def`) on purpose: embedding + Qdrant local mode are
     CPU-bound/blocking, so FastAPI runs them in its threadpool instead of blocking the
     event loop.

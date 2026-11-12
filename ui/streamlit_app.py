@@ -9,7 +9,7 @@ Image search: upload one or more photos of the same boot (different angles), or 
 boot and choose which of its 8-10 photos to search with. Each result shows the photo that
 matched ("matched: sole view") and an expandable gallery of all the boot's photos.
 
-UX-for-AI choices worth mentioning in an interview:
+UX-for-AI choices worth mentioning in the discussion:
   * Transparency: every result shows WHICH retrievers found it and the evidence text.
   * Control: the user can override the agent (mode selector, explicit filters).
   * Honesty: relaxed filters and clarifying questions are surfaced, not hidden.

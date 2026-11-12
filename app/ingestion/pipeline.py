@@ -7,7 +7,7 @@ ETL pipeline:  EXTRACT (loaders) -> TRANSFORM (clean, validate, chunk) -> LOAD (
                               data/processed/manifest.json    (lineage: hashes, counts, model)
                          ──►  Qdrant: boot_text_chunks, boot_images
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * ETL vs ELT: here we transform BEFORE loading into the vector DB (ETL) because the
     vector DB is not a place to clean data. In a warehouse world (Snowflake/BigQuery)
     you'd land raw data first and transform with SQL/dbt (ELT).

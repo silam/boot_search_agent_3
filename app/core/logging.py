@@ -1,7 +1,7 @@
 """
 Structured JSON logging.
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   One JSON object per line is what log pipelines (ELK, Loki, CloudWatch, Vercel logs)
   index best. Every line carries a request_id so a single search can be traced across
   the API, the agent nodes, and the retrievers.

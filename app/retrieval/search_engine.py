@@ -20,7 +20,7 @@ Multi-image search, both sides:
 `run(plan)` executes the retrievers the agent selected, fuses them with weighted RRF,
 applies hard filters, and hydrates full Boot objects.
 
-INTERVIEW NOTE — combined "description + image" search:
+DISCUSSION NOTE — combined "description + image" search:
   The user uploads a photo and types "but waterproof and under $200". The image retriever
   finds visually similar boots; the text retrievers find boots matching the words; the
   filters (waterproof, max_price) are enforced on all of them; RRF rewards boots that

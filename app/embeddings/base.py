@@ -1,7 +1,7 @@
 """
 Embedding interfaces.
 
-INTERVIEW NOTE — why an interface?
+DISCUSSION NOTE — why an interface?
   The retrieval code depends on `TextEmbedder` / `ImageEmbedder`, never on a concrete
   model. That gives us:
     * a CPU-only "lite" backend for unit tests, CI and small serverless containers,

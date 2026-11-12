@@ -27,7 +27,7 @@ The agent — a LangGraph state machine that plans, retrieves, reflects, and ans
                          ▼
                         END
 
-INTERVIEW NOTES — what makes this "agentic" rather than a fixed RAG chain?
+DISCUSSION NOTES — what makes this "agentic" rather than a fixed RAG chain?
   * Tool selection: the agent decides which retrievers to call and how to weight them
     from the query (SKU -> keyword-heavy; image uploaded -> image-heavy; visual words ->
     add CLIP text->image).

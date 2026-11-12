@@ -1,4 +1,4 @@
-# Interview Guide — how to present this project
+# discussion Guide — how to present this project
 
 ## The 30-second pitch
 

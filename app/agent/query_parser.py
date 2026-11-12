@@ -3,7 +3,7 @@ Rule-based query understanding — the deterministic fallback for the LLM.
 
 Extracts structured filters from free text and expands synonyms (query expansion).
 
-INTERVIEW NOTE — why keep rules when you have an LLM?
+DISCUSSION NOTE — why keep rules when you have an LLM?
   1. Availability: if the LLM times out, search still works.
   2. Cost/latency: zero tokens, ~0.1 ms.
   3. Testability: unit tests pin the behaviour (tests/test_query_parser.py).

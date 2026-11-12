@@ -1,7 +1,7 @@
 """
 TRANSFORM step: cleaning, normalisation, validation, de-duplication.
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   "Garbage in, garbage out" is truer for RAG than for classic ML: a dirty description
   becomes a dirty embedding AND a dirty LLM context. This module:
     1. normalises text (HTML stripping, unicode, whitespace, casing)

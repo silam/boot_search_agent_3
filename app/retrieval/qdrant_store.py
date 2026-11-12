@@ -19,7 +19,7 @@ Each point carries a PAYLOAD (the product attributes). Qdrant can filter on payl
 *during* the HNSW graph search ("filterable HNSW"), which is better than filtering after:
 post-filtering can return 0 results if all top-k neighbours fail the filter.
 
-INTERVIEW NOTES
+DISCUSSION NOTES
   * Why Qdrant? Open source (run it in Docker locally, managed Qdrant Cloud in prod),
     payload filtering with indexes, named/multi vectors, sparse vectors, quantization,
     written in Rust. Pinecone is managed-only; Chroma is great for prototypes but has

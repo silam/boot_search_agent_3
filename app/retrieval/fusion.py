@@ -3,7 +3,7 @@ Reciprocal Rank Fusion (RRF) — how we merge keyword, text-vector and image-vec
 
     RRF(d) = Σ_r  w_r / (k + rank_r(d))          (rank starts at 1, k = 60)
 
-INTERVIEW NOTE — why RRF instead of adding scores?
+DISCUSSION NOTE — why RRF instead of adding scores?
   Scores from different retrievers are on different scales: BM25 is unbounded (0..30+),
   cosine is in [-1, 1], and image cosine has its own distribution. Adding them requires
   fragile normalisation. RRF uses only RANKS, so it is scale-free, needs no training, and

@@ -1,7 +1,7 @@
 """
 Domain models shared by every layer (ingestion, retrieval, agent, API).
 
-INTERVIEW NOTE:
+DISCUSSION NOTE:
   Pydantic models are the "contract" between modules. Validation at the edge
   (ingestion and API) means the inner layers can trust their inputs.
 """

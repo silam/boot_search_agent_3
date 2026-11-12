@@ -10,7 +10,7 @@ The four golden signals + AI-specific ones:
                  zero_result_searches_total, answer_grounding_failures_total,
                  guardrail_blocks_total, feedback_total{rating}
 
-INTERVIEW NOTE: "zero_result_searches" and "grounding_failures" are the metrics a product
+DISCUSSION NOTE: "zero_result_searches" and "grounding_failures" are the metrics a product
 team actually alerts on — they measure quality, not just uptime.
 """
 from prometheus_client import Counter, Histogram
