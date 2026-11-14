@@ -19,7 +19,7 @@ WORKDIR /build
 COPY requirements/ requirements/
 RUN python -m venv /opt/venv && . /opt/venv/bin/activate \
  && if [ "$EMBEDDING_BACKEND" = "clip" ]; then \
-        pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements/clip.txt; \
+        pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements/clip.txt; \
     else \
         pip install -r requirements/api.txt; \
     fi
